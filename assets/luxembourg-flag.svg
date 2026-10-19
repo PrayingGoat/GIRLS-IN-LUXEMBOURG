@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 76">
+  <defs>
+    <path id="flag" d="M8 13C34 2 62 23 91 10V64C62 77 34 56 8 67Z"/>
+    <clipPath id="edge"><use href="#flag"/></clipPath>
+    <linearGradient id="fold" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#000" stop-opacity=".12"/>
+      <stop offset=".2" stop-color="#fff" stop-opacity=".34"/>
+      <stop offset=".47" stop-color="#000" stop-opacity=".1"/>
+      <stop offset=".76" stop-color="#fff" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#000" stop-opacity=".15"/>
+    </linearGradient>
+  </defs>
+  <use href="#flag" fill="#181818" opacity=".15" transform="translate(1 2)"/>
+  <g clip-path="url(#edge)">
+    <path fill="#ed2939" d="M8 13C34 2 62 23 91 10V29C62 42 34 21 8 32Z"/>
+    <path fill="#fff" d="M8 31C34 20 62 41 91 28V47C62 60 34 39 8 50Z"/>
+    <path fill="#00a1de" d="M8 49C34 38 62 59 91 46V64C62 77 34 56 8 67Z"/>
+    <use href="#flag" fill="url(#fold)"/>
+  </g>
+  <use href="#flag" fill="none" stroke="#181818" stroke-opacity=".12" stroke-width=".7"/>
+</svg>
