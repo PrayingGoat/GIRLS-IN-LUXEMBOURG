@@ -122,3 +122,6 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 @media(max-width:600px){.team-name-tag{padding:4px 3px;max-width:19%;font-size:clamp(8px,2.5cqw,12px);border-radius:3px}.team-name-tag::before{top:-4px;border-left-width:4px;border-right-width:4px;border-bottom-width:4px}}
 
 .team-name-tag{box-sizing:border-box;max-width:17%;overflow-wrap:normal}
+
+/* Vector icons stay monochrome on every platform. */
+.ui-icon{display:inline-block;width:1em;height:1em;min-width:1em;flex-shrink:0;vertical-align:-.14em;pointer-events:none}

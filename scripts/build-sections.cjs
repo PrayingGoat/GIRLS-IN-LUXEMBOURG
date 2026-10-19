@@ -125,5 +125,5 @@ html=html.replace(/<a\b([^>]*?)href="([^"]+)"([^>]*)>/g,(full,before,url,after)=
   const e=match(url);if(!e)return full;
   return `<a${before}href="${url}"${after.replace(/ target="_blank"/,'')} data-panel="${e[0]}">`;
 });
-fs.writeFileSync('index.html',require('./localize-panels.cjs')(html));
+fs.writeFileSync('index.html',require('./svg-icons.cjs')(require('./localize-panels.cjs')(html)));
 console.log('Built 5 directory entries with contextual panels and membership form.');
