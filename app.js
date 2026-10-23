@@ -247,3 +247,46 @@ function openPanelFromHash() {
 }
 window.addEventListener('hashchange', openPanelFromHash);
 openPanelFromHash();
+
+// Animate native FAQ disclosures without changing keyboard or no-JS behaviour.
+document.querySelectorAll('.faq-list details').forEach(details => {
+  const summary = details.querySelector('summary');
+  let animation;
+  let expanded = details.open;
+  function finish() {
+    details.open = expanded;
+    details.style.height = '';
+    details.style.overflow = '';
+    animation = null;
+  }
+  summary.addEventListener('click', event => {
+    if (motionPreference.matches) return;
+    event.preventDefault();
+    const start = details.getBoundingClientRect().height;
+    expanded = animation ? !expanded : !details.open;
+    if (animation) { animation.onfinish = null; animation.cancel(); }
+    details.open = true;
+    details.style.height = '';
+    const fullHeight = details.getBoundingClientRect().height;
+    details.open = false;
+    const closedHeight = details.getBoundingClientRect().height;
+    details.open = true;
+    details.classList.toggle('faq-expanded', expanded);
+    details.style.overflow = 'hidden';
+    animation = details.animate(
+      { height: [`${start}px`, `${expanded ? fullHeight : closedHeight}px`] },
+      { duration: 280, easing: 'cubic-bezier(.22, 1, .36, 1)' }
+    );
+    animation.onfinish = finish;
+  });
+  details.addEventListener('toggle', () => {
+    if (!animation) details.classList.toggle('faq-expanded', details.open);
+  });
+  motionPreference.addEventListener('change', () => {
+    if (animation && motionPreference.matches) {
+      animation.onfinish = null;
+      animation.cancel();
+      finish();
+    }
+  });
+});
