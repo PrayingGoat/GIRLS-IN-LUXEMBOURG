@@ -129,3 +129,5 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 .faq-list summary>span{display:inline-block;transition:transform 280ms cubic-bezier(.22,1,.36,1);transform-origin:center}
 .faq-list details.faq-expanded summary>span{transform:rotate(45deg)}
 @media(prefers-reduced-motion:reduce){.faq-list summary>span{transition:none}}
+
+.footer-wordmark .footer-flag{display:block;width:.65em;height:auto;flex-shrink:0}
