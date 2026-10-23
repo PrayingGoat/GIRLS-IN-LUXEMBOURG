@@ -84,6 +84,7 @@ function closeCommunityPanel() {
   restorePageAfterPanel();
 }
 function showCommunityPanel(key, opener) {
+  if (key === 'membership') { location.assign('join.html'); return; }
   const template = document.getElementById(`panel-${key}`);
   if (!template) return;
   if (!communityDialog.open) {

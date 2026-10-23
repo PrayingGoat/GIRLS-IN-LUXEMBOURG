@@ -4,7 +4,7 @@ Landing page responsive, conçue à partir du contenu public de Girls in Luxembo
 
 ## Voir la page
 
-Avec Node.js 18 ou supérieur :
+Avec Node.js 22 ou supérieur :
 
 ```sh
 npm run dev
@@ -63,3 +63,8 @@ Les huit photos de photos/ sont exportées en WebP responsive avec node scripts/
 Tests complémentaires : node scripts/check-gallery.cjs et node scripts/check-panels.cjs. Définir TEST_LIVE_FORMS=1 pour vérifier aussi le chargement des formulaires Notion externes, sans soumission.
 
 Les fenêtres reprennent les neuf sources Notion consultées le 9 octobre 2026, sans synchronisation automatique. scripts/build-sections.cjs les régénère depuis les captures locales .research/*-current.json.
+
+
+## Membership requests
+
+The dedicated `join.html` page submits to `POST /api/membership`. A Node.js server stores validated requests in PostgreSQL. See [database setup](database/README.md) for local configuration and deployment. Run `npm run db:migrate` after setting `DATABASE_URL` in `.env`. Vercel is optional; its preview cannot access PostgreSQL on your local computer. The administrator page is not implemented yet.

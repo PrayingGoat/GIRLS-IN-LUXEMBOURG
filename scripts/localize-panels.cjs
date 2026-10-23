@@ -10,6 +10,7 @@ function localizePanels(html) {
   html = html.replace(/<a\b([^>]*)href="([^"]+)"([^>]*)>([\s\S]*?)<\/a>/g, (full, before, url, after, content) => {
     const attributes = before + after;
     const key = attributes.match(/data-panel="([^"]+)"/)?.[1];
+    if (key === 'membership') return `<a${before}href="join.html"${after.replace(/\sdata-panel="membership"/,'')} >${content}</a>`.replace(/\sdata-panel="membership"/,'');
     if (key) return `<a${before}href="#panel-${key}"${after}>${content}</a>`;
     if (/https?:\/\/[^/]*notion\.(?:site|com|so)\b/i.test(url)) return content;
     return full;

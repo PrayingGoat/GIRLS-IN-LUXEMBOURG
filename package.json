@@ -7,13 +7,18 @@
     "dev": "node server.cjs",
     "start": "node server.cjs",
     "build": "node build.cjs",
-    "test:e2e": "node scripts/check.cjs"
+    "test:e2e": "node scripts/check.cjs",
+    "db:migrate": "node --env-file-if-exists=.env scripts/migrate.cjs"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   },
   "devDependencies": {
     "playwright": "1.63.0",
     "sharp": "0.35.5"
+  },
+  "dependencies": {
+    "libphonenumber-js": "^1.13.15",
+    "pg": "^8.23.1"
   }
 }

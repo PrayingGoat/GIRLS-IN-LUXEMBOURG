@@ -51,7 +51,7 @@ const fs = require('node:fs');
       }
     }
     // Live external checks are opt-in; never submit data to a community form.
-    for (const [key,expected] of [['contact','Full Name'],['feedback',"How's your experience"],['membership','Full name']]) {
+    for (const [key,expected] of [['contact','Full Name'],['feedback',"How's your experience"]]) {
       await page.evaluate(key => {
         const link = key === 'membership' ? document.querySelector('[data-panel="membership"]') : document.querySelector(`#contact [data-panel="${key}"]`);
         link.click();
