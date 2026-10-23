@@ -67,4 +67,4 @@ Les fenêtres reprennent les neuf sources Notion consultées le 9 octobre 2026, 
 
 ## Membership requests
 
-The dedicated `join.html` page submits to `POST /api/membership`. A Node.js server stores validated requests in PostgreSQL. See [database setup](database/README.md) for local configuration and deployment. Run `npm run db:migrate` after setting `DATABASE_URL` in `.env`. Vercel is optional; its preview cannot access PostgreSQL on your local computer. The administrator page is not implemented yet.
+The dedicated `join.html` page submits to `POST /api/membership`. A Node.js server stores validated requests in PostgreSQL. See [database setup](database/README.md) for local configuration and deployment. Run `npm run db:migrate` after setting `DATABASE_URL` in `.env`. Vercel is optional; its preview cannot access PostgreSQL on your local computer. The administrator page is available directly at `/admin`, with no public navigation link. Run `npm run admin:setup` locally to configure its password, and run database migrations before signing in.

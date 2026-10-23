@@ -8,7 +8,8 @@
     "start": "node server.cjs",
     "build": "node build.cjs",
     "test:e2e": "node scripts/check.cjs",
-    "db:migrate": "node --env-file-if-exists=.env scripts/migrate.cjs"
+    "db:migrate": "node --env-file-if-exists=.env scripts/migrate.cjs",
+    "admin:setup": "node scripts/setup-admin.cjs"
   },
   "engines": {
     "node": ">=22"

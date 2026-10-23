@@ -1,7 +1,7 @@
 ﻿# Membership requests — PostgreSQL
 
 The site uses standard PostgreSQL through a Node.js server. Vercel is optional.
-No admin page or public endpoint for listing applicants is implemented.
+The private administrator page is available at /admin. No public listing endpoint is provided.
 
 ## Local setup (Windows)
 
@@ -64,9 +64,8 @@ someone is registered. Responses contain no personal data. Rate limits allow fiv
 valid submission attempts per 15 minutes per hashed IP. Expired hash records are
 removed on subsequent requests (after one day); original IPs are not stored.
 
-The future administrator area must authenticate and authorize administrators before
-reading, updating or deleting applicants. Define a retention policy with the team
-before collecting real memberships. No automatic WhatsApp integration is included:
+The administrator area authenticates every request before reading or updating
+applicants. Define a retention policy with the team before collecting real memberships. No automatic WhatsApp integration is included:
 the team contacts applicants and adds them manually.
 
 ## Verification
@@ -74,3 +73,28 @@ the team contacts applicants and adds them manually.
 `node --test scripts/membership.test.cjs` checks validation and API error paths.
 The browser check mocks API responses to test the UI without submitting real data.
 Real persistence requires the configured database and the migration above.
+
+## Administrator area
+
+Visit `/admin` directly. There is no link to it on public pages.
+The login screen contains no member data; all administrative data requests check a
+server-side session. The area is not a general CMS: it manages membership requests.
+
+1. Configure PostgreSQL as above, then run `npm run db:migrate` (includes admin tables).
+2. Run `npm run admin:setup` in your terminal. Choose a password of at least 14 characters.
+   The terminal hides input and stores only a salted scrypt hash in the ignored `.env`.
+3. Restart the Node server, then open http://localhost:5173/admin.
+4. On another host, configure ADMIN_PASSWORD_HASH and DATABASE_URL as server environment
+   variables. Never include these in HTML, browser JavaScript or a public repository.
+
+Sessions last eight hours, use a random token in an HttpOnly, SameSite=Strict cookie,
+and are stored as hashes in PostgreSQL. HTTPS deployments set Secure. Logout removes
+the session from the database. Revoke all sessions after changing the password with
+`DELETE FROM admin_sessions;`. Always use HTTPS for online administration.
+For a reverse proxy, pass the correct Host, Origin and X-Forwarded-Proto headers.
+
+The dashboard supports search, pagination, all applicant details, counts and status
+changes. It does not send WhatsApp messages or add people automatically. No public
+listing, export, deletion or registration endpoint for administrators is provided.
+Use distinct admin accounts and audit logging if several administrators need access
+in a future iteration; the current version uses one shared administrator password.

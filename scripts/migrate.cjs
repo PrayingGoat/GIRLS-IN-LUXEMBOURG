@@ -1,3 +1,3 @@
 ﻿const { getPool } = require('../lib/database.cjs');
-const fs = require('node:fs');
-(async () => { const pool = getPool(); try { await pool.query(fs.readFileSync(require('node:path').join(__dirname, '../database/001-membership.sql'), 'utf8')); console.log('Membership tables ready.'); } finally { await pool.end(); } })().catch(() => { console.error('Migration failed. Check the database connection and permissions.'); process.exit(1); });
+const fs = require('node:fs'),path=require('node:path');
+(async () => { const pool = getPool();const client=await pool.connect();try {await client.query('BEGIN');const dir=path.join(__dirname,'../database');for(const file of fs.readdirSync(dir).filter(f=>/^\d+.*\.sql$/.test(f)).sort())await client.query(fs.readFileSync(path.join(dir,file),'utf8'));await client.query('COMMIT');console.log('Membership and administrator tables ready.');}catch(error){await client.query('ROLLBACK');throw error}finally {client.release();await pool.end();} })().catch(() => { console.error('Migration failed. Check the database connection and permissions.'); process.exit(1); });
