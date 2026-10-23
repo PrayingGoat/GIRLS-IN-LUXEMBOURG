@@ -227,20 +227,6 @@ if (communityArt && 'IntersectionObserver' in window) {
     updateArt();
   });
 }
-if ('IntersectionObserver' in window && !motionPreference.matches) {
-  const entrances = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entrances.unobserve(entry.target);
-      if (motionPreference.matches) return;
-      entry.target.animate([
-        { opacity: 0, transform: 'translateY(16px)' },
-        { opacity: 1, transform: 'translateY(0)' }
-      ], { duration: 520, easing: 'cubic-bezier(.2,.7,.2,1)' });
-    });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('[data-reveal]').forEach(element => entrances.observe(element));
-}
 
 function openPanelFromHash() {
   const key = location.hash.startsWith('#panel-') ? location.hash.slice(7) : '';
