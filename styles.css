@@ -134,3 +134,13 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 
 .events-header{display:flex;justify-content:space-between;align-items:center;padding-block:26px;border-bottom:1px solid var(--line);gap:20px}.events-back{display:inline-flex;align-items:center;gap:10px;min-height:44px}.events-brand{font:400 26px/1.2 var(--serif)}.events-intro{display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;padding-block:64px}.events-intro h1{font:400 clamp(48px,6vw,86px)/1.05 var(--serif);margin:20px 0}.events-intro h1 em{color:var(--raspberry-pink)}.events-intro img{width:100%;height:340px;object-fit:cover;border-radius:12px}.events-intro p{max-width:440px}.events-calendar{padding:30px 0 75px}.events-calendar h2{margin:14px 0 30px}.events-pending{padding:48px 24px;background:var(--light-pink);border-radius:16px;text-align:center}.events-pending h3{font:400 34px/1.2 var(--serif);margin:18px 0}.events-pending p{max-width:500px;margin:0 auto 24px}.events-footer{display:flex;justify-content:space-between;gap:20px;padding-block:30px;border-top:1px solid var(--line)}
 @media(max-width:767px){.events-brand{font-size:20px}.events-intro{grid-template-columns:1fr;gap:28px;padding-block:40px}.events-intro img{height:250px}.events-footer{flex-direction:column}.events-calendar{padding-top:12px}}
+
+/* Buttons use the pink sampled from the brand logo and white lettering. */
+:root{--button-pink:#d1037e;--button-pink-hover:#b5026d}
+.button,.panel-action,.panel-event,.panel-close,.hero-gallery-controls button,.menu-toggle{background:var(--button-pink);color:#fff;border-color:var(--button-pink)}
+.button:hover,.panel-action:hover,.panel-event:hover,.panel-close:hover,.hero-gallery-controls button:hover,.menu-toggle:hover{background:var(--button-pink-hover);color:#fff}
+.button{box-shadow:5px 5px 0 var(--light-pink),6px 6px 0 var(--button-pink)}
+.button:hover{box-shadow:2px 2px 0 var(--light-pink),3px 3px 0 var(--button-pink)}
+.menu-toggle{border-radius:6px}.menu-toggle span{background:#fff}
+.events-back{background:var(--button-pink);color:#fff;padding:10px 16px;border-radius:5px}
+.events-back:hover{background:var(--button-pink-hover)}
