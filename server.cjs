@@ -9,7 +9,7 @@ http.createServer((req, res) => {
   let pathname;
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { res.writeHead(400).end(); return; }
   if (pathname === '/') pathname = '/index.html';
-  if (!/^\/(index\.html|styles\.css|app\.js|assets\/[a-zA-Z0-9._-]+)$/.test(pathname)) { res.writeHead(404).end('Not found'); return; }
+  if (!/^\/(index\.html|events\.html|events\.js|styles\.css|app\.js|assets\/[a-zA-Z0-9._-]+)$/.test(pathname)) { res.writeHead(404).end('Not found'); return; }
   const file = path.join(root, pathname);
   fs.readFile(file, (error, data) => {
     if (error) { res.writeHead(404).end('Not found'); return; }
