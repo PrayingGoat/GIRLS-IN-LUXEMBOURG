@@ -1,6 +1,10 @@
 // Rebuild the local reading panels from the reviewed public Notion snapshots.
 // Run after refreshing .research/*-current.json; normal builds need no network.
 const fs = require('node:fs');
+if (!fs.readFileSync('index.html','utf8').includes('community-dialog')) {
+  throw new Error('Legacy panel importer: the site now uses dedicated HTML pages. Edit those pages directly; this importer must not overwrite the new navigation.');
+}
+
 const entries = [
   ['welcome','c4f4509e5591831087ce812ff5d654cb','Welcome','Your people. Your place.'],
   ['about','3d64509e559180918dbdfbaac318a58d','About us','Our story, purpose and people.'],

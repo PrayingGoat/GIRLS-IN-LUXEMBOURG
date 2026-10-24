@@ -68,3 +68,26 @@ Les fenêtres reprennent les neuf sources Notion consultées le 9 octobre 2026, 
 ## Membership requests
 
 The dedicated `join.html` page submits to `POST /api/membership`. A Node.js server stores validated requests in PostgreSQL. See [database setup](database/README.md) for local configuration and deployment. Run `npm run db:migrate` after setting `DATABASE_URL` in `.env`. Vercel is optional; its preview cannot access PostgreSQL on your local computer. The administrator page is available directly at `/admin`, with no public navigation link. Run `npm run admin:setup` locally to configure its password, and run database migrations before signing in.
+
+
+## Page structure
+
+The homepage now contains the hero, moving values ribbon, editable community counts,
+three page links and a short membership invitation. Detailed content lives on:
+
+- story.html: history, mission and values
+- community.html: the nine groups, shared moments and community guidelines
+- team.html: the team photograph and names
+- faq.html: questions grouped by topic
+- contact.html: contact, volunteering and feedback
+- partnerships.html and policy.html: partnerships and privacy/refund information
+- events.html: upcoming events (calendar connection still pending)
+- join.html: membership form
+
+/admin remains private and absent from public navigation.
+site-pages.cjs defines the files served locally and copied by the build. Public
+links are native links and work without JavaScript. Former homepage section links
+redirect to their new pages. The historical Notion panel importer is guarded against
+overwriting this layout; edit the individual HTML pages directly.
+
+Run npm run test:e2e to verify the pages, responsive layout, links, FAQ and navigation.

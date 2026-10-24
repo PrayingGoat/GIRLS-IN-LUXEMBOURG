@@ -9,7 +9,7 @@
     animation.finished.catch(()=>{}).finally(()=>running.delete(animation));
   }
   reduced.addEventListener('change',()=>{if(reduced.matches) running.forEach(a=>a.cancel());});
-  const targets = document.querySelectorAll('[data-reveal], .hero-copy > *, .events-intro > *, .events-calendar, .membership-intro > *, .membership-card, .community-directory > div, .community-directory > nav, .events-footer');
+  const targets = document.querySelectorAll('[data-reveal], .hero-copy > *, .events-intro > *, .events-calendar, .membership-intro > *, .membership-card, .community-directory > div, .community-directory > nav, .events-footer, .home-page-card, .home-invitation, .community-circle');
   if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(entries=>{
       let delay = 0;

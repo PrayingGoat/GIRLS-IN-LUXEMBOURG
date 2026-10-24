@@ -2,6 +2,7 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const root = __dirname;
+const publicFiles = new Set([...require('./site-pages.cjs'),'styles.css','app.js','events.js','join.js']);
 if (fs.existsSync(path.join(root, '.env')) && process.loadEnvFile) process.loadEnvFile(path.join(root, '.env'));
 const membershipHandler = require('./api/membership.js');
 const adminHandler = require('./api/admin.js');
@@ -16,7 +17,7 @@ http.createServer((req, res) => {
   if (pathname === '/admin' || pathname === '/admin/') pathname = '/admin.html';
   if (pathname === '/api/membership') { membershipHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ message: 'Unable to process your request.' })); }); return; }
   if (pathname === '/') pathname = '/index.html';
-  if (!/^\/(admin\.html|index\.html|join\.html|join\.js|events\.html|events\.js|styles\.css|app\.js|assets\/[a-zA-Z0-9._-]+)$/.test(pathname)) { res.writeHead(404).end('Not found'); return; }
+  if (!publicFiles.has(pathname.slice(1)) && !/^\/assets\/[a-zA-Z0-9._-]+$/.test(pathname)) { res.writeHead(404).end('Not found'); return; }
   const file = path.join(root, pathname);
   fs.readFile(file, (error, data) => {
     if (error) { res.writeHead(404).end('Not found'); return; }

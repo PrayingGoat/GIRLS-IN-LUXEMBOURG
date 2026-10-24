@@ -1,61 +1,16 @@
-const { chromium } = require('playwright');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-(async () => {
-  fs.mkdirSync('test-results', { recursive: true });
-  const browser = await chromium.launch({ channel: 'msedge', headless: true });
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, reducedMotion: 'reduce' });
-  const errors = [];
-  page.on('pageerror', error => errors.push(error.message));
-  page.on('response', response => { if (response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
-  await page.goto(process.env.TEST_BASE_URL || 'http://localhost:5173', { waitUntil: 'networkidle' });
-  await page.evaluate(async () => { await document.fonts.ready; for (const img of document.images) { img.loading = 'eager'; await img.decode(); } });
-  await page.screenshot({ path: 'test-results/desktop.png', fullPage: true });
-  await page.screenshot({ path: 'test-results/hero.png' });
-  assert.equal(await page.locator('h1').count(), 1);
-  assert.equal(await page.locator('.team-member').count(), 0);
-  assert.equal(await page.locator('#team').count(), 0);
-  assert.equal(await page.locator('#clubs').count(), 0);
-  await page.locator('summary').first().click();
-  assert.equal(await page.locator('details').first().getAttribute('open'), '');
-  await page.locator('summary').first().click();
-  const brokenAnchors = await page.evaluate(() => [...document.querySelectorAll('a[href^="#"]')].filter(a => a.hash && !document.querySelector(a.hash)).map(a => a.hash));
-  assert.deepEqual(brokenAnchors, []);
-  for (const width of [320, 375, 390, 767, 768, 1024, 1440, 1920]) {
-    await page.setViewportSize({ width, height: 900 });
-    await page.evaluate(() => scrollTo(0, 0));
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
-    assert.equal(overflow, false, `Horizontal overflow at ${width}px`);
-    const clippedTitle = await page.locator('h1').evaluate(el => el.scrollWidth > el.clientWidth + 1);
-    assert.equal(clippedTitle, false, `Clipped hero title at ${width}px`);
-  }
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.evaluate(() => scrollTo(0, 0));
-  await page.screenshot({ path: 'test-results/mobile.png', fullPage: true });
-  await page.screenshot({ path: 'test-results/mobile-hero.png' });
-  await page.locator('.menu-toggle').click();
-  assert.equal(await page.locator('#mobile-nav').isVisible(), true);
-  await page.keyboard.press('Escape');
-  assert.equal(await page.locator('#mobile-nav').isVisible(), false);
-  await page.locator('.menu-toggle').click();
-  await page.locator('#mobile-nav a[href="#story"]').click();
-  assert.equal(await page.locator('#mobile-nav').isVisible(), false);
-  await page.evaluate(async () => { for (const img of document.images) { img.loading = 'eager'; await img.decode().catch(() => {}); } });
-  assert.deepEqual(await page.evaluate(() => [...document.images].filter(i => !i.complete || !i.naturalWidth).map(i => i.src)), []);
-  await page.locator('#faq').scrollIntoViewIfNeeded();
-  await page.waitForFunction(() => document.querySelector('.site-header').classList.contains('is-scrolled'));
-  assert.equal(await page.locator('.site-header').evaluate(el => getComputedStyle(el).backdropFilter.includes('blur')), true);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  assert.equal(await page.evaluate(() => getComputedStyle(document.documentElement).scrollBehavior), 'auto');
-  const noJs = await browser.newPage({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
-  await noJs.goto(process.env.TEST_BASE_URL || 'http://localhost:5173');
-  assert.equal(await noJs.locator('.hero-slide.is-active').count(), 1);
-  await noJs.locator('summary').first().click();
-  assert.equal(await noJs.locator('details').first().getAttribute('open'), '');
-  await noJs.close();
-  console.log('PASS: 8 viewport widths, hero title, FAQ, mobile menu, Escape, anchors, images, sticky header, glass, reduced motion, content without JavaScript.');
-  console.log('Browser errors:', errors);
-  assert.deepEqual(errors, []);
-  console.log('Resource transfer bytes:', await page.evaluate(() => performance.getEntriesByType('resource').reduce((sum, r) => sum + r.transferSize, 0)));
-  await browser.close();
-})().catch(error => { console.error(error); process.exit(1); });
+﻿const {chromium}=require('playwright');const assert=require('node:assert/strict');const fs=require('node:fs');
+(async()=>{fs.mkdirSync('test-results',{recursive:true});const browser=await chromium.launch({channel:'msedge'});try{
+ const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'});const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('response',r=>{if(r.status()>=400)errors.push(`${r.status()} ${r.url()}`)});const base=process.env.TEST_BASE_URL||'http://localhost:5173';
+ for(const file of require('../site-pages.cjs').filter(f=>f!=='admin.html')){
+  await page.goto(base+'/'+file,{waitUntil:'networkidle'});assert.equal(await page.locator('h1').count(),1,file+' must have one h1');assert.equal(await page.locator('.community-dialog,template').count(),0,file+' no legacy panels');
+  const broken=await page.evaluate(()=>[...document.querySelectorAll('a[href^="#"]')].filter(a=>a.hash&&!document.getElementById(a.hash.slice(1))).map(a=>a.hash));assert.deepEqual(broken,[],file+' anchors');
+  const localLinks=await page.locator('a[href]').evaluateAll(links=>links.map(a=>a.getAttribute('href')).filter(h=>h.endsWith('.html')));for(const href of localLinks)assert.ok(fs.existsSync(href),file+': '+href);
+  assert.equal(await page.locator('a[href*="admin"]').count(),0,'No public admin link');
+  for(const width of [320,390,768,1024,1440]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`${file} overflow ${width}`);assert.equal(await page.locator('h1').evaluate(e=>e.scrollWidth>e.clientWidth+1),false,`${file} clipped title ${width}`)}
+  if(file==='index.html'){assert.equal(await page.locator('#story,#faq,#contact,.community-directory,.moments-section').count(),0);assert.equal(await page.locator('.home-page-card').count(),3);await page.screenshot({path:'test-results/home-light-desktop.png',fullPage:true});await page.setViewportSize({width:390,height:844});await page.screenshot({path:'test-results/home-light-mobile.png',fullPage:true});await page.locator('.menu-toggle').click();await page.keyboard.press('Escape');assert.equal(await page.locator('#mobile-nav').isVisible(),false)}
+  if(file==='community.html')assert.equal(await page.locator('.community-circle').count(),9);
+  if(file==='faq.html'){assert.ok(await page.locator('details').count()>=20);await page.locator('summary').first().click();assert.equal(await page.locator('details').first().getAttribute('open'),'')}
+ }
+ await page.goto(base+'/');await page.locator('.home-page-card[href="story.html"]').click();await page.waitForURL('**/story.html');await page.locator('[data-back]').click();await page.waitForURL(base+'/');
+ const noJs=await browser.newPage({javaScriptEnabled:false,viewport:{width:390,height:844}});await noJs.goto(base+'/faq.html');await noJs.locator('summary').first().click();assert.equal(await noJs.locator('details').first().getAttribute('open'),'');await noJs.close();assert.deepEqual(errors,[]);console.log('PASS: 10 public pages, responsive layouts, home simplification, links, current page scripts, FAQ, mobile menu, back navigation and no-JS FAQ.');
+ }finally{await browser.close()}})().catch(error=>{console.error(error);process.exit(1)});

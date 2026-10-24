@@ -32,22 +32,6 @@ document.addEventListener('click', event => {
 window.matchMedia('(min-width: 768px)').addEventListener('change', event => {
   if (event.matches) closeMenu();
 });
-const filters = document.querySelectorAll('.filter');
-const cards = document.querySelectorAll('.club-card');
-filters.forEach(button => button.addEventListener('click', () => {
-  filters.forEach(filter => {
-    const selected = filter === button;
-    filter.classList.toggle('active', selected);
-    filter.setAttribute('aria-pressed', String(selected));
-  });
-  let visible = 0;
-  cards.forEach(card => {
-    card.hidden = button.dataset.filter !== 'all' && card.dataset.category !== button.dataset.filter;
-    if (!card.hidden) visible++;
-  });
-  document.querySelector('#filter-status').textContent = `${visible} clubs shown.`;
-}));
-
 // A single frame update keeps the floating navigation readable while scrolling.
 const header = document.querySelector('.site-header');
 let headerFrame = false;
@@ -62,96 +46,6 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 updateHeader();
-
-// One native dialog keeps reading, nested sections and forms on the landing page.
-const communityDialog = document.querySelector('.community-dialog');
-const panelContent = communityDialog.querySelector('.panel-content');
-const panelHeading = communityDialog.querySelector('#panel-title');
-let panelOpener;
-let pagePosition = 0;
-let bodyStyleBeforePanel = '';
-let panelSessionActive = false;
-function restorePageAfterPanel() {
-  if (!panelSessionActive) return;
-  panelSessionActive = false;
-  panelContent.replaceChildren();
-  document.body.setAttribute('style', bodyStyleBeforePanel);
-  window.scrollTo({ top: pagePosition, behavior: 'instant' });
-  panelOpener?.focus({ preventScroll: true });
-}
-function closeCommunityPanel() {
-  communityDialog.close();
-  restorePageAfterPanel();
-}
-function showCommunityPanel(key, opener) {
-  if (key === 'membership') { location.assign('join.html'); return; }
-  const template = document.getElementById(`panel-${key}`);
-  if (!template) return;
-  if (!communityDialog.open) {
-    panelSessionActive = true;
-    panelOpener = opener || document.activeElement;
-    pagePosition = window.scrollY;
-    bodyStyleBeforePanel = document.body.getAttribute('style') || '';
-    const scrollbarGap = innerWidth - document.documentElement.clientWidth;
-    Object.assign(document.body.style, { position: 'fixed', top: `-${pagePosition}px`, width: '100%', paddingRight: `${scrollbarGap}px` });
-    communityDialog.showModal();
-  }
-  panelHeading.textContent = template.dataset.title;
-  communityDialog.querySelector('#panel-subtitle').textContent = template.dataset.subtitle;
-  communityDialog.querySelector('#panel-number').textContent = `GIRLS IN LUXEMBOURG / ${template.dataset.number}`;
-  panelContent.replaceChildren(template.content.cloneNode(true));
-  communityDialog.querySelectorAll('.panel-nav [data-panel]').forEach(link => {
-    if (link.dataset.panel === key) link.setAttribute('aria-current', 'page');
-    else link.removeAttribute('aria-current');
-  });
-  panelContent.scrollTop = 0;
-  communityDialog.scrollTop = 0;
-  panelHeading.focus({ preventScroll: true });
-}
-document.addEventListener('click', event => {
-  const link = event.target.closest('a[data-panel]');
-  if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-  event.preventDefault();
-  showCommunityPanel(link.dataset.panel, link);
-});
-communityDialog.querySelector('.panel-close').addEventListener('click', closeCommunityPanel);
-communityDialog.addEventListener('cancel', event => {
-  event.preventDefault();
-  closeCommunityPanel();
-});
-communityDialog.addEventListener('keydown', event => {
-  if (event.key !== 'Tab') return;
-  const focusable = [...communityDialog.querySelectorAll('a[href], button:not(:disabled), summary, iframe, input, select, textarea, [tabindex="0"]')]
-    .filter(element => element.getClientRects().length > 0);
-  const first = focusable[0];
-  const last = focusable.at(-1);
-  if ((!event.shiftKey && document.activeElement === last) || (event.shiftKey && (document.activeElement === first || document.activeElement === panelHeading))) {
-    event.preventDefault();
-    (event.shiftKey ? last : first)?.focus();
-  }
-});
-let pointerOnBackdrop = false;
-communityDialog.addEventListener('pointerdown', event => { pointerOnBackdrop = event.target === communityDialog; });
-communityDialog.addEventListener('click', event => {
-  if (event.target !== communityDialog || !pointerOnBackdrop) return;
-  const rect = communityDialog.getBoundingClientRect();
-  if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeCommunityPanel();
-});
-communityDialog.addEventListener('close', () => {
-  // A queued close event must not clear a newly reopened panel.
-  if (!communityDialog.open) restorePageAfterPanel();
-});
-
-// Route existing navigation and calls to action to their matching reading panels.
-document.querySelectorAll('.about-links a, .footer a').forEach(link => {
-  const label = link.textContent.trim();
-  const key = /partnership|Partner with/i.test(label) ? 'partnerships'
-    : /About us|Our story/i.test(label) ? 'about'
-    : /Explore the community|Our clubs/i.test(label) ? 'community'
-    : /FAQ|Good to know/i.test(label) ? 'faq'
-    : /Join and follow/i.test(label) ? 'join' : null;
-  if (key) link.dataset.panel = key;
-});
 
 // Content is always visible by default, even if JS or animation is unavailable.
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -228,15 +122,8 @@ if (communityArt && 'IntersectionObserver' in window) {
   });
 }
 
-function openPanelFromHash() {
-  const key = location.hash.startsWith('#panel-') ? location.hash.slice(7) : '';
-  if (key) showCommunityPanel(key);
-}
-window.addEventListener('hashchange', openPanelFromHash);
-openPanelFromHash();
-
 // Animate native FAQ disclosures without changing keyboard or no-JS behaviour.
-document.querySelectorAll('.faq-list details').forEach(details => {
+document.querySelectorAll('.faq-list details, .faq-content details').forEach(details => {
   const summary = details.querySelector('summary');
   let animation;
   let expanded = details.open;
@@ -278,15 +165,12 @@ document.querySelectorAll('.faq-list details').forEach(details => {
   });
 });
 
-// One selected menu option at a time, shared by desktop and mobile menus.
-const sectionLinks = [...document.querySelectorAll('.desktop-nav a, .mobile-nav a')];
-function selectNavigation(href) {
-  sectionLinks.forEach(link => {
-    if (link.getAttribute('href') === href) link.setAttribute('aria-current', href.startsWith('#') ? 'location' : 'page');
-    else link.removeAttribute('aria-current');
-  });
-}
-sectionLinks.forEach(link => link.addEventListener('click', () => selectNavigation(link.getAttribute('href'))));
-window.addEventListener('hashchange', () => selectNavigation(location.hash));
-if (location.hash) selectNavigation(location.hash);
-window.addEventListener('pageshow', () => selectNavigation(location.hash));
+// Navigation identifies the current page without intercepting native links.
+const currentPage = location.pathname.split('/').pop() || 'index.html';
+document.querySelectorAll('.desktop-nav a, .mobile-nav a').forEach(link => {
+  if (link.getAttribute('href') === currentPage) link.setAttribute('aria-current','page');
+  else link.removeAttribute('aria-current');
+});
+// Keep previously shared section links working after the move to dedicated pages.
+const legacyPages = {story:'story.html',faq:'faq.html',team:'team.html',contact:'contact.html','panel-about':'story.html','panel-community':'community.html','panel-team':'team.html','panel-faq':'faq.html','panel-policy':'policy.html','panel-partnerships':'partnerships.html','panel-contact':'contact.html','panel-feedback':'contact.html#feedback','panel-join':'join.html','panel-membership':'join.html'};
+if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location.replace(legacyPages[location.hash.slice(1)]);
