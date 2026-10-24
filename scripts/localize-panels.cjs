@@ -15,7 +15,7 @@ function localizePanels(html) {
     if (/https?:\/\/[^/]*notion\.(?:site|com|so)\b/i.test(url)) return content;
     return full;
   });
-  return html;
+  return html.replaceAll('https://www.linkedin.com/company/girls-in-luxembourg/', 'https://www.linkedin.com/groups/42510001').replaceAll('LinkedIn page</a>', 'Career Network</a>');
 }
 module.exports = localizePanels;
 if (require.main === module) fs.writeFileSync('index.html', localizePanels(fs.readFileSync('index.html', 'utf8')));

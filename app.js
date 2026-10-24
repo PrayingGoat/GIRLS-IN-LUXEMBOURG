@@ -16,7 +16,7 @@ mobileNav.addEventListener('click', event => {
   const link = event.target.closest('a');
   if (!link) return;
   closeMenu();
-  const target = document.querySelector(link.hash);
+  const target = link.hash ? document.querySelector(link.hash) : null;
   if (target) {
     target.setAttribute('tabindex', '-1');
     target.focus({ preventScroll: true });
@@ -277,3 +277,16 @@ document.querySelectorAll('.faq-list details').forEach(details => {
     }
   });
 });
+
+// One selected menu option at a time, shared by desktop and mobile menus.
+const sectionLinks = [...document.querySelectorAll('.desktop-nav a, .mobile-nav a')];
+function selectNavigation(href) {
+  sectionLinks.forEach(link => {
+    if (link.getAttribute('href') === href) link.setAttribute('aria-current', href.startsWith('#') ? 'location' : 'page');
+    else link.removeAttribute('aria-current');
+  });
+}
+sectionLinks.forEach(link => link.addEventListener('click', () => selectNavigation(link.getAttribute('href'))));
+window.addEventListener('hashchange', () => selectNavigation(location.hash));
+if (location.hash) selectNavigation(location.hash);
+window.addEventListener('pageshow', () => selectNavigation(location.hash));
