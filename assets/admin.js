@@ -28,7 +28,22 @@
    $('dashboard-status').textContent=`${total} matching request${total===1?'':'s'}.`;$('page-label').textContent=`Page ${page} of ${Math.max(1,Math.ceil(total/25))}`;$('previous').disabled=page<=1;$('next').disabled=page*25>=total;
   }catch(error){if(error.name!=='AbortError'&&requestVersion===version)$('dashboard-status').textContent=error.message;}
  }
- async function show(){ $('login-panel').hidden=true;$('dashboard').hidden=false;$('logout').hidden=false;await load(); }
+ async function loadCounts(){
+  $('community-count-fields').disabled=true;$('save-counts').disabled=true;
+  $('community-count-status').textContent='Loading saved numbers?';
+  try{const data=await api('community-stats');for(const key of ['instagram','tiktok','whatsapp','linkedin'])$('count-'+key).value=data.stats[key];$('community-count-status').textContent='Last saved: '+date(data.stats.updated_at);$('community-count-fields').disabled=false;$('save-counts').disabled=false;}catch(error){$('community-count-status').textContent=error.message;}
+ }
+ $('reload-counts').addEventListener('click',loadCounts);
+ $('community-count-form').addEventListener('submit',async event=>{
+  event.preventDefault();if($('save-counts').disabled)return;
+  const values=Object.fromEntries(['instagram','tiktok','whatsapp','linkedin'].map(key=>[key,$('count-'+key).valueAsNumber]));
+  $('save-counts').disabled=true;$('community-count-fields').disabled=true;$('reload-counts').disabled=true;
+  $('community-count-status').textContent='Saving?';
+  try{const data=await api('community-stats',{method:'PATCH',body:JSON.stringify(values)});$('community-count-status').textContent='Saved. The homepage will use these numbers on its next load. '+date(data.stats.updated_at);}
+  catch(error){$('community-count-status').textContent='Not saved. '+error.message;}
+  finally{$('save-counts').disabled=false;$('community-count-fields').disabled=false;$('reload-counts').disabled=false;}
+ });
+ async function show(){ $('login-panel').hidden=true;$('dashboard').hidden=false;$('logout').hidden=false;await Promise.all([load(),loadCounts()]); }
  $('login-form').addEventListener('submit',async event=>{event.preventDefault();const button=event.currentTarget.querySelector('button');button.disabled=true;$('login-status').textContent='Signing in…';try{await api('login',{method:'POST',body:JSON.stringify({password:$('password').value})});$('password').value='';await show()}catch(error){$('login-status').textContent=error.message}finally{button.disabled=false}});
  $('logout').addEventListener('click',async()=>{try{await api('logout',{method:'POST',body:'{}'});controller?.abort();version++;resetView('Signed out.');$('password').focus()}catch(error){$('dashboard-status').textContent=error.message}});
  $('filters').addEventListener('submit',e=>{e.preventDefault();page=1;load()});$('status-filter').addEventListener('change',()=>{page=1;load()});$('refresh').addEventListener('click',load);$('previous').addEventListener('click',()=>{if(page>1){page--;load()}});$('next').addEventListener('click',()=>{if(page*25<total){page++;load()}});

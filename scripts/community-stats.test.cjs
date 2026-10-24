@@ -1,0 +1,3 @@
+﻿const test=require('node:test'),assert=require('node:assert/strict');const {validStats,defaults}=require('../lib/community-stats.cjs');const publicHandler=require('../api/community-stats.js');
+test('counters only accept four bounded nonnegative integers',()=>{assert.ok(validStats(defaults));assert.ok(validStats({instagram:0,tiktok:0,whatsapp:0,linkedin:0}));for(const value of [-1,1.2,'3900',null,1000000001])assert.equal(validStats({...defaults,instagram:value}),false);assert.equal(validStats({instagram:1}),false)});
+test('public statistics cannot be changed',async()=>{const r={setHeader(){},end(v){this.body=JSON.parse(v)}};await publicHandler({method:'PATCH'},r);assert.equal(r.statusCode,405)});

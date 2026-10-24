@@ -98,3 +98,14 @@ changes. It does not send WhatsApp messages or add people automatically. No publ
 listing, export, deletion or registration endpoint for administrators is provided.
 Use distinct admin accounts and audit logging if several administrators need access
 in a future iteration; the current version uses one shared administrator password.
+
+## Homepage community numbers
+
+Migration `003-community-stats.sql` adds the four homepage counters, initialized to
+3900 / 2000 / 890 / 270. Re-running migrations preserves saved values.
+After `npm run db:migrate`, sign in at `/admin` and use **Community numbers**.
+Values must be whole numbers from 0 to 1,000,000,000; the site retains the + suffix.
+Saving updates all four values atomically. They are loaded on the next homepage
+visit through the read-only `/api/community-stats` endpoint. The existing numbers
+are a fallback when the database is unavailable. This is manual editing by an
+administrator, not synchronization with social networks.

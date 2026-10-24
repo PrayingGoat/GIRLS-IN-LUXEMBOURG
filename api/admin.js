@@ -38,6 +38,17 @@ module.exports=async function handler(req,res){
   if(!session.rowCount){cookie('',0);return send(401,{message:'Your session has expired. Please sign in again.'});}
   if(action==='session'&&req.method==='GET')return send(200,{authenticated:true});
   if(action==='logout'&&req.method==='POST'){await db.query('DELETE FROM admin_sessions WHERE token_hash=$1',[tokenHash(token)]);cookie('',0);return send(200,{authenticated:false});}
+  if(action==='community-stats'&&req.method==='GET'){
+   const result=await db.query('SELECT instagram,tiktok,whatsapp,linkedin,updated_at FROM community_stats WHERE id=1');
+   if(!result.rowCount)return send(503,{message:'Run the database migrations to configure community statistics.'});
+   return send(200,{stats:result.rows[0]});
+  }
+  if(action==='community-stats'&&req.method==='PATCH'){
+   if(!require('../lib/community-stats.cjs').validStats(body))return send(422,{message:'Enter four whole numbers between 0 and 1,000,000,000.'});
+   const result=await db.query('UPDATE community_stats SET instagram=$1,tiktok=$2,whatsapp=$3,linkedin=$4,updated_at=now() WHERE id=1 RETURNING instagram,tiktok,whatsapp,linkedin,updated_at',[body.instagram,body.tiktok,body.whatsapp,body.linkedin]);
+   if(!result.rowCount)return send(503,{message:'Run the database migrations before saving.'});
+   return send(200,{stats:result.rows[0]});
+  }
   if(action==='requests'&&req.method==='GET'){
    const search=(url.searchParams.get('search')||'').trim().slice(0,120),status=url.searchParams.get('status')||'';
    if(status&&!['pending','contacted','added','declined'].includes(status))return send(400,{message:'Invalid status.'});

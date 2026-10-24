@@ -39,9 +39,22 @@
 })();
 
 // Count up once when the community figures enter view. Never change source totals.
-(() => {
+(async () => {
   const region = document.querySelector('.story-stats');
-  if (!region || !('IntersectionObserver' in window)) return;
+  if (!region) return;
+  const keys=['instagram','tiktok','whatsapp','linkedin'];
+  const controller=new AbortController();
+  const timeout=setTimeout(()=>controller.abort(),2500);
+  try {
+    const response=await fetch('/api/community-stats',{cache:'no-store',signal:controller.signal});
+    if(response.ok){const data=await response.json();
+      if(keys.every(k=>Number.isInteger(data.stats?.[k])&&data.stats[k]>=0&&data.stats[k]<=1000000000)){
+        region.querySelectorAll('strong').forEach((el,i)=>el.textContent=data.stats[keys[i]].toLocaleString('en-US')+'+');
+      }
+    }
+  } catch { /* Keep readable existing figures if the database is unavailable. */ }
+  finally { clearTimeout(timeout); }
+  if (!('IntersectionObserver' in window)) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const counters = [...region.querySelectorAll('strong')].map(element => {
     const finalText = element.textContent;
