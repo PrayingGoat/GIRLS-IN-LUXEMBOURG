@@ -222,3 +222,6 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 
 .footer-top .footer-find h3{font-size:14px;margin-bottom:22px}
 .footer-top .footer-find a{font-size:16px;line-height:1.6;padding-block:9px}
+
+.story-stats strong{font-variant-numeric:tabular-nums}
+.story-stats strong>span{font:inherit;color:inherit;letter-spacing:inherit}

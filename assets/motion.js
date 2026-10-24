@@ -37,3 +37,39 @@
     if(!success.hidden)animate(success,[{opacity:0,transform:'translateY(14px)'},{opacity:1,transform:'translateY(0)'}]);
   }).observe(success,{attributes:true,attributeFilter:['hidden']});
 })();
+
+// Count up once when the community figures enter view. Never change source totals.
+(() => {
+  const region = document.querySelector('.story-stats');
+  if (!region || !('IntersectionObserver' in window)) return;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const counters = [...region.querySelectorAll('strong')].map(element => {
+    const finalText = element.textContent;
+    const target = Number(finalText.replace(/[^0-9]/g, ''));
+    // A stable accessible name avoids announcing every animation frame.
+    element.setAttribute('aria-label', finalText);
+    const display = document.createElement('span');
+    display.setAttribute('aria-hidden', 'true');
+    display.textContent = finalText;
+    element.replaceChildren(display);
+    return { display, target, finalText };
+  });
+  let frame = 0;
+  const finish = () => { cancelAnimationFrame(frame); frame = 0; counters.forEach(c => c.display.textContent = c.finalText); };
+  const observer = new IntersectionObserver(entries => {
+    if (!entries.some(e => e.isIntersecting)) return;
+    observer.disconnect();
+    if (reduced.matches) return;
+    const started = performance.now();
+    const tick = now => {
+      const progress = Math.min(1, (now - started) / 950);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      counters.forEach(c => c.display.textContent = Math.round(c.target * eased).toLocaleString('en-US') + (c.finalText.includes('+') ? '+' : ''));
+      if (progress < 1) frame = requestAnimationFrame(tick); else finish();
+    };
+    frame = requestAnimationFrame(tick);
+  }, { threshold: .3 });
+  observer.observe(region);
+  reduced.addEventListener('change', () => { if (reduced.matches) finish(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && frame) finish(); });
+})();
