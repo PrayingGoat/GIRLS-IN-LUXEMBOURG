@@ -1,4 +1,4 @@
-﻿-- Run once with npm run db:migrate. No public read API is provided.
+-- Run once with npm run db:migrate. No public read API is provided.
 CREATE TABLE IF NOT EXISTS membership_requests (
   id uuid PRIMARY KEY,
   first_name varchar(100) NOT NULL,

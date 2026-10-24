@@ -1,4 +1,4 @@
-﻿CREATE TABLE IF NOT EXISTS community_stats (
+CREATE TABLE IF NOT EXISTS community_stats (
  id integer PRIMARY KEY CHECK (id=1),
  instagram integer NOT NULL CHECK (instagram BETWEEN 0 AND 1000000000),
  tiktok integer NOT NULL CHECK (tiktok BETWEEN 0 AND 1000000000),
