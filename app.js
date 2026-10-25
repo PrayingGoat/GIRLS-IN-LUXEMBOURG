@@ -184,7 +184,7 @@ if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
  const controls=document.createElement('div');controls.className='circle-carousel-controls';
  controls.innerHTML='<span><span class="circle-browse-label">Explore the circles</span> <span class="circle-position"></span></span><div><button type="button" aria-label="Previous circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 12H4m7-7-7 7 7 7"/></svg></button><button type="button" aria-label="Next circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button></div>';
- track.after(controls);
+ const carousel=document.createElement('div');carousel.className='circle-carousel';track.before(carousel);carousel.append(track,controls);
  const [previous,next]=controls.querySelectorAll('button');const position=controls.querySelector('.circle-position');
  let index=0;
  function update(){
