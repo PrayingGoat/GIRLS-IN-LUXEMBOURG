@@ -175,7 +175,7 @@ document.querySelectorAll('.desktop-nav a, .mobile-nav a').forEach(link => {
 const legacyPages = {story:'story.html',faq:'faq.html',team:'team.html',contact:'contact.html','panel-about':'story.html','panel-community':'community.html','panel-team':'team.html','panel-faq':'faq.html','panel-policy':'policy.html','panel-partnerships':'partnerships.html','panel-contact':'contact.html','panel-feedback':'contact.html#feedback','panel-join':'join.html','panel-membership':'join.html'};
 if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location.replace(legacyPages[location.hash.slice(1)]);
 
-// Native touch scrolling with optional controls for the mobile circle directory.
+// Responsive circle carousel with native touch scrolling and keyboard controls.
 (() => {
  const track=document.querySelector('.community-circles');
  if(!track)return;
@@ -183,7 +183,7 @@ if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location
  const mobile=matchMedia('(max-width:700px)');
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
  const controls=document.createElement('div');controls.className='circle-carousel-controls';
- controls.innerHTML='<span>Swipe to explore <span class="circle-position"></span></span><div><button type="button" aria-label="Previous circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 12H4m7-7-7 7 7 7"/></svg></button><button type="button" aria-label="Next circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button></div>';
+ controls.innerHTML='<span><span class="circle-browse-label">Explore the circles</span> <span class="circle-position"></span></span><div><button type="button" aria-label="Previous circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 12H4m7-7-7 7 7 7"/></svg></button><button type="button" aria-label="Next circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button></div>';
  track.after(controls);
  const [previous,next]=controls.querySelectorAll('button');const position=controls.querySelector('.circle-position');
  let index=0;
@@ -197,7 +197,7 @@ if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location
  function move(step){const target=cards[Math.max(0,Math.min(cards.length-1,index+step))];track.scrollBy({left:target.getBoundingClientRect().left-track.getBoundingClientRect().left,behavior:reduced.matches?'instant':'smooth'})}
  previous.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
  track.addEventListener('scroll',update,{passive:true});
- track.addEventListener('keydown',event=>{if(mobile.matches&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();move(event.key==='ArrowRight'?1:-1)}});
- function resize(){track.tabIndex=mobile.matches?0:-1;track.setAttribute('aria-label',mobile.matches?'Community circles. Swipe or use the arrow keys to explore.':'Community circles');update()}
+ track.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();move(event.key==='ArrowRight'?1:-1)}});
+ function resize(){track.tabIndex=0;track.setAttribute('aria-label','Community circles. Use the arrow keys to explore.');controls.querySelector('.circle-browse-label').textContent=mobile.matches?'Swipe to explore':'Explore the circles';update()}
  mobile.addEventListener('change',resize);window.addEventListener('resize',resize);resize();
 })();
