@@ -174,3 +174,30 @@ document.querySelectorAll('.desktop-nav a, .mobile-nav a').forEach(link => {
 // Keep previously shared section links working after the move to dedicated pages.
 const legacyPages = {story:'story.html',faq:'faq.html',team:'team.html',contact:'contact.html','panel-about':'story.html','panel-community':'community.html','panel-team':'team.html','panel-faq':'faq.html','panel-policy':'policy.html','panel-partnerships':'partnerships.html','panel-contact':'contact.html','panel-feedback':'contact.html#feedback','panel-join':'join.html','panel-membership':'join.html'};
 if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location.replace(legacyPages[location.hash.slice(1)]);
+
+// Native touch scrolling with optional controls for the mobile circle directory.
+(() => {
+ const track=document.querySelector('.community-circles');
+ if(!track)return;
+ const cards=[...track.querySelectorAll('.community-circle')];
+ const mobile=matchMedia('(max-width:700px)');
+ const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+ const controls=document.createElement('div');controls.className='circle-carousel-controls';
+ controls.innerHTML='<span>Swipe to explore <span class="circle-position"></span></span><div><button type="button" aria-label="Previous circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20 12H4m7-7-7 7 7 7"/></svg></button><button type="button" aria-label="Next circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg></button></div>';
+ track.after(controls);
+ const [previous,next]=controls.querySelectorAll('button');const position=controls.querySelector('.circle-position');
+ let index=0;
+ function update(){
+  const left=track.getBoundingClientRect().left;
+  index=cards.reduce((best,card,i)=>Math.abs(card.getBoundingClientRect().left-left)<Math.abs(cards[best].getBoundingClientRect().left-left)?i:best,0);
+  if(track.scrollLeft>=track.scrollWidth-track.clientWidth-2&&track.scrollLeft>0)index=cards.length-1;
+  position.textContent=` / ${String(index+1).padStart(2,'0')} of ${String(cards.length).padStart(2,'0')}`;
+  previous.disabled=index===0;next.disabled=index===cards.length-1;
+ }
+ function move(step){const target=cards[Math.max(0,Math.min(cards.length-1,index+step))];track.scrollBy({left:target.getBoundingClientRect().left-track.getBoundingClientRect().left,behavior:reduced.matches?'instant':'smooth'})}
+ previous.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));
+ track.addEventListener('scroll',update,{passive:true});
+ track.addEventListener('keydown',event=>{if(mobile.matches&&['ArrowLeft','ArrowRight'].includes(event.key)){event.preventDefault();move(event.key==='ArrowRight'?1:-1)}});
+ function resize(){track.tabIndex=mobile.matches?0:-1;track.setAttribute('aria-label',mobile.matches?'Community circles. Swipe or use the arrow keys to explore.':'Community circles');update()}
+ mobile.addEventListener('change',resize);window.addEventListener('resize',resize);resize();
+})();
