@@ -96,10 +96,16 @@
  function finish(el){
   const state=active.get(el);if(!state)return;
   clearTimeout(state.timer);observer.unobserve(el);state.overlay.remove();
-  el.classList.remove('content-shimmer');if(state.position)el.style.position=state.position;else el.style.removeProperty('position');
+  el.classList.remove('content-shimmer','content-shimmer-revealing');if(state.position)el.style.position=state.position;else el.style.removeProperty('position');
   active.delete(el);
  }
- const observer=new IntersectionObserver(entries=>{entries.forEach(({target,isIntersecting})=>{if(!isIntersecting)return;const state=active.get(target);if(!state||state.timer)return;observer.unobserve(target);state.timer=setTimeout(()=>finish(target),300)})},{threshold:0});
+ function reveal(el){
+  const state=active.get(el);if(!state)return;
+  if(reduced.matches){finish(el);return}
+  el.classList.add('content-shimmer-revealing');
+  state.timer=setTimeout(()=>finish(el),420);
+ }
+ const observer=new IntersectionObserver(entries=>{entries.forEach(({target,isIntersecting})=>{if(!isIntersecting)return;const state=active.get(target);if(!state||state.timer)return;observer.unobserve(target);state.timer=setTimeout(()=>reveal(target),300)})},{threshold:0});
  function prepare(){
   document.querySelectorAll(selector).forEach(el=>{
    if(prepared.has(el)||el.matches('img')||el.closest('[hidden]')||el.parentElement.closest(selector))return;
