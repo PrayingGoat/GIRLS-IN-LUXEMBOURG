@@ -86,3 +86,40 @@
   reduced.addEventListener('change', () => { if (reduced.matches) finish(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden && frame) finish(); });
 })();
+
+// One short shimmer per content block, inspired by redacted loading placeholders.
+(() => {
+ const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ if(reduced.matches||!('IntersectionObserver' in window))return;
+ const selector='.home-page-card,.home-invitation,.hero-copy,.hero-gallery,.story-stats,.circle-intro-copy,.circle-intro-photo,.community-circle,.moment,.beliefs article,.community-art,.team-page-content,.panel-faq-group,.contact-intro,.contact-details,.panel-policy,.panel-partnerships,.membership-card,.membership-intro,.events-intro>div,.events-intro>img,.calendar-board,.event-directory-row,.admin-login,.admin-community,.admin-table-wrap';
+ const prepared=new WeakSet(),active=new Map(),seenEvents=new Set();
+ function finish(el){
+  const state=active.get(el);if(!state)return;
+  clearTimeout(state.timer);observer.unobserve(el);state.overlay.remove();
+  el.classList.remove('content-shimmer');if(state.position)el.style.position=state.position;else el.style.removeProperty('position');
+  active.delete(el);
+ }
+ const observer=new IntersectionObserver(entries=>{entries.forEach(({target,isIntersecting})=>{if(!isIntersecting)return;const state=active.get(target);if(!state||state.timer)return;observer.unobserve(target);state.timer=setTimeout(()=>finish(target),1800)})},{threshold:0});
+ function prepare(){
+  document.querySelectorAll(selector).forEach(el=>{
+   if(prepared.has(el)||el.matches('img')||el.closest('[hidden]')||el.parentElement.closest(selector))return;
+   prepared.add(el);
+   if(el.contains(document.activeElement))return;
+   if(el.matches('.event-directory-row')){const key=el.querySelector('a')?.href;if(seenEvents.has(key))return;seenEvents.add(key)}
+   const overlay=document.createElement('div');overlay.className='content-shimmer-cover';overlay.setAttribute('aria-hidden','true');
+   overlay.innerHTML='<div class="shimmer-block"></div><div class="shimmer-line shimmer-title"></div><div class="shimmer-line"></div><div class="shimmer-line"></div><div class="shimmer-line shimmer-short"></div>';
+   const position=el.style.position;
+   if(getComputedStyle(el).position==='static')el.style.position='relative';
+   active.set(el,{overlay,position,timer:null});el.classList.add('content-shimmer');el.append(overlay);observer.observe(el);
+  });
+  for(const el of active.keys())if(!el.isConnected)finish(el);
+ }
+ prepare();
+ let scheduled=false;const mutations=new MutationObserver(records=>{if(!records.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&!n.classList.contains('content-shimmer-cover'))))return;if(!scheduled){scheduled=true;requestAnimationFrame(()=>{scheduled=false;prepare()})}});
+ mutations.observe(document.querySelector('main')||document.body,{childList:true,subtree:true});
+ // Keyboard users can interact immediately instead of waiting for a visual effect.
+ document.addEventListener('focusin',event=>{const el=event.target.closest('.content-shimmer');if(el)finish(el)});
+ function finishAll(){for(const el of active.keys())finish(el)}
+ reduced.addEventListener('change',()=>{if(reduced.matches){mutations.disconnect();finishAll()}});
+ window.addEventListener('pagehide',finishAll);
+})();

@@ -332,3 +332,13 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 .mobile-nav a[aria-current]{background:var(--button-pink);color:#fff;box-shadow:0 4px 12px #d1037e12}
 .mobile-nav a:not([aria-current]):hover{background:var(--light-pink)}
 .mobile-nav a:focus-visible{outline:2px solid var(--button-pink);outline-offset:2px}
+
+/* Layout-preserving 1.8-second rose shimmer; no overlay on navigation. */
+.content-shimmer>:not(.content-shimmer-cover){opacity:0!important}
+.content-shimmer-cover{position:absolute;inset:0;z-index:5;overflow:hidden;border-radius:inherit;background:var(--blush);padding:clamp(16px,3vw,32px);display:flex;flex-direction:column;gap:12px;cursor:progress}
+.content-shimmer-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 20%,#ffffff95 48%,transparent 76%);transform:translateX(-100%);animation:rose-shimmer 1.2s ease-in-out infinite}
+.shimmer-block{height:38%;min-height:24px;max-height:150px;border-radius:8px;background:var(--light-pink)}
+.shimmer-line{height:10px;min-height:10px;width:90%;border-radius:6px;background:var(--baby-pink)}.shimmer-title{height:18px;min-height:18px;width:65%;background:var(--light-pink);margin:5px 0}.shimmer-short{width:48%}
+.event-directory-row .content-shimmer-cover{display:grid;grid-template-columns:72px 1fr;gap:8px 18px;padding:14px}.event-directory-row .shimmer-block{grid-row:1/5;height:100%;max-height:none}.event-directory-row .shimmer-line{grid-column:2}
+@keyframes rose-shimmer{to{transform:translateX(100%)}}
+@media(prefers-reduced-motion:reduce){.content-shimmer-cover{display:none}.content-shimmer>:not(.content-shimmer-cover){opacity:1!important}}
