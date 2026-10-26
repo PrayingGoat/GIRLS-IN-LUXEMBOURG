@@ -329,7 +329,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 /* Clear, touch-friendly mobile navigation with a direct route home. */
 .mobile-nav{padding:12px 18px 18px;background:var(--blush);max-height:calc(100dvh - 100px);overflow-y:auto}
 .mobile-nav a{display:flex;align-items:center;gap:10px;min-height:50px;padding:12px 16px;border-radius:8px;font:600 17px/1.4 var(--sans);margin:3px 0;color:var(--text)}
-.mobile-nav a[aria-current]{background:var(--button-pink);color:#fff;box-shadow:0 4px 12px #d1037e12}
+.mobile-nav a[aria-current]{background:transparent;color:var(--button-pink);box-shadow:none}
 .mobile-nav a:not([aria-current]):hover{background:var(--light-pink)}
 .mobile-nav a:focus-visible{outline:2px solid var(--button-pink);outline-offset:2px}
 
