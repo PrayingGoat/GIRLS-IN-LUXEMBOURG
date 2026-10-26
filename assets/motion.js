@@ -99,7 +99,7 @@
   el.classList.remove('content-shimmer');if(state.position)el.style.position=state.position;else el.style.removeProperty('position');
   active.delete(el);
  }
- const observer=new IntersectionObserver(entries=>{entries.forEach(({target,isIntersecting})=>{if(!isIntersecting)return;const state=active.get(target);if(!state||state.timer)return;observer.unobserve(target);state.timer=setTimeout(()=>finish(target),1800)})},{threshold:0});
+ const observer=new IntersectionObserver(entries=>{entries.forEach(({target,isIntersecting})=>{if(!isIntersecting)return;const state=active.get(target);if(!state||state.timer)return;observer.unobserve(target);state.timer=setTimeout(()=>finish(target),300)})},{threshold:0});
  function prepare(){
   document.querySelectorAll(selector).forEach(el=>{
    if(prepared.has(el)||el.matches('img')||el.closest('[hidden]')||el.parentElement.closest(selector))return;
