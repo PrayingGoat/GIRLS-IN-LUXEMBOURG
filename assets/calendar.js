@@ -18,10 +18,11 @@
    const past=new Date(event.end)<new Date();const multi=dayKey(event.start)!==dayKey(event.end);
    card.append(node('span',cancelled(event)?'Cancelled':past?'Past event':multi?'Ongoing initiative':'Community gathering','calendar-event-state'));
    card.append(node('h4',event.title));
+   if(event.soldOut&&!past&&!cancelled(event))card.append(node('p','Sold out on Luma','event-sold-out'));
    const time=new Date(event.start).toLocaleTimeString('en-GB',{timeZone:zone,hour:'2-digit',minute:'2-digit'});
    card.append(node('p',multi?`${label(dayKey(event.start))} - ${label(dayKey(event.end))}`:`${time} / ${event.location}`));
    if(multi)card.append(node('p','An ongoing project, rather than a daily meet-up. Check Luma for participation details.'));
-   const link=node('a',past||cancelled(event)?'View on Luma':'Details & registration on Luma','calendar-event-link');link.href=event.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);list.append(card);
+   const link=node('a',past||cancelled(event)||event.soldOut?'View on Luma':'Details & registration on Luma','calendar-event-link');link.href=event.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);list.append(card);
   }
  }
  function render(){
@@ -59,7 +60,7 @@
   catch{fallback=true;try{const res=await fetch('assets/calendar-events.json');if(!res.ok)throw Error();data=await res.json()}catch{root.querySelector('#calendar-source').textContent='Event dates are unavailable. Please use the Luma links below.';return}}
   events=data.events.filter(e=>{try{return new URL(e.url).origin==='https://luma.com'&&Number.isFinite(Date.parse(e.start))&&Number.isFinite(Date.parse(e.end))}catch{return false}});
   window.renderCommunityEvents?.(events);
-  root.querySelector('#calendar-source').textContent=fallback||events.some(e=>e.stale)?'Showing saved Luma dates. Check Luma for the latest details.':'Dates refreshed from our linked Luma events.';render();
+  root.querySelector('#calendar-source').textContent=fallback||events.some(e=>e.stale)?'Showing saved Luma dates. Check Luma for the latest details.':'Public events synced from Girls in Luxembourg on Luma.';render();
  }
  load();
 })();

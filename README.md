@@ -94,9 +94,9 @@ Run npm run test:e2e to verify the pages, responsive layout, links, FAQ and navi
 
 ### Events calendar
 
-`events.html` contains a responsive monthly calendar, with all dates displayed in Europe/Luxembourg. Registration remains on Luma. `/api/events` refreshes the public structured event metadata for the four approved links in `assets/calendar-events.json`, with a 15-minute server cache and a saved-data fallback. No guest or payment information is imported. Past/cancelled events and ongoing multi-day projects are labelled explicitly.
+`events.html` contains a responsive monthly calendar in Europe/Luxembourg time. Registration remains on Luma. `/api/events` discovers public events hosted by `usr-5mEZeykJMwDEoUA` using the public profile event listing, paginating both future and past results. Results refresh on requests after a 15-minute server cache expires; failures retain the last successful result or `assets/calendar-events.json` and retry after one minute. Only event display fields are retained, never guest or payment data. Upcoming events precede ongoing projects; past events are in a collapsible history. Sold-out events remain visible and are labelled.
 
-This is not automatic discovery of new events: add verified Luma event URLs and their snapshot metadata to `assets/calendar-events.json` until the team supplies its calendar feed or official integration access. Public page metadata can change; the saved-data notice is shown if refresh fails. Luma's official API currently requires Luma Plus and a private calendar API key (never put keys in browser assets). Run `node scripts/check-calendar.cjs` with `TEST_BASE_URL` pointing to the local server to verify calendar behavior.
+The public-profile listing is the same unauthenticated source used by Luma's website, not a guaranteed official API contract. Private or unlisted events are excluded; only hosted events are imported, not attended events. If Luma changes this interface, the saved-data fallback is shown. An official API integration requires Luma Plus and a private calendar key. Run `node --test scripts/luma-events.test.cjs` for pagination, filtering and malformed-response checks; `node scripts/check-calendar.cjs` validates the calendar UI with TEST_BASE_URL pointing to a current server.
 
 ### Image customisation in the administrator workspace
 

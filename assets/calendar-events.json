@@ -1,40 +1,286 @@
 {
   "events": [
     {
-      "url": "https://luma.com/txh3x6ag",
-      "title": "Join Sisterhood of the Travelling Journals  (Ongoing)",
-      "start": "2026-09-26T15:00:00.000+02:00",
-      "end": "2027-09-26T15:00:00.000+02:00",
-      "location": "Luxembourg",
+      "url": "https://luma.com/42wwm17a",
+      "title": "HALLOWEEN PARTY on 31 October",
+      "start": "2026-10-31T18:00:00.000Z",
+      "end": "2026-10-31T20:00:00.000Z",
+      "location": "Foundry",
       "status": "https://schema.org/EventScheduled",
-      "checkedAt": "2026-10-26T02:35:35.140Z"
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:04.538Z"
     },
     {
-      "url": "https://luma.com/610vs0gh",
-      "title": "RHODE X SEPHORA on 30 September",
-      "start": "2026-09-30T15:00:00.000+02:00",
-      "end": "2026-09-30T18:00:00.000+02:00",
-      "location": "Sephora Kirchberg",
+      "url": "https://luma.com/yo83h01z",
+      "title": "GIRLS WALK CLUB — SUNDAY WALK on 25 October",
+      "start": "2026-10-25T14:00:00.000Z",
+      "end": "2026-10-25T16:30:00.000Z",
+      "location": "Skatepark Péitruss, Parc de la Pétrusse in Hamilius",
       "status": "https://schema.org/EventScheduled",
-      "checkedAt": "2026-10-26T02:35:36.902Z"
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
     },
     {
-      "url": "https://luma.com/dys5l11b",
-      "title": "Pumpkin Patch Walk on 4 October",
-      "start": "2026-10-04T16:00:00.000+02:00",
-      "end": "2026-10-04T17:00:00.000+02:00",
-      "location": "12 Haaptstrooss",
+      "url": "https://luma.com/ch276row",
+      "title": "Stationery Craft Swap + Craft Meet-up on 24 October",
+      "start": "2026-10-24T13:00:00.000Z",
+      "end": "2026-10-24T16:00:00.000Z",
+      "location": "See Luma for location",
       "status": "https://schema.org/EventScheduled",
-      "checkedAt": "2026-10-26T02:35:37.927Z"
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/zhk4uqnz",
+      "title": "Immersive Luxembourgish class on 24 October!",
+      "start": "2026-10-24T11:45:00.000Z",
+      "end": "2026-10-24T13:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/zmh96zg6",
+      "title": "Career Talk: Q&A on building a career that grows",
+      "start": "2026-10-23T08:00:00.000Z",
+      "end": "2026-10-23T09:30:00.000Z",
+      "location": "See Luma for location",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/r73c1ijb",
+      "title": "Immersive Spanish class on 21 October! [Postponed: date TBC]",
+      "start": "2026-10-21T10:45:00.000Z",
+      "end": "2026-10-21T12:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/9p9vr5xm",
+      "title": "Immersive Luxembourgish class on 20 October!",
+      "start": "2026-10-20T14:45:00.000Z",
+      "end": "2026-10-20T16:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
     },
     {
       "url": "https://luma.com/jns8uggg",
       "title": "Pottery painting session on 18 October",
-      "start": "2026-10-18T10:30:00.000+02:00",
-      "end": "2026-10-18T12:30:00.000+02:00",
+      "start": "2026-10-18T08:30:00.000Z",
+      "end": "2026-10-18T10:30:00.000Z",
       "location": "Nordic Stella",
       "status": "https://schema.org/EventScheduled",
-      "checkedAt": "2026-10-26T02:35:38.832Z"
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/21upgr0r",
+      "title": "Immersive Luxembourgish class on 15 October!",
+      "start": "2026-10-15T11:00:00.000Z",
+      "end": "2026-10-15T12:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/hxdkddco",
+      "title": "Ice-skating Meetup",
+      "start": "2026-10-13T16:30:00.000Z",
+      "end": "2026-10-13T18:00:00.000Z",
+      "location": "See Luma for location",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/h31jok95",
+      "title": "Apple Picking Walk: Steeseler Applfest",
+      "start": "2026-10-11T12:30:00.000Z",
+      "end": "2026-10-11T14:30:00.000Z",
+      "location": "See Luma for location",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:04.629Z"
+    },
+    {
+      "url": "https://luma.com/j6tk3wzz",
+      "title": "Moms Coffee Meetup",
+      "start": "2026-10-10T14:00:00.000Z",
+      "end": "2026-10-10T16:00:00.000Z",
+      "location": "Café de la joie s.a.r.l",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/dj6ug88s",
+      "title": "Immersive Luxembourgish class on 9 October!",
+      "start": "2026-10-09T11:45:00.000Z",
+      "end": "2026-10-09T13:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/gdhi6nd5",
+      "title": "Immersive Spanish class on 29 September! [Postponed to 6 October]",
+      "start": "2026-10-06T16:45:00.000Z",
+      "end": "2026-10-06T18:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/dys5l11b",
+      "title": "Pumpkin Patch Walk on 4 October",
+      "start": "2026-10-04T14:00:00.000Z",
+      "end": "2026-10-04T15:00:00.000Z",
+      "location": "12 Haaptstrooss",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/9j641gkz",
+      "title": "Immersive Luxembourgish class on 3 October!",
+      "start": "2026-10-03T12:45:00.000Z",
+      "end": "2026-10-03T14:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/p2oz1ul1",
+      "title": "Girls Hike Community - Larochette on 3 October",
+      "start": "2026-10-03T07:00:00.000Z",
+      "end": "2026-10-03T12:00:00.000Z",
+      "location": "Larochette",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/999myngp",
+      "title": "Immersive French class on 30 September!",
+      "start": "2026-09-30T14:30:00.000Z",
+      "end": "2026-09-30T16:00:00.000Z",
+      "location": "National Library of Luxembourg (BnL)",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/610vs0gh",
+      "title": "RHODE X SEPHORA on 30 September",
+      "start": "2026-09-30T13:00:00.000Z",
+      "end": "2026-09-30T16:00:00.000Z",
+      "location": "Sephora Kirchberg",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/dr0sjysm",
+      "title": "Sunday Girls Walk Club",
+      "start": "2026-09-27T13:00:00.000Z",
+      "end": "2026-09-27T14:30:00.000Z",
+      "location": "Parc Fondation Pescatore",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/txh3x6ag",
+      "title": "Join Sisterhood of the Travelling Journals  (Ongoing)",
+      "start": "2026-09-26T13:00:00.000Z",
+      "end": "2027-09-26T13:00:00.000Z",
+      "location": "Luxembourg",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:05.059Z"
+    },
+    {
+      "url": "https://luma.com/uhpaf121",
+      "title": "Girls Hike Community - WÉNGERTS TOUR RE3",
+      "start": "2026-09-19T07:00:00.000Z",
+      "end": "2026-09-19T11:30:00.000Z",
+      "location": "Remich",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
+    },
+    {
+      "url": "https://luma.com/xmt9br7t",
+      "title": "Sunday Girls Walk",
+      "start": "2026-09-13T13:00:00.000Z",
+      "end": "2026-09-13T15:30:00.000Z",
+      "location": "Coffee Fellows - Café, Bagels, Petit-déjeuner",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": false,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
+    },
+    {
+      "url": "https://luma.com/m7m93f2s",
+      "title": "Sunday Girls Walk",
+      "start": "2026-09-06T12:30:00.000Z",
+      "end": "2026-09-06T14:30:00.000Z",
+      "location": "Monument of Remembrance",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
+    },
+    {
+      "url": "https://luma.com/mfmst7u6",
+      "title": "Sunday Swap Event",
+      "start": "2026-08-30T13:00:00.000Z",
+      "end": "2026-08-30T15:00:00.000Z",
+      "location": "Parc Luxembourg",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
+    },
+    {
+      "url": "https://luma.com/f66g5o9f",
+      "title": "Rooftop Girls Meetup | Real Talk & Sunset",
+      "start": "2026-08-22T14:30:00.000Z",
+      "end": "2026-08-22T17:30:00.000Z",
+      "location": "The Roof Luxembourg",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
+    },
+    {
+      "url": "https://luma.com/xqjqqlka",
+      "title": "Coffee Club Meetup",
+      "start": "2026-08-09T12:00:00.000Z",
+      "end": "2026-08-09T14:00:00.000Z",
+      "location": "Kontur Cafe day Bar",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
+    },
+    {
+      "url": "https://luma.com/t116fpfu",
+      "title": "Sip & Paint with Flower Bouquets at Chez Ugo",
+      "start": "2026-08-01T13:00:00.000Z",
+      "end": "2026-08-01T15:00:00.000Z",
+      "location": "Chez Ugo",
+      "status": "https://schema.org/EventScheduled",
+      "soldOut": true,
+      "checkedAt": "2026-10-26T12:14:05.462Z"
     }
-  ]
+  ],
+  "profile": "https://luma.com/user/usr-5mEZeykJMwDEoUA",
+  "checkedAt": "2026-10-26T12:14:05.462Z"
 }
