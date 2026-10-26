@@ -91,3 +91,9 @@ redirect to their new pages. The historical Notion panel importer is guarded aga
 overwriting this layout; edit the individual HTML pages directly.
 
 Run npm run test:e2e to verify the pages, responsive layout, links, FAQ and navigation.
+
+### Events calendar
+
+`events.html` contains a responsive monthly calendar, with all dates displayed in Europe/Luxembourg. Registration remains on Luma. `/api/events` refreshes the public structured event metadata for the four approved links in `assets/calendar-events.json`, with a 15-minute server cache and a saved-data fallback. No guest or payment information is imported. Past/cancelled events and ongoing multi-day projects are labelled explicitly.
+
+This is not automatic discovery of new events: add verified Luma event URLs and their snapshot metadata to `assets/calendar-events.json` until the team supplies its calendar feed or official integration access. Public page metadata can change; the saved-data notice is shown if refresh fails. Luma's official API currently requires Luma Plus and a private calendar API key (never put keys in browser assets). Run `node scripts/check-calendar.cjs` with `TEST_BASE_URL` pointing to the local server to verify calendar behavior.
