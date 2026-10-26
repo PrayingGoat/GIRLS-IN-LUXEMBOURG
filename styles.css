@@ -314,3 +314,14 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 @media(max-width:800px){.event-directory-row{grid-template-columns:92px minmax(0,1fr);gap:14px 20px;padding:18px}.event-date-stamp{grid-row:1/3;min-height:112px}.event-directory-link{grid-column:2;justify-self:start}.event-date-stamp time{font-size:20px}}
 @media(max-width:420px){.event-directory-row{grid-template-columns:74px minmax(0,1fr);gap:12px;padding:14px}.event-date-stamp{padding:12px 6px}.event-date-stamp time{font-size:17px}.event-date-label{font-size:10px}.event-directory-copy h4{font-size:17px}.event-directory-link{font-size:11px;padding:8px 10px}.event-directory-copy p{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.event-directory-row{transition:none}}
+
+/* Compact event rows across screen sizes. */
+.events-shared-links{max-width:1040px;margin-inline:auto}
+.events-link-grid{gap:10px;margin-top:22px}
+.event-directory-row{grid-template-columns:88px minmax(0,1fr) auto;gap:20px;padding:14px;border-radius:12px}
+.event-date-stamp{min-height:82px;padding:10px 6px;gap:3px;border-radius:8px;align-self:center}
+.event-date-stamp time{font-size:20px}.event-date-label,.event-date-year{font-size:10px}
+.event-directory-copy h4{font-size:18px;line-height:1.35;margin:5px 0}.event-directory-copy p{font-size:12px;line-height:1.5}.event-directory-status{font-size:9px;letter-spacing:.06em}
+.event-directory-link{border:0;background:transparent;min-height:44px;padding:8px;gap:8px;font-size:11px}.event-directory-link:hover{background:transparent;color:var(--button-pink-hover);text-decoration:underline;text-underline-offset:4px}.event-directory-link svg{width:15px;height:15px}
+@media(max-width:800px){.event-directory-row{grid-template-columns:72px minmax(0,1fr);gap:2px 14px;padding:12px}.event-date-stamp{grid-row:1/3;align-self:start;min-height:76px}.event-directory-copy h4{font-size:16px}.event-date-stamp time{font-size:17px}.event-directory-link{padding:6px 0;min-height:36px}.events-shared-links{margin-top:36px;padding-top:28px}}
+@media(max-width:500px){.event-directory-row{grid-template-columns:60px minmax(0,1fr);gap:0 12px;padding:12px;border-radius:10px}.event-date-stamp{min-height:70px;padding:9px 4px;gap:3px}.event-date-label,.event-date-year{font-size:9px}.event-date-stamp time{font-size:14px}.event-directory-copy h4{font-size:14px;line-height:1.4;margin:4px 0}.event-directory-copy p{font-size:11px;line-height:1.5}.event-directory-status{font-size:8px}.event-directory-link{font-size:10px;min-height:36px}.event-directory-link svg{width:13px;height:13px}.events-link-grid{gap:8px}}
