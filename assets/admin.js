@@ -1,7 +1,7 @@
 ﻿(() => {
  const $=id=>document.getElementById(id);
 
- function resetView(message=''){$('dashboard').hidden=true;$('logout').hidden=true;$('login-panel').hidden=false;$('requests').replaceChildren();document.querySelectorAll('[data-stat]').forEach(el=>el.textContent='—');$('login-status').textContent=message;}
+ function resetView(message=''){$('dashboard').hidden=true;$('logout').hidden=true;$('login-panel').hidden=false;$('community-count-form').reset();document.dispatchEvent(new Event('admin:signed-out'));$('login-status').textContent=message;}
  async function api(action,options={}){
   const response=await fetch('/api/admin?action='+action,{...options,headers:{'Content-Type':'application/json',...options.headers},cache:'no-store'});
   const data=await response.json();
@@ -24,9 +24,10 @@
   catch(error){$('community-count-status').textContent='Not saved. '+error.message;}
   finally{$('save-counts').disabled=false;$('community-count-fields').disabled=false;$('reload-counts').disabled=false;}
  });
- async function show(){ $('login-panel').hidden=true;$('dashboard').hidden=false;$('logout').hidden=false;await loadCounts(); }
+ async function show(){ $('login-panel').hidden=true;$('dashboard').hidden=false;$('logout').hidden=false;document.dispatchEvent(new Event('admin:ready'));await loadCounts(); }
  $('login-form').addEventListener('submit',async event=>{event.preventDefault();const button=event.currentTarget.querySelector('button');button.disabled=true;$('login-status').textContent='Signing in…';try{await api('login',{method:'POST',body:JSON.stringify({password:$('password').value})});$('password').value='';await show()}catch(error){$('login-status').textContent=error.message}finally{button.disabled=false}});
  $('logout').addEventListener('click',async()=>{try{await api('logout',{method:'POST',body:'{}'});resetView('Signed out.');$('password').focus()}catch(error){$('dashboard-status').textContent=error.message}});
+ document.addEventListener('admin:session-expired',()=>resetView('Your session has expired. Please sign in again.'));
  api('session').then(show).catch(error=>resetView(error.message));
  window.addEventListener('pageshow',event=>{if(event.persisted){resetView();api('session').then(show).catch(error=>resetView(error.message))}});
 })();

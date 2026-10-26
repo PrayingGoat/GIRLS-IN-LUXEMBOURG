@@ -1,0 +1,281 @@
+[
+  {
+    "id": "global-logo",
+    "page": "Shared across pages",
+    "pageFile": "index.html",
+    "section": "Brand",
+    "label": "Site logo",
+    "src": "assets/logo.webp",
+    "alt": "Girls in Luxembourg"
+  },
+  {
+    "id": "global-flag",
+    "page": "Shared across pages",
+    "pageFile": "index.html",
+    "section": "Brand",
+    "label": "Luxembourg flag",
+    "src": "assets/luxembourg-flag.svg",
+    "alt": "Luxembourg"
+  },
+  {
+    "id": "index-photo-1",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 1",
+    "src": "assets/community-0.webp",
+    "alt": "Women from Girls in Luxembourg sharing a meal on a sunny terrace"
+  },
+  {
+    "id": "index-photo-2",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 2",
+    "src": "assets/community-2.webp",
+    "alt": "The community gathered together at an outdoor café"
+  },
+  {
+    "id": "index-photo-3",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 3",
+    "src": "assets/community-6.webp",
+    "alt": "Women enjoying a community brunch together"
+  },
+  {
+    "id": "index-photo-4",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Discover",
+    "label": "Our story",
+    "src": "assets/community-1-small.webp",
+    "alt": "A creative afternoon with the community"
+  },
+  {
+    "id": "index-photo-5",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Discover",
+    "label": "Your circle",
+    "src": "assets/community-5-small.webp",
+    "alt": "Women exploring the forest together"
+  },
+  {
+    "id": "index-photo-6",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Discover",
+    "label": "Upcoming events",
+    "src": "assets/community-6-small.webp",
+    "alt": "Friends at a community get-together"
+  },
+  {
+    "id": "story-photo-1",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Community portraits",
+    "label": "Fabrina",
+    "src": "assets/fabrina.webp",
+    "alt": ""
+  },
+  {
+    "id": "story-photo-2",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Community portraits",
+    "label": "Marta",
+    "src": "assets/marta.webp",
+    "alt": ""
+  },
+  {
+    "id": "story-photo-3",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Community portraits",
+    "label": "Enare",
+    "src": "assets/enare.webp",
+    "alt": ""
+  },
+  {
+    "id": "story-photo-4",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Our story",
+    "label": "Creative gathering",
+    "src": "assets/community-1.webp",
+    "alt": "A creative gathering with women showing their paintings"
+  },
+  {
+    "id": "story-photo-5",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Our story",
+    "label": "Forest walk",
+    "src": "assets/community-5.webp",
+    "alt": "Girls in Luxembourg meeting for a walk in the woods"
+  },
+  {
+    "id": "story-photo-6",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Our purpose",
+    "label": "Community dinner",
+    "src": "assets/community-4.webp",
+    "alt": "Women sharing a dinner with the Girls in Luxembourg community"
+  },
+  {
+    "id": "story-photo-7",
+    "page": "Our story",
+    "pageFile": "story.html",
+    "section": "Community artwork",
+    "label": "Community is strength",
+    "src": "assets/community-strength.webp",
+    "alt": "Community is strength: two hands linked together in a gesture of solidarity."
+  },
+  {
+    "id": "community-photo-1",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Introduction",
+    "label": "Main photograph",
+    "src": "assets/community-2.webp",
+    "alt": "Women sharing a relaxed moment at a community gathering"
+  },
+  {
+    "id": "community-photo-2",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "GirlsClub",
+    "src": "assets/community-2-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-3",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "BookClub",
+    "src": "assets/community-6-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-4",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "Moms Club",
+    "src": "assets/community-0-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-5",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "Walk / Hike Club",
+    "src": "assets/community-3-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-6",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "FitClub",
+    "src": "assets/community-5-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-7",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "CareerClub",
+    "src": "assets/community-4-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-8",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "Craft Corner",
+    "src": "assets/community-1-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-9",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "Language Exchange",
+    "src": "assets/community-6-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-10",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Circles",
+    "label": "TravelClub",
+    "src": "assets/community-7-small.webp",
+    "alt": ""
+  },
+  {
+    "id": "community-photo-11",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Community moments",
+    "label": "Connect & belong",
+    "src": "assets/community-2.webp",
+    "alt": "Women enjoying a community gathering"
+  },
+  {
+    "id": "community-photo-12",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Community moments",
+    "label": "Create & grow",
+    "src": "assets/community-1.webp",
+    "alt": "A creative painting session"
+  },
+  {
+    "id": "community-photo-13",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Community moments",
+    "label": "Move & explore",
+    "src": "assets/community-3.webp",
+    "alt": "Women together on a hike"
+  },
+  {
+    "id": "community-photo-14",
+    "page": "Find your circle",
+    "pageFile": "community.html",
+    "section": "Community moments",
+    "label": "Come as you are",
+    "src": "assets/community-6.webp",
+    "alt": "Women around a brunch table"
+  },
+  {
+    "id": "team-photo-1",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "The team",
+    "label": "Group photograph",
+    "src": "assets/community-42.webp",
+    "alt": "The Girls in Luxembourg team, from left to right: Marta Jiménez Martínez, Enare Abang, Fabrina Nmj, Zahra Maamary, Christina Ntokou"
+  },
+  {
+    "id": "events-photo-1",
+    "page": "Upcoming events",
+    "pageFile": "events.html",
+    "section": "Introduction",
+    "label": "Main photograph",
+    "src": "assets/community-0.webp",
+    "alt": "Women sharing a meal on a sunny terrace"
+  }
+]

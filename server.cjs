@@ -12,6 +12,7 @@ const port = Number(process.env.PORT || (args.includes('--port') && args[args.in
 http.createServer((req, res) => {
   let pathname;
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { res.writeHead(400).end(); return; }
+  if (pathname === '/api/site-images') { require('./api/site-images.js')(req,res); return; }
   if (pathname === '/api/events') { require('./api/events.js')(req,res); return; }
   if (pathname === '/api/community-stats') { require('./api/community-stats.js')(req,res); return; }
   if (pathname === '/api/admin') { adminHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify({ message: 'Unable to process the request.' })); }); return; }

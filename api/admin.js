@@ -11,11 +11,12 @@ module.exports=async function handler(req,res){
   try{if(!req.headers.origin||new URL(req.headers.origin).host!==req.headers.host)return send(403,{message:'Please use the administrator page on this site.'});}catch{return send(403,{message:'Invalid origin.'});}
  }
  if(!process.env.ADMIN_PASSWORD_HASH)return send(503,{message:'Administrator access has not been configured yet.'});
+ const bodyLimit=action==='image'?3000000:4096;
  let body={};
  if(req.method!=='GET'){
   if(!(req.headers['content-type']||'').startsWith('application/json'))return send(415,{message:'JSON required.'});
-  try{if(req.body!==undefined)body=typeof req.body==='string'?JSON.parse(req.body):req.body;else{let raw='';for await(const chunk of req){raw+=chunk;if(Buffer.byteLength(raw)>4096)return send(413,{message:'Request too large.'});}body=JSON.parse(raw);}
-   if(!body||typeof body!=='object'||Array.isArray(body)||Buffer.byteLength(JSON.stringify(body))>4096)throw Error();
+  try{if(req.body!==undefined)body=typeof req.body==='string'?JSON.parse(req.body):req.body;else{let raw='';for await(const chunk of req){raw+=chunk;if(Buffer.byteLength(raw)>bodyLimit)return send(413,{message:'Request too large.'});}body=JSON.parse(raw);}
+   if(!body||typeof body!=='object'||Array.isArray(body)||Buffer.byteLength(JSON.stringify(body))>bodyLimit)throw Error();
   }catch{return send(400,{message:'Invalid request.'});}
  }
  try{
@@ -38,6 +39,14 @@ module.exports=async function handler(req,res){
   if(!session.rowCount){cookie('',0);return send(401,{message:'Your session has expired. Please sign in again.'});}
   if(action==='session'&&req.method==='GET')return send(200,{authenticated:true});
   if(action==='logout'&&req.method==='POST'){await db.query('DELETE FROM admin_sessions WHERE token_hash=$1',[tokenHash(token)]);cookie('',0);return send(200,{authenticated:false});}
+  if(action==='images'&&req.method==='GET'){
+   const result=await db.query('SELECT slot_id,asset_path,alt_text,position_x,position_y,version,updated_at FROM site_images');
+   return send(200,{images:result.rows.map(require('../lib/site-images.cjs').publicImage)});
+  }
+  if(action==='image'&&req.method==='PATCH'){
+   try{return send(200,await require('../lib/site-images.cjs').saveImage(db,body))}
+   catch(error){if(error.status===422)return send(422,{message:error.message});throw error}
+  }
   if(action==='community-stats'&&req.method==='GET'){
    const result=await db.query('SELECT instagram,tiktok,whatsapp,linkedin,updated_at FROM community_stats WHERE id=1');
    if(!result.rowCount)return send(503,{message:'Run the database migrations to configure community statistics.'});
