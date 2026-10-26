@@ -36,7 +36,17 @@
    const button=node('button',String(d.getUTCDate()),'calendar-date');button.type='button';button.dataset.date=key;
    const entries=onDay(key);button.setAttribute('aria-label',`${label(key)}, ${entries.length} events`);button.setAttribute('aria-pressed',String(key===selected));if(key===today)button.setAttribute('aria-current','date');
    if(entries.length){button.classList.add(entries.some(e=>dayKey(e.start)===key)?'has-event':'has-ongoing');const dot=node('i','');dot.setAttribute('aria-hidden','true');button.append(dot)}
-   button.addEventListener('click',()=>{selected=key;render();root.querySelector(`[data-date="${key}"]`).focus({preventScroll:true})});days.append(button);
+   button.addEventListener('click',()=>{
+    selected=key;render();
+    if(entries.length && matchMedia('(max-width:1000px)').matches){
+     const heading=root.querySelector('#calendar-day-title');
+     heading.tabIndex=-1;
+     heading.focus({preventScroll:true});
+     const header=document.querySelector('.site-header');
+     const offset=(header?header.getBoundingClientRect().height:0)+20;
+     window.scrollTo({top:Math.max(0,window.scrollY+heading.getBoundingClientRect().top-offset),behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'instant':'smooth'});
+    }else root.querySelector(`[data-date="${key}"]`).focus({preventScroll:true});
+   });days.append(button);
   }
   agenda();
  }
