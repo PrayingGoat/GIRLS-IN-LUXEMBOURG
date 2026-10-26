@@ -58,6 +58,7 @@
   try{const res=await fetch('/api/events',{signal:AbortSignal.timeout(9000)});if(!res.ok)throw Error();data=await res.json();if(!Array.isArray(data.events))throw Error()}
   catch{fallback=true;try{const res=await fetch('assets/calendar-events.json');if(!res.ok)throw Error();data=await res.json()}catch{root.querySelector('#calendar-source').textContent='Event dates are unavailable. Please use the Luma links below.';return}}
   events=data.events.filter(e=>{try{return new URL(e.url).origin==='https://luma.com'&&Number.isFinite(Date.parse(e.start))&&Number.isFinite(Date.parse(e.end))}catch{return false}});
+  window.renderCommunityEvents?.(events);
   root.querySelector('#calendar-source').textContent=fallback||events.some(e=>e.stale)?'Showing saved Luma dates. Check Luma for the latest details.':'Dates refreshed from our linked Luma events.';render();
  }
  load();

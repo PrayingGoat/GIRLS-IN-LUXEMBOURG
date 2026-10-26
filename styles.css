@@ -301,3 +301,16 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 .footer-top .footer-community h3{font:700 26px/1.3 var(--sans);letter-spacing:-.02em}
 #membership-success h3{font:700 28px/1.3 var(--sans);letter-spacing:-.02em}
 @media(max-width:700px){.community-page .community-circle h2{font-size:30px}.calendar-month-nav h3{font-size:23px}.calendar-agenda h3{font-size:24px}.calendar-event h4{font-size:20px}}
+
+/* Event directory: quiet date tiles and clear editorial rows. */
+.events-shared-links{margin-top:56px;padding-top:36px;border-top:1px solid var(--dusty-rose)}
+.events-link-grid{display:flex;flex-direction:column;gap:14px;margin-top:28px}
+.event-directory-row{display:grid;grid-template-columns:116px minmax(0,1fr) auto;align-items:center;gap:28px;padding:20px;border:1px solid #f196b566;border-radius:16px;background:#ffffff70;transition:border-color .2s,box-shadow .2s}
+.event-date-stamp{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;align-self:stretch;min-height:112px;background:var(--light-pink);border-radius:10px;padding:16px 10px;text-align:center}
+.event-directory-row:nth-child(even) .event-date-stamp{background:var(--baby-pink)}
+.event-date-label{font:700 11px/1.4 var(--sans);text-transform:uppercase;letter-spacing:.06em}.event-date-stamp time{font:700 24px/1.3 var(--sans);letter-spacing:-.03em}.event-date-year{font-size:11px;opacity:.65}
+.event-directory-copy{min-width:0}.event-directory-status{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--button-pink);font-weight:600}.event-directory-copy h4{font:700 clamp(18px,2vw,23px)/1.35 var(--sans);letter-spacing:-.02em;margin:8px 0}.event-directory-copy p{font-size:13px;line-height:1.7;margin:0}
+.event-directory-link{display:flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:10px 14px;color:var(--button-pink);font-size:12px;font-weight:600;white-space:nowrap;border:1px solid var(--dusty-rose);border-radius:7px}.event-directory-link svg{width:17px;height:17px;flex-shrink:0}.event-directory-link:hover{background:var(--button-pink);color:white;border-color:var(--button-pink)}.event-directory-link:focus-visible{outline:2px solid var(--button-pink);outline-offset:4px}
+@media(max-width:800px){.event-directory-row{grid-template-columns:92px minmax(0,1fr);gap:14px 20px;padding:18px}.event-date-stamp{grid-row:1/3;min-height:112px}.event-directory-link{grid-column:2;justify-self:start}.event-date-stamp time{font-size:20px}}
+@media(max-width:420px){.event-directory-row{grid-template-columns:74px minmax(0,1fr);gap:12px;padding:14px}.event-date-stamp{padding:12px 6px}.event-date-stamp time{font-size:17px}.event-date-label{font-size:10px}.event-directory-copy h4{font-size:17px}.event-directory-link{font-size:11px;padding:8px 10px}.event-directory-copy p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.event-directory-row{transition:none}}
