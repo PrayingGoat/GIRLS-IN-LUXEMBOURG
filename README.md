@@ -109,3 +109,7 @@ Run `npm run db:migrate` on each target database to create `site_images` (migrat
 `/api/admin?action=images` and PATCH `action=image` require the existing admin session; writes require the same origin. `/api/site-images` exposes public display metadata or the public image bytes, not admin data. Defaults remain visible if the database or a replacement image cannot be loaded. No external image URLs, SVG uploads, videos or animated images are accepted. New photo placements should be added to `assets/media-slots.json` and tagged in their HTML.
 
 Validation: `node --env-file-if-exists=.env scripts/check-media.cjs` against a disposable/local database and server (`TEST_BASE_URL`, default 5188). The integration test temporarily modifies the first Home slide, restores its previous record in finally, and removes its temporary administrator session. Run outside active editing sessions.
+
+### Clean page URLs
+
+Public navigation uses `/`, `/story`, `/community`, `/team`, `/faq`, `/contact`, `/partnerships`, `/policy`, `/events` and `/admin`. Vercel uses `cleanUrls: true` and no trailing slash; local `server.cjs` mirrors this routing and redirects old `.html` addresses permanently while preserving query strings. HTML filenames remain unchanged internally. `/join` retains the WhatsApp redirect. Validate with `node scripts/check-routes.cjs` (TEST_BASE_URL defaults to port 5186).

@@ -166,14 +166,14 @@ document.querySelectorAll('.faq-list details, .faq-content details').forEach(det
 });
 
 // Navigation identifies the current page without intercepting native links.
-const currentPage = location.pathname.split('/').pop() || 'index.html';
+const currentPage = location.pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
 document.querySelectorAll('.desktop-nav a, .mobile-nav a').forEach(link => {
   if (link.getAttribute('href') === currentPage) link.setAttribute('aria-current','page');
   else link.removeAttribute('aria-current');
 });
 // Keep previously shared section links working after the move to dedicated pages.
-const legacyPages = {story:'story.html',faq:'faq.html',team:'team.html',contact:'contact.html','panel-about':'story.html','panel-community':'community.html','panel-team':'team.html','panel-faq':'faq.html','panel-policy':'policy.html','panel-partnerships':'partnerships.html','panel-contact':'contact.html','panel-feedback':'contact.html#feedback','panel-join':'join.html','panel-membership':'join.html'};
-if(currentPage === 'index.html' && legacyPages[location.hash.slice(1)]) location.replace(legacyPages[location.hash.slice(1)]);
+const legacyPages = {story:'/story',faq:'/faq',team:'/team',contact:'/contact','panel-about':'/story','panel-community':'/community','panel-team':'/team','panel-faq':'/faq','panel-policy':'/policy','panel-partnerships':'/partnerships','panel-contact':'/contact','panel-feedback':'/contact#feedback','panel-join':'/join','panel-membership':'/join'};
+if(currentPage === '/' && legacyPages[location.hash.slice(1)]) location.replace(legacyPages[location.hash.slice(1)]);
 
 // Responsive circle carousel with native touch scrolling and keyboard controls.
 (() => {

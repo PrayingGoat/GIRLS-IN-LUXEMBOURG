@@ -16,9 +16,17 @@ http.createServer((req, res) => {
   if (pathname === '/api/events') { require('./api/events.js')(req,res); return; }
   if (pathname === '/api/community-stats') { require('./api/community-stats.js')(req,res); return; }
   if (pathname === '/api/admin') { adminHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify({ message: 'Unable to process the request.' })); }); return; }
-  if (pathname === '/admin' || pathname === '/admin/') pathname = '/admin.html';
+
   if (pathname === '/api/membership') { membershipHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ message: 'Unable to process your request.' })); }); return; }
-  if (pathname === '/') pathname = '/index.html';
+  const pageNames=require('./site-pages.cjs');
+  const route=pathname.replace(/\/$/,'');
+  const pageFile=route==='/'||route===''||route==='/index'?'index.html':route.slice(1).replace(/\.html$/,'')+'.html';
+  if(pageNames.includes(pageFile)){
+   const canonical=pageFile==='index.html'?'/':'/'+pageFile.replace(/\.html$/,'');
+   if(pathname!==canonical){res.writeHead(308,{Location:canonical+new URL(req.url,'http://localhost').search});res.end();return;}
+   pathname='/'+pageFile;
+  }
+
   if (!publicFiles.has(pathname.slice(1)) && !/^\/assets\/[a-zA-Z0-9._-]+$/.test(pathname)) { res.writeHead(404).end('Not found'); return; }
   const file = path.join(root, pathname);
   fs.readFile(file, (error, data) => {

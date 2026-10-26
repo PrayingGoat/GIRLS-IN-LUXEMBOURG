@@ -13,7 +13,7 @@
   const card=element('article',undefined,'media-editor');card.dataset.slot=slot.id;
   const image=element('img');image.alt=slot.label+' preview';image.loading='lazy';image.width=600;image.height=400;
   const title=element('h4',slot.label);const tag=element('p',slot.section,'media-section-label');
-  const view=element('a','View page','media-page-link');view.href='/'+slot.pageFile;view.target='_blank';view.rel='noopener';
+  const view=element('a','View page','media-page-link');view.href=slot.pageFile==='index.html'?'/':'/'+slot.pageFile.replace(/\.html$/,'');view.target='_blank';view.rel='noopener';
   card.append(image,tag,title,view);
   const form=element('form');const edit=element('details');edit.append(element('summary','Change image'),form);card.append(edit);
   const select=element('select');select.append(new Option('Keep current image',''));library.forEach(item=>select.append(new Option(item.label,item.src)));field(form,'Choose from the photo library',select);

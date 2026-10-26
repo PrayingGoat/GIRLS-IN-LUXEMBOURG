@@ -3,12 +3,6 @@
   "framework": null,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/admin",
-      "destination": "/admin.html"
-    }
-  ],
   "headers": [
     {
       "source": "/admin",
@@ -35,6 +29,15 @@
           "value": "noindex, nofollow"
         }
       ]
+    }
+  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/index",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }
