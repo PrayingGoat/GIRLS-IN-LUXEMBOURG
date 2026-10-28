@@ -91,7 +91,7 @@
 (() => {
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  if(reduced.matches||!('IntersectionObserver' in window))return;
- const selector='.home-page-card,.home-invitation,.hero-copy,.hero-gallery,.story-stats,.circle-intro-copy,.circle-intro-photo,.community-circle,.moment,.beliefs article,.community-art,.team-page-content,.panel-faq-group,.contact-intro,.contact-details,.panel-policy,.panel-partnerships,.membership-card,.membership-intro,.events-intro>div,.events-intro>img,.calendar-board,.event-directory-row,.admin-login,.admin-community,.admin-table-wrap';
+ const selector='.home-page-card,.home-invitation,.hero-copy,.hero-gallery,.story-stats,.circle-intro-copy,.circle-intro-photo,.community-circle,.moment,.beliefs article,.community-art,.team-profile,.panel-faq-group,.contact-intro,.contact-details,.panel-policy,.panel-partnerships,.membership-card,.membership-intro,.events-intro>div,.events-intro>img,.calendar-board,.event-directory-row,.admin-login,.admin-community,.admin-table-wrap';
  const prepared=new WeakSet(),active=new Map(),seenEvents=new Set();
  function finish(el){
   const state=active.get(el);if(!state)return;

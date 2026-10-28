@@ -270,15 +270,6 @@
     "alt": "Women around a brunch table"
   },
   {
-    "id": "team-photo-1",
-    "page": "The team",
-    "pageFile": "team.html",
-    "section": "The team",
-    "label": "Group photograph",
-    "src": "assets/community-42.webp",
-    "alt": "The Girls in Luxembourg team, from left to right: Marta Jiménez Martínez, Enare Abang, Fabrina Nmj, Zahra Maamary, Christina Ntokou"
-  },
-  {
     "id": "events-photo-1",
     "page": "Upcoming events",
     "pageFile": "events.html",
@@ -286,5 +277,68 @@
     "label": "Main photograph",
     "src": "assets/community-0.webp",
     "alt": "Women sharing a meal on a sunny terrace"
+  },
+  {
+    "id": "team-fabrina",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Fabrina Nmj",
+    "src": "assets/team-fabrina.webp",
+    "alt": "Fabrina Nmj"
+  },
+  {
+    "id": "team-marta",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Marta Jiménez Martínez",
+    "src": "assets/team-marta.webp",
+    "alt": "Marta Jiménez Martínez"
+  },
+  {
+    "id": "team-enare",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Enare Abang",
+    "src": "assets/team-enare.webp",
+    "alt": "Enare Abang"
+  },
+  {
+    "id": "team-zahra",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Zahra Maamary",
+    "src": "assets/team-zahra.webp",
+    "alt": "Zahra Maamary"
+  },
+  {
+    "id": "team-christina",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Christina Ntokou",
+    "src": "assets/team-christina.webp",
+    "alt": "Christina Ntokou"
+  },
+  {
+    "id": "team-khanim",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Khanim Aliyarova",
+    "src": "assets/team-khanim.webp",
+    "alt": "Khanim Aliyarova"
+  },
+  {
+    "id": "team-cynthia",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Cynthia Gauthier",
+    "src": "assets/team-cynthia.webp",
+    "alt": "Default profile illustration for Cynthia Gauthier"
   }
 ]
