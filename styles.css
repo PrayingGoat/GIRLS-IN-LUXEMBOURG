@@ -417,3 +417,34 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
  .team-profile-photo{width:76px;height:96px}
  .team-profile h2{font-size:16px}
 }
+
+/* Smaller team cards with inset, softly framed portraits. */
+.team-profile-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;align-items:start}
+.team-profile{padding:10px;border-radius:16px}
+.team-profile-photo{aspect-ratio:1;border:1px solid var(--light-pink);border-radius:11px}
+.team-profile-copy{padding:14px 6px 0}
+.team-profile-role{font-size:9px;letter-spacing:.035em;margin-bottom:7px}
+.team-profile h2{font-size:18px;margin-bottom:7px}
+.team-profile-club{font-size:12px;margin-bottom:8px;min-height:3em}
+.team-profile-details{font-size:12px;margin-bottom:5px}
+.team-profile-details summary{cursor:pointer;min-height:36px;display:flex;align-items:center;justify-content:space-between;font-weight:600}
+.team-profile-details summary::after{content:'+';font-size:18px;font-weight:400}
+.team-profile-details[open] summary::after{content:'-'}
+.team-profile-details summary::-webkit-details-marker{display:none}
+.team-profile-details summary:focus-visible{outline:2px solid var(--raspberry-pink);outline-offset:2px}
+.team-profile-bio{font-size:12px;line-height:1.6;margin:4px 0 12px}
+.team-profile-social{padding-top:6px;font-size:12px}
+@media(min-width:768px) and (max-width:1000px){.team-profile-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}}
+@media(max-width:767px){
+ .team-profile-grid{grid-template-columns:1fr;gap:10px}
+ .team-profile{grid-template-columns:84px minmax(0,1fr);gap:12px;padding:10px;border-radius:13px}
+ .team-profile-photo{width:84px;height:96px;border-radius:9px}
+ .team-profile-copy{padding:0}
+ .team-profile-role{font-size:8px;margin-bottom:4px}
+ .team-profile h2{font-size:16px;min-height:0;margin-bottom:4px}
+ .team-profile-club{font-size:11px;min-height:0;margin-bottom:2px}
+ .team-profile-details{margin:0}
+ .team-profile-details summary{min-height:34px;font-size:11px}
+ .team-profile-social{min-height:36px;padding-top:3px;font-size:11px}
+}
+@media(max-width:360px){.team-profile{grid-template-columns:70px minmax(0,1fr);gap:10px}.team-profile-photo{width:70px;height:84px}}
