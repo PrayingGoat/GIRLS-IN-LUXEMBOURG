@@ -45,6 +45,15 @@
     "alt": "Women enjoying a community brunch together"
   },
   {
+    "id": "index-photo-7",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 4 - Pottery workshop",
+    "src": "assets/community-pottery-october.webp",
+    "alt": "Women showing their painted pottery at a community workshop"
+  },
+  {
     "id": "index-photo-4",
     "page": "Home",
     "pageFile": "index.html",

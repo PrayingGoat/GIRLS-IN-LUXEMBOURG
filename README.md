@@ -100,7 +100,7 @@ The public-profile listing is the same unauthenticated source used by Luma's web
 
 ### Image customisation in the administrator workspace
 
-Open `/admin`, sign in, and use **Website images**. The 31 image locations are grouped into shared brand assets, Home, Our story, Find your circle, The team, and Upcoming events. Every current `<img>` element is mapped through `data-media-slot`; logo and flag share global slots. The favicon and SVG interface icons are not photographs and are not edited here.
+Open `/admin`, sign in, and use **Website images**. The 32 image locations are grouped into shared brand assets, Home, Our story, Find your circle, The team, and Upcoming events. Every current `<img>` element is mapped through `data-media-slot`; logo and flag share global slots. The favicon and SVG interface icons are not photographs and are not edited here.
 
 For each location: expand **Change image**, select a library photo or upload a JPG/PNG/WebP (15 MB maximum before browser optimisation), adjust the description and focus sliders, then click **Save image**. Changes only publish on saving. **Restore original** removes that location's override. Reload the public page to view updates. A repeated photo in different sections has separate slots, so replacing one does not replace the others.
 
