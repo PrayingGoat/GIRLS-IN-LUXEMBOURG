@@ -399,4 +399,21 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 .team-profile-social:focus-visible{outline:2px solid var(--raspberry-pink);outline-offset:4px}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){.team-profile:hover .team-profile-photo img{transform:scale(1.025)}}
 @media(max-width:1000px){.team-profile-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
-@media(max-width:560px){.team-profile-grid{grid-template-columns:1fr;max-width:350px;margin-inline:auto;gap:24px}.team-profile-copy{padding:20px}.team-profile h2{font-size:22px;min-height:0}.team-profile-photo{aspect-ratio:1}.team-page-content{padding-bottom:40px}}
+@media(max-width:767px){
+ .team-profile-grid{grid-template-columns:1fr;max-width:540px;margin-inline:auto;gap:12px}
+ .team-profile{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:start;gap:14px;padding:12px;border-radius:14px}
+ .team-profile-photo{width:96px;height:112px;aspect-ratio:auto;border-radius:9px}
+ .team-profile-copy{padding:0;min-width:0}
+ .team-profile-role{font-size:9px;letter-spacing:.035em;margin:0 0 5px}
+ .team-profile h2{font-size:17px;line-height:1.25;min-height:0;margin:0 0 6px}
+ .team-profile-club{font-size:11px;line-height:1.45;margin:0 0 6px}
+ .team-profile-bio{font-size:12px;line-height:1.55;margin:0 0 7px}
+ .team-profile-social{font-size:12px;min-height:44px;padding-top:6px}
+ .team-profile-social .ui-icon{width:16px;height:16px}
+ .team-page-content{padding-bottom:40px}
+}
+@media(max-width:360px){
+ .team-profile{grid-template-columns:76px minmax(0,1fr);gap:10px;padding:10px}
+ .team-profile-photo{width:76px;height:96px}
+ .team-profile h2{font-size:16px}
+}
