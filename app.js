@@ -201,3 +201,11 @@ if(currentPage === '/' && legacyPages[location.hash.slice(1)]) location.replace(
  function resize(){track.tabIndex=0;track.setAttribute('aria-label','Community circles. Use the arrow keys to explore.');controls.querySelector('.circle-browse-label').textContent=mobile.matches?'Swipe to explore':'Explore the circles';update()}
  mobile.addEventListener('change',resize);window.addEventListener('resize',resize);resize();
 })();
+
+// Footer links reflect the current destination and give immediate click feedback.
+const footerLinks=[...document.querySelectorAll('.footer-find a,.footer-info a')];
+footerLinks.forEach(link=>{
+ const target=new URL(link.href,location.href);
+ if(target.origin===location.origin&&target.pathname===location.pathname)link.setAttribute('aria-current','page');
+ link.addEventListener('click',()=>{footerLinks.forEach(item=>item.classList.remove('is-selected'));link.classList.add('is-selected')});
+});
