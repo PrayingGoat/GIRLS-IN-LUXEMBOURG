@@ -374,3 +374,11 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 .footer-find a,.footer-info a{transition:color .18s ease}
 .footer-find a:hover,.footer-info a:hover,.footer-find a:active,.footer-info a:active,.footer-find a:focus-visible,.footer-info a:focus-visible,.footer-find a.is-selected,.footer-info a.is-selected,.footer-find a[aria-current=page],.footer-info a[aria-current=page]{color:var(--button-pink)}
 @media(prefers-reduced-motion:reduce){.footer-find a,.footer-info a{transition:none}}
+
+/* The flag sits beside the first line at every screen size. */
+.brand-caption{display:flex;flex-direction:column;gap:2px}.brand-first-line{display:flex;align-items:center;gap:9px}.brand-first-line .brand-flag{width:26px;height:auto;flex-shrink:0}
+.desktop-nav{justify-content:center;gap:clamp(18px,2vw,30px)}.desktop-nav a{font:700 14px/1.4 var(--label);letter-spacing:.025em;white-space:nowrap}
+@media(min-width:1200px){.nav-wrap{grid-template-columns:auto minmax(0,1fr) auto;gap:24px;padding-inline:3%}.brand{grid-column:1}.desktop-nav{grid-column:2}.nav-join{grid-column:3}}
+@media(min-width:768px) and (max-width:1199px){.nav-wrap{grid-template-columns:1fr auto 1fr;gap:16px;padding:16px 24px}.brand{grid-column:2;grid-row:1}.brand-caption{display:flex}.desktop-nav{grid-column:1/-1;grid-row:2;gap:28px;padding:8px 0 6px}.desktop-nav a{font-size:14px}.nav-join{grid-column:3;grid-row:1}}
+@media(max-width:767px){.brand-caption{display:flex}.brand-first-line{gap:7px}.brand-first-line .brand-flag{width:23px}.mobile-nav a{font-weight:700;font-size:18px}}
+@media(max-width:370px){.brand-first-line .brand-flag{width:20px}}
