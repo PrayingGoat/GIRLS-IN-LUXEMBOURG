@@ -16,7 +16,7 @@
   for(const event of matches){
    const card=node('article','','calendar-event');
    const past=new Date(event.end)<new Date();const multi=dayKey(event.start)!==dayKey(event.end);
-   card.append(node('span',cancelled(event)?'Cancelled':past?'Past event':multi?'Ongoing initiative':'Community gathering','calendar-event-state'));
+   card.append(node('span',cancelled(event)?'Cancelled':past?'Past event':multi?'Ongoing initiative':'Girls in Lux Community','calendar-event-state'));
    card.append(node('h4',event.title));
    if(event.soldOut&&!past&&!cancelled(event))card.append(node('p','Sold out on Luma','event-sold-out'));
    const time=new Date(event.start).toLocaleTimeString('en-GB',{timeZone:zone,hour:'2-digit',minute:'2-digit'});
