@@ -504,6 +504,14 @@
     {
       "source": "/assets/zahra.webp",
       "destination": "/api/media?path=assets/zahra.webp"
+    },
+    {
+      "source": "/assets/brand-final.webp",
+      "destination": "/api/media?path=assets/brand-final.webp"
+    },
+    {
+      "source": "/assets/brand-favicon.png",
+      "destination": "/api/media?path=assets/brand-favicon.png"
     }
   ]
 }
