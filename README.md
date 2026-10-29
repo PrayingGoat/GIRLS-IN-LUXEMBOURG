@@ -67,7 +67,7 @@ Les fenêtres reprennent les neuf sources Notion consultées le 9 octobre 2026, 
 
 ## Membership requests
 
-The dedicated `join.html` page submits to `POST /api/membership`. A Node.js server stores validated requests in PostgreSQL. See [database setup](database/README.md) for local configuration and deployment. Run `npm run db:migrate` after setting `DATABASE_URL` in `.env`. Vercel is optional; its preview cannot access PostgreSQL on your local computer. The administrator page is available directly at `/admin`, with no public navigation link. Run `npm run admin:setup` locally to configure its password, and run database migrations before signing in.
+Joining goes directly to WhatsApp. The private /admin page manages community numbers and website images using MongoDB Atlas. See [database setup](database/README.md). Set MONGODB_URI, MONGODB_DB and ADMIN_PASSWORD_HASH in the server environment, and run npm run db:migrate. Legacy membership records are preserved in MongoDB; no public membership form is shown.
 
 
 ## Page structure
@@ -77,12 +77,12 @@ three page links and a short membership invitation. Detailed content lives on:
 
 - story.html: history, mission and values
 - community.html: the nine groups, shared moments and community guidelines
-- team.html: the team photograph and names
+- team.html: seven editable team portraits, roles and social links
 - faq.html: questions grouped by topic
 - contact.html: contact, volunteering and feedback
 - partnerships.html and policy.html: partnerships and privacy/refund information
-- events.html: upcoming events (calendar connection still pending)
-- join.html: membership form
+- events.html: Luma events and interactive calendar
+- join.html: direct WhatsApp redirect
 
 /admin remains private and absent from public navigation.
 site-pages.cjs defines the files served locally and copied by the build. Public
@@ -100,11 +100,11 @@ The public-profile listing is the same unauthenticated source used by Luma's web
 
 ### Image customisation in the administrator workspace
 
-Open `/admin`, sign in, and use **Website images**. The 32 image locations are grouped into shared brand assets, Home, Our story, Find your circle, The team, and Upcoming events. Every current `<img>` element is mapped through `data-media-slot`; logo and flag share global slots. The favicon and SVG interface icons are not photographs and are not edited here.
+Open `/admin`, sign in, and use **Website images**. The 38 image locations are grouped into shared brand assets, Home, Our story, Find your circle, The team, and Upcoming events. Every current `<img>` element is mapped through `data-media-slot`; logo and flag share global slots. The favicon and SVG interface icons are not photographs and are not edited here.
 
 For each location: expand **Change image**, select a library photo or upload a JPG/PNG/WebP (15 MB maximum before browser optimisation), adjust the description and focus sliders, then click **Save image**. Changes only publish on saving. **Restore original** removes that location's override. Reload the public page to view updates. A repeated photo in different sections has separate slots, so replacing one does not replace the others.
 
-Run `npm run db:migrate` on each target database to create `site_images` (migration 004). Raster uploads are decoded, stripped of metadata, resized to at most 2000px and encoded as WebP on the server; a maximum 2 MB per image is stored as PostgreSQL bytea. Built-in library choices only store an asset path. This works on local Node and Vercel without writing uploads to an ephemeral filesystem, provided DATABASE_URL points to a reachable PostgreSQL database with the migration installed. Back up the database to preserve uploaded photos. Storage counts towards your database provider's quota.
+Run `npm run db:migrate` to initialize the MongoDB collections and indexes. Raster uploads are decoded, stripped of metadata, resized to at most 2000px and encoded as WebP; at most 2 MiB per image is stored as BSON binary data. Built-in library choices store an asset path. Local Node and Vercel use the same data when MONGODB_URI and MONGODB_DB point to the same Atlas database. Back up the database to preserve uploaded photos. Storage counts towards the Atlas quota.
 
 `/api/admin?action=images` and PATCH `action=image` require the existing admin session; writes require the same origin. `/api/site-images` exposes public display metadata or the public image bytes, not admin data. Defaults remain visible if the database or a replacement image cannot be loaded. No external image URLs, SVG uploads, videos or animated images are accepted. New photo placements should be added to `assets/media-slots.json` and tagged in their HTML.
 

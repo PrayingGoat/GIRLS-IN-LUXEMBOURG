@@ -1,111 +1,77 @@
-﻿# Membership requests — PostgreSQL
+﻿# MongoDB Atlas storage
 
-The site uses standard PostgreSQL through a Node.js server. Vercel is optional.
-The private administrator page is available at /admin. No public listing endpoint is provided.
+The application uses MongoDB Atlas for administrator sessions, community numbers,
+image overrides, and any historical membership requests. PostgreSQL is no longer
+used at runtime. Joining the community goes directly to WhatsApp.
 
-## Local setup (Windows)
+## Configuration
+Use Node.js 22 or later. Set MONGODB_URI and MONGODB_DB in the ignored .env.
+The database name is girls_in_luxembourg. Allow the application's outbound
+connections in Atlas Network Access. Use TLS and never commit credentials.
 
-PostgreSQL 18 is installed and running on the development machine.
-Connect from PowerShell; psql prompts for the password without printing it:
+Run:
+- npm install
+- npm run db:migrate
+- npm run admin:setup (only to create/change the admin password)
+- npm run dev
 
-```powershell
-psql -h localhost -U postgres -d postgres
-```
+The initializer is idempotent and does not overwrite saved community counts.
+It creates six collections:
+- community_stats: one document, id=1, with the four public counters
+- site_images: unique slot_id; built-in path OR uploaded WebP bytes
+- admin_sessions: unique hashed token, expiry, and TTL cleanup
+- admin_login_limits: hashed IP key, atomic 15-minute attempt window, 24-hour TTL
+- membership_requests: historical records, unique UUID and email
+- membership_rate_limits: legacy endpoint limiter with 24-hour TTL
 
-Create a separate database (only if it does not already exist):
+Uploads are validated and re-encoded by sharp, at most 2000px / 2 MiB each.
+They are stored as BSON binary data, not in the ephemeral application filesystem.
+Do not make Atlas collections publicly accessible. The browser only calls our APIs.
 
-```sql
-CREATE DATABASE girls_in_luxembourg;
-\q
-```
+## Vercel
+Set these server-side environment variables in the project:
+- MONGODB_URI
+- MONGODB_DB
+- ADMIN_PASSWORD_HASH (the scrypt hash generated locally, not a plaintext password)
+- RATE_LIMIT_SECRET (optional)
 
-Copy `.env.example` to `.env` and set DATABASE_URL locally. Never commit this file.
-Use the PostgreSQL username/password you configured when installing PostgreSQL.
-URL-encode special characters in the password. Do not disable database authentication.
+Configure the variables for each intended environment (Production/Preview),
+then redeploy. The same Atlas database means admin edits are shared immediately
+between environments after a public page reload. Use a different database name
+for isolated previews; initialize that database before using it.
 
-```powershell
-Copy-Item .env.example .env
-# Edit .env locally, then:
-npm.cmd install
-npm.cmd run db:migrate
-npm.cmd run dev
-```
+Never include these variables in HTML or use a public/browser variable prefix.
+Local .env files are deliberately not uploaded via Git.
+Atlas Network Access must permit connections from Vercel's outbound environment.
+A database-user password cannot administer Atlas network access settings.
 
-Requires Node.js 22 or later. Open http://localhost:5173/join.html.
-`server.cjs` loads `.env` locally. The migration creates two tables without deleting data.
-Test with your own details, then verify locally:
+Verify /api/community-stats returns source "database", /api/site-images returns
+an images array, and /admin allows login, count saves, image saves and logout.
+A public count fallback is not evidence of a working database.
 
-```sql
-SELECT first_name, last_name, email, whatsapp, status, created_at
-FROM membership_requests ORDER BY created_at DESC;
-```
+## Migration from PostgreSQL
+The one-time importer uses pg as a development-only dependency. Supply
+POSTGRES_MIGRATION_URL plus the MongoDB settings and run npm run db:import:postgres.
+It reads all six old tables in a consistent read-only snapshot, saves an Extended
+JSON backup under ignored .research/database-backups/, inserts records without
+overwriting existing Atlas documents, then compares every copied field.
+Rerunning with conflicting records fails verification rather than overwriting
+newer Atlas edits. Keep the original PostgreSQL database and backup until the
+deployment has been verified. SQL files in this directory are historical only.
 
-## Online hosting
-
-Serve static files from `dist/`, and POST `/api/membership` using Node.js with the
-same DATABASE_URL environment variable. With Vercel, `api/membership.js` is the
-serverless entry point. A separately hosted PostgreSQL instance must be reachable
-from that server (localhost on Vercel does not refer to your computer).
-Require TLS for remote PostgreSQL using your provider's connection settings.
-Run the migration against the intended database before enabling submissions.
-Use a dedicated, least-privileged database account in production, backups, and HTTPS.
-An optional RATE_LIMIT_SECRET can provide a dedicated random HMAC key.
-
-Without a configured database or migrated tables, the API returns 503; it never
-pretends a request has been stored. The browser keeps entered information for retry.
-No details are written to browser storage, application logs or static assets.
-
-## Stored fields
-
-UUID, first name, last name, normalized email, international WhatsApp number,
-status (pending/contacted/added/declined), consent version/time, created/updated time.
-Email is unique; resubmission does not overwrite existing requests or reveal whether
-someone is registered. Responses contain no personal data. Rate limits allow five
-valid submission attempts per 15 minutes per hashed IP. Expired hash records are
-removed on subsequent requests (after one day); original IPs are not stored.
-
-The administrator area authenticates every request before reading or updating
-applicants. Define a retention policy with the team before collecting real memberships. No automatic WhatsApp integration is included:
-the team contacts applicants and adds them manually.
+## Authentication
+/admin is not linked in public navigation. Every protected API checks its session.
+Sessions last 8 hours, store only a token hash, and use HttpOnly / SameSite=Strict
+cookies (Secure on HTTPS). Expiry is checked on every request independently of
+asynchronous TTL cleanup. Logout deletes the session. Revoke all sessions in Atlas
+after changing an admin password:
+db.admin_sessions.deleteMany({})
 
 ## Verification
+node --test scripts/admin.test.cjs scripts/community-stats.test.cjs scripts/membership.test.cjs
+npm run build
 
-`node --test scripts/membership.test.cjs` checks validation and API error paths.
-The browser check mocks API responses to test the UI without submitting real data.
-Real persistence requires the configured database and the migration above.
-
-## Administrator area
-
-Visit `/admin` directly. There is no link to it on public pages.
-The login screen contains no member data; all administrative data requests check a
-server-side session. The area is not a general CMS: it manages membership requests.
-
-1. Configure PostgreSQL as above, then run `npm run db:migrate` (includes admin tables).
-2. Run `npm run admin:setup` in your terminal. Choose a password of at least 14 characters.
-   The terminal hides input and stores only a salted scrypt hash in the ignored `.env`.
-3. Restart the Node server, then open http://localhost:5173/admin.
-4. On another host, configure ADMIN_PASSWORD_HASH and DATABASE_URL as server environment
-   variables. Never include these in HTML, browser JavaScript or a public repository.
-
-Sessions last eight hours, use a random token in an HttpOnly, SameSite=Strict cookie,
-and are stored as hashes in PostgreSQL. HTTPS deployments set Secure. Logout removes
-the session from the database. Revoke all sessions after changing the password with
-`DELETE FROM admin_sessions;`. Always use HTTPS for online administration.
-For a reverse proxy, pass the correct Host, Origin and X-Forwarded-Proto headers.
-
-The dashboard supports search, pagination, all applicant details, counts and status
-changes. It does not send WhatsApp messages or add people automatically. No public
-listing, export, deletion or registration endpoint for administrators is provided.
-Use distinct admin accounts and audit logging if several administrators need access
-in a future iteration; the current version uses one shared administrator password.
-
-## Homepage community numbers
-
-Migration `003-community-stats.sql` adds the four homepage counters, initialized to
-3900 / 2000 / 890 / 270. Re-running migrations preserves saved values.
-After `npm run db:migrate`, sign in at `/admin` and use **Community numbers**.
-Values must be whole numbers from 0 to 1,000,000,000; the site retains the + suffix.
-Saving updates all four values atomically. They are loaded on the next homepage
-visit through the read-only `/api/community-stats` endpoint. The existing numbers
-are a fallback when the database is unavailable. This is manual editing by an
-administrator, not synchronization with social networks.
+The live image check uses TEST_BASE_URL:
+node --env-file=.env scripts/check-media.cjs
+It temporarily edits the first hero photo and restores it in finally. Run outside
+active admin editing, preferably with a dedicated test database.

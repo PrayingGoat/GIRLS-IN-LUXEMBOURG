@@ -1,7 +1,7 @@
-﻿const fs=require('fs');const assert=require('node:assert/strict');const {randomBytes}=require('node:crypto');const sharp=require('sharp');const {chromium}=require('playwright');const {getPool}=require('../lib/database.cjs');const {tokenHash}=require('../lib/admin-auth.cjs');
-(async()=>{const db=getPool();const token=randomBytes(32).toString('hex');const base=process.env.TEST_BASE_URL||'http://localhost:5188';const id='index-photo-1';const old=(await db.query('SELECT * FROM site_images WHERE slot_id=$1',[id])).rows[0];let browser;
+﻿const fs=require('fs');const assert=require('node:assert/strict');const {randomBytes}=require('node:crypto');const sharp=require('sharp');const {chromium}=require('playwright');const {getStore}=require('../lib/store.cjs');const {closeDatabase}=require('../lib/database.cjs');const {tokenHash}=require('../lib/admin-auth.cjs');
+(async()=>{const db=await getStore();const token=randomBytes(32).toString('hex');const base=process.env.TEST_BASE_URL||'http://localhost:5188';const id='index-photo-1';const old=await db.getImage(id);let browser;
 try{
- await db.query("INSERT INTO admin_sessions(token_hash,expires_at) VALUES($1,now()+interval '5 minutes')",[tokenHash(token)]);
+ await db.createSession(tokenHash(token),new Date(Date.now()+300000));
  const call=(action,body,cookie=true)=>fetch(base+'/api/admin?action='+action,{method:body?'PATCH':'GET',headers:{Origin:base,'Content-Type':'application/json',...(cookie?{Cookie:'gil_admin='+token}:{})},...(body?{body:JSON.stringify(body)}:{})});
  assert.equal((await call('image',{id,reset:true},false)).status,401);
  assert.equal((await call('image',{id:'invalid',reset:true})).status,422);
@@ -16,5 +16,5 @@ try{
  await editor.getByRole('button',{name:'Restore original'}).click();await page.waitForFunction(()=>document.querySelector('[data-slot="index-photo-1"] .media-save-status').textContent.includes('restored'));await publicPage.reload();assert.equal(await publicPage.locator('[data-media-slot="index-photo-1"]').getAttribute('src'),'assets/community-0.webp');
  for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false)}
  await page.screenshot({path:'test-results/admin-media.png',fullPage:true});await page.locator('#logout').click();await page.waitForSelector('#login-panel:not([hidden])');assert.equal(await page.locator('.media-editor').count(),0);assert.deepEqual(errors,[]);
- console.log('PASS auth, image validation, PostgreSQL upload, WebP delivery, 38 editors, library save, public replacement, original restore, responsive layout and logout');
-}finally{if(browser)await browser.close();await db.query('DELETE FROM site_images WHERE slot_id=$1',[id]);if(old)await db.query('INSERT INTO site_images(slot_id,image_data,asset_path,alt_text,position_x,position_y,version,updated_at) VALUES($1,$2,$3,$4,$5,$6,$7,$8)',[old.slot_id,old.image_data,old.asset_path,old.alt_text,old.position_x,old.position_y,old.version,old.updated_at]);await db.query('DELETE FROM admin_sessions WHERE token_hash=$1',[tokenHash(token)]);await db.end()}})().catch(e=>{console.error(e);process.exit(1)});
+ console.log('PASS auth, image validation, MongoDB upload, WebP delivery, 38 editors, library save, public replacement, original restore, responsive layout and logout');
+}finally{if(browser)await browser.close();await db.deleteImage(id);if(old)await db.saveImage(old);await db.deleteSession(tokenHash(token));await closeDatabase()}})().catch(e=>{console.error(e);process.exit(1)});

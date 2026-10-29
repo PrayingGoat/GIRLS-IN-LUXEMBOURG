@@ -9,17 +9,19 @@
     "build": "node build.cjs",
     "test:e2e": "node scripts/check.cjs",
     "db:migrate": "node --env-file-if-exists=.env scripts/migrate.cjs",
-    "admin:setup": "node scripts/setup-admin.cjs"
+    "admin:setup": "node scripts/setup-admin.cjs",
+    "db:import:postgres": "node --env-file-if-exists=.env scripts/migrate-postgres-to-mongo.cjs"
   },
   "engines": {
     "node": ">=22"
   },
   "devDependencies": {
-    "playwright": "1.63.0"
+    "playwright": "1.63.0",
+    "pg": "^8.23.1"
   },
   "dependencies": {
     "libphonenumber-js": "^1.13.15",
-    "pg": "^8.23.1",
+    "mongodb": "^7.7.0",
     "sharp": "^0.35.5"
   }
 }
