@@ -10,7 +10,8 @@
     "test:e2e": "node scripts/check.cjs",
     "db:migrate": "node --env-file-if-exists=.env scripts/migrate.cjs",
     "admin:setup": "node scripts/setup-admin.cjs",
-    "db:import:postgres": "node --env-file-if-exists=.env scripts/migrate-postgres-to-mongo.cjs"
+    "db:import:postgres": "node --env-file-if-exists=.env scripts/migrate-postgres-to-mongo.cjs",
+    "db:import:media": "node --env-file-if-exists=.env scripts/migrate-media.cjs"
   },
   "engines": {
     "node": ">=22"

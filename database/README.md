@@ -75,3 +75,18 @@ The live image check uses TEST_BASE_URL:
 node --env-file=.env scripts/check-media.cjs
 It temporarily edits the first hero photo and restores it in finally. Run outside
 active admin editing, preferably with a dedicated test database.
+
+## Original image library in Atlas
+All raster/SVG images in assets/ and photos/ are copied byte-for-byte into
+media_assets (unique path, MIME type, SHA-256 checksum and BSON binary bytes).
+Run npm run db:import:media after adding original image files. The importer
+never overwrites existing images silently; it verifies their checksums.
+Original photos are archived privately; only assets/ image paths are public.
+
+The build excludes image files from dist/assets. Vercel rewrites their existing
+URLs to /api/media, and the local server uses the same endpoint. Browser/CDN
+caching and ETags avoid unnecessary repeated database downloads. Logos, flags,
+favicons, thumbnails and responsive image variants also come from Atlas.
+Local image files remain backups; the running website does not fall back to them.
+Admin uploads continue using site_images, and restoring the original returns to
+the Atlas-backed media_assets image. Fonts, HTML, CSS and JS remain application code.

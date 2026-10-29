@@ -39,5 +39,471 @@
       "destination": "/",
       "permanent": true
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/assets/christina.webp",
+      "destination": "/api/media?path=assets/christina.webp"
+    },
+    {
+      "source": "/assets/community-0-small.webp",
+      "destination": "/api/media?path=assets/community-0-small.webp"
+    },
+    {
+      "source": "/assets/community-0.webp",
+      "destination": "/api/media?path=assets/community-0.webp"
+    },
+    {
+      "source": "/assets/community-1-small.webp",
+      "destination": "/api/media?path=assets/community-1-small.webp"
+    },
+    {
+      "source": "/assets/community-1.webp",
+      "destination": "/api/media?path=assets/community-1.webp"
+    },
+    {
+      "source": "/assets/community-10-small.webp",
+      "destination": "/api/media?path=assets/community-10-small.webp"
+    },
+    {
+      "source": "/assets/community-10.webp",
+      "destination": "/api/media?path=assets/community-10.webp"
+    },
+    {
+      "source": "/assets/community-11-small.webp",
+      "destination": "/api/media?path=assets/community-11-small.webp"
+    },
+    {
+      "source": "/assets/community-11.webp",
+      "destination": "/api/media?path=assets/community-11.webp"
+    },
+    {
+      "source": "/assets/community-12-small.webp",
+      "destination": "/api/media?path=assets/community-12-small.webp"
+    },
+    {
+      "source": "/assets/community-12.webp",
+      "destination": "/api/media?path=assets/community-12.webp"
+    },
+    {
+      "source": "/assets/community-13-small.webp",
+      "destination": "/api/media?path=assets/community-13-small.webp"
+    },
+    {
+      "source": "/assets/community-13.webp",
+      "destination": "/api/media?path=assets/community-13.webp"
+    },
+    {
+      "source": "/assets/community-14-small.webp",
+      "destination": "/api/media?path=assets/community-14-small.webp"
+    },
+    {
+      "source": "/assets/community-14.webp",
+      "destination": "/api/media?path=assets/community-14.webp"
+    },
+    {
+      "source": "/assets/community-15-small.webp",
+      "destination": "/api/media?path=assets/community-15-small.webp"
+    },
+    {
+      "source": "/assets/community-15.webp",
+      "destination": "/api/media?path=assets/community-15.webp"
+    },
+    {
+      "source": "/assets/community-16-small.webp",
+      "destination": "/api/media?path=assets/community-16-small.webp"
+    },
+    {
+      "source": "/assets/community-16.webp",
+      "destination": "/api/media?path=assets/community-16.webp"
+    },
+    {
+      "source": "/assets/community-17-small.webp",
+      "destination": "/api/media?path=assets/community-17-small.webp"
+    },
+    {
+      "source": "/assets/community-17.webp",
+      "destination": "/api/media?path=assets/community-17.webp"
+    },
+    {
+      "source": "/assets/community-18-small.webp",
+      "destination": "/api/media?path=assets/community-18-small.webp"
+    },
+    {
+      "source": "/assets/community-18.webp",
+      "destination": "/api/media?path=assets/community-18.webp"
+    },
+    {
+      "source": "/assets/community-19-small.webp",
+      "destination": "/api/media?path=assets/community-19-small.webp"
+    },
+    {
+      "source": "/assets/community-19.webp",
+      "destination": "/api/media?path=assets/community-19.webp"
+    },
+    {
+      "source": "/assets/community-2-small.webp",
+      "destination": "/api/media?path=assets/community-2-small.webp"
+    },
+    {
+      "source": "/assets/community-2.webp",
+      "destination": "/api/media?path=assets/community-2.webp"
+    },
+    {
+      "source": "/assets/community-20-small.webp",
+      "destination": "/api/media?path=assets/community-20-small.webp"
+    },
+    {
+      "source": "/assets/community-20.webp",
+      "destination": "/api/media?path=assets/community-20.webp"
+    },
+    {
+      "source": "/assets/community-21-small.webp",
+      "destination": "/api/media?path=assets/community-21-small.webp"
+    },
+    {
+      "source": "/assets/community-21.webp",
+      "destination": "/api/media?path=assets/community-21.webp"
+    },
+    {
+      "source": "/assets/community-22-small.webp",
+      "destination": "/api/media?path=assets/community-22-small.webp"
+    },
+    {
+      "source": "/assets/community-22.webp",
+      "destination": "/api/media?path=assets/community-22.webp"
+    },
+    {
+      "source": "/assets/community-23-small.webp",
+      "destination": "/api/media?path=assets/community-23-small.webp"
+    },
+    {
+      "source": "/assets/community-23.webp",
+      "destination": "/api/media?path=assets/community-23.webp"
+    },
+    {
+      "source": "/assets/community-24-small.webp",
+      "destination": "/api/media?path=assets/community-24-small.webp"
+    },
+    {
+      "source": "/assets/community-24.webp",
+      "destination": "/api/media?path=assets/community-24.webp"
+    },
+    {
+      "source": "/assets/community-25-small.webp",
+      "destination": "/api/media?path=assets/community-25-small.webp"
+    },
+    {
+      "source": "/assets/community-25.webp",
+      "destination": "/api/media?path=assets/community-25.webp"
+    },
+    {
+      "source": "/assets/community-26-small.webp",
+      "destination": "/api/media?path=assets/community-26-small.webp"
+    },
+    {
+      "source": "/assets/community-26.webp",
+      "destination": "/api/media?path=assets/community-26.webp"
+    },
+    {
+      "source": "/assets/community-27-small.webp",
+      "destination": "/api/media?path=assets/community-27-small.webp"
+    },
+    {
+      "source": "/assets/community-27.webp",
+      "destination": "/api/media?path=assets/community-27.webp"
+    },
+    {
+      "source": "/assets/community-28-small.webp",
+      "destination": "/api/media?path=assets/community-28-small.webp"
+    },
+    {
+      "source": "/assets/community-28.webp",
+      "destination": "/api/media?path=assets/community-28.webp"
+    },
+    {
+      "source": "/assets/community-29-small.webp",
+      "destination": "/api/media?path=assets/community-29-small.webp"
+    },
+    {
+      "source": "/assets/community-29.webp",
+      "destination": "/api/media?path=assets/community-29.webp"
+    },
+    {
+      "source": "/assets/community-3-small.webp",
+      "destination": "/api/media?path=assets/community-3-small.webp"
+    },
+    {
+      "source": "/assets/community-3.webp",
+      "destination": "/api/media?path=assets/community-3.webp"
+    },
+    {
+      "source": "/assets/community-30-small.webp",
+      "destination": "/api/media?path=assets/community-30-small.webp"
+    },
+    {
+      "source": "/assets/community-30.webp",
+      "destination": "/api/media?path=assets/community-30.webp"
+    },
+    {
+      "source": "/assets/community-31-small.webp",
+      "destination": "/api/media?path=assets/community-31-small.webp"
+    },
+    {
+      "source": "/assets/community-31.webp",
+      "destination": "/api/media?path=assets/community-31.webp"
+    },
+    {
+      "source": "/assets/community-32-small.webp",
+      "destination": "/api/media?path=assets/community-32-small.webp"
+    },
+    {
+      "source": "/assets/community-32.webp",
+      "destination": "/api/media?path=assets/community-32.webp"
+    },
+    {
+      "source": "/assets/community-33-small.webp",
+      "destination": "/api/media?path=assets/community-33-small.webp"
+    },
+    {
+      "source": "/assets/community-33.webp",
+      "destination": "/api/media?path=assets/community-33.webp"
+    },
+    {
+      "source": "/assets/community-34-small.webp",
+      "destination": "/api/media?path=assets/community-34-small.webp"
+    },
+    {
+      "source": "/assets/community-34.webp",
+      "destination": "/api/media?path=assets/community-34.webp"
+    },
+    {
+      "source": "/assets/community-35-small.webp",
+      "destination": "/api/media?path=assets/community-35-small.webp"
+    },
+    {
+      "source": "/assets/community-35.webp",
+      "destination": "/api/media?path=assets/community-35.webp"
+    },
+    {
+      "source": "/assets/community-36-small.webp",
+      "destination": "/api/media?path=assets/community-36-small.webp"
+    },
+    {
+      "source": "/assets/community-36.webp",
+      "destination": "/api/media?path=assets/community-36.webp"
+    },
+    {
+      "source": "/assets/community-37-small.webp",
+      "destination": "/api/media?path=assets/community-37-small.webp"
+    },
+    {
+      "source": "/assets/community-37.webp",
+      "destination": "/api/media?path=assets/community-37.webp"
+    },
+    {
+      "source": "/assets/community-38-small.webp",
+      "destination": "/api/media?path=assets/community-38-small.webp"
+    },
+    {
+      "source": "/assets/community-38.webp",
+      "destination": "/api/media?path=assets/community-38.webp"
+    },
+    {
+      "source": "/assets/community-39-small.webp",
+      "destination": "/api/media?path=assets/community-39-small.webp"
+    },
+    {
+      "source": "/assets/community-39.webp",
+      "destination": "/api/media?path=assets/community-39.webp"
+    },
+    {
+      "source": "/assets/community-4-small.webp",
+      "destination": "/api/media?path=assets/community-4-small.webp"
+    },
+    {
+      "source": "/assets/community-4.webp",
+      "destination": "/api/media?path=assets/community-4.webp"
+    },
+    {
+      "source": "/assets/community-40-small.webp",
+      "destination": "/api/media?path=assets/community-40-small.webp"
+    },
+    {
+      "source": "/assets/community-40.webp",
+      "destination": "/api/media?path=assets/community-40.webp"
+    },
+    {
+      "source": "/assets/community-41-small.webp",
+      "destination": "/api/media?path=assets/community-41-small.webp"
+    },
+    {
+      "source": "/assets/community-41.webp",
+      "destination": "/api/media?path=assets/community-41.webp"
+    },
+    {
+      "source": "/assets/community-42-small.webp",
+      "destination": "/api/media?path=assets/community-42-small.webp"
+    },
+    {
+      "source": "/assets/community-42.webp",
+      "destination": "/api/media?path=assets/community-42.webp"
+    },
+    {
+      "source": "/assets/community-5-small.webp",
+      "destination": "/api/media?path=assets/community-5-small.webp"
+    },
+    {
+      "source": "/assets/community-5.webp",
+      "destination": "/api/media?path=assets/community-5.webp"
+    },
+    {
+      "source": "/assets/community-6-small.webp",
+      "destination": "/api/media?path=assets/community-6-small.webp"
+    },
+    {
+      "source": "/assets/community-6.webp",
+      "destination": "/api/media?path=assets/community-6.webp"
+    },
+    {
+      "source": "/assets/community-7-small.webp",
+      "destination": "/api/media?path=assets/community-7-small.webp"
+    },
+    {
+      "source": "/assets/community-7.webp",
+      "destination": "/api/media?path=assets/community-7.webp"
+    },
+    {
+      "source": "/assets/community-8-small.webp",
+      "destination": "/api/media?path=assets/community-8-small.webp"
+    },
+    {
+      "source": "/assets/community-8.webp",
+      "destination": "/api/media?path=assets/community-8.webp"
+    },
+    {
+      "source": "/assets/community-9-small.webp",
+      "destination": "/api/media?path=assets/community-9-small.webp"
+    },
+    {
+      "source": "/assets/community-9.webp",
+      "destination": "/api/media?path=assets/community-9.webp"
+    },
+    {
+      "source": "/assets/community-mobile.webp",
+      "destination": "/api/media?path=assets/community-mobile.webp"
+    },
+    {
+      "source": "/assets/community-pottery-october-small.webp",
+      "destination": "/api/media?path=assets/community-pottery-october-small.webp"
+    },
+    {
+      "source": "/assets/community-pottery-october.webp",
+      "destination": "/api/media?path=assets/community-pottery-october.webp"
+    },
+    {
+      "source": "/assets/community-strength.webp",
+      "destination": "/api/media?path=assets/community-strength.webp"
+    },
+    {
+      "source": "/assets/community-wide.webp",
+      "destination": "/api/media?path=assets/community-wide.webp"
+    },
+    {
+      "source": "/assets/craft.webp",
+      "destination": "/api/media?path=assets/craft.webp"
+    },
+    {
+      "source": "/assets/enare.webp",
+      "destination": "/api/media?path=assets/enare.webp"
+    },
+    {
+      "source": "/assets/fabrina.webp",
+      "destination": "/api/media?path=assets/fabrina.webp"
+    },
+    {
+      "source": "/assets/favicon.png",
+      "destination": "/api/media?path=assets/favicon.png"
+    },
+    {
+      "source": "/assets/favicon.svg",
+      "destination": "/api/media?path=assets/favicon.svg"
+    },
+    {
+      "source": "/assets/hero-small.webp",
+      "destination": "/api/media?path=assets/hero-small.webp"
+    },
+    {
+      "source": "/assets/hero.webp",
+      "destination": "/api/media?path=assets/hero.webp"
+    },
+    {
+      "source": "/assets/hiking-1280.webp",
+      "destination": "/api/media?path=assets/hiking-1280.webp"
+    },
+    {
+      "source": "/assets/hiking-2560.webp",
+      "destination": "/api/media?path=assets/hiking-2560.webp"
+    },
+    {
+      "source": "/assets/hiking-3840.webp",
+      "destination": "/api/media?path=assets/hiking-3840.webp"
+    },
+    {
+      "source": "/assets/hiking.webp",
+      "destination": "/api/media?path=assets/hiking.webp"
+    },
+    {
+      "source": "/assets/logo.png",
+      "destination": "/api/media?path=assets/logo.png"
+    },
+    {
+      "source": "/assets/logo.webp",
+      "destination": "/api/media?path=assets/logo.webp"
+    },
+    {
+      "source": "/assets/luxembourg-flag.svg",
+      "destination": "/api/media?path=assets/luxembourg-flag.svg"
+    },
+    {
+      "source": "/assets/marta.webp",
+      "destination": "/api/media?path=assets/marta.webp"
+    },
+    {
+      "source": "/assets/picnic-small.webp",
+      "destination": "/api/media?path=assets/picnic-small.webp"
+    },
+    {
+      "source": "/assets/team-christina.webp",
+      "destination": "/api/media?path=assets/team-christina.webp"
+    },
+    {
+      "source": "/assets/team-cynthia.webp",
+      "destination": "/api/media?path=assets/team-cynthia.webp"
+    },
+    {
+      "source": "/assets/team-enare.webp",
+      "destination": "/api/media?path=assets/team-enare.webp"
+    },
+    {
+      "source": "/assets/team-fabrina.webp",
+      "destination": "/api/media?path=assets/team-fabrina.webp"
+    },
+    {
+      "source": "/assets/team-khanim.webp",
+      "destination": "/api/media?path=assets/team-khanim.webp"
+    },
+    {
+      "source": "/assets/team-marta.webp",
+      "destination": "/api/media?path=assets/team-marta.webp"
+    },
+    {
+      "source": "/assets/team-zahra.webp",
+      "destination": "/api/media?path=assets/team-zahra.webp"
+    },
+    {
+      "source": "/assets/zahra.webp",
+      "destination": "/api/media?path=assets/zahra.webp"
+    }
   ]
 }
