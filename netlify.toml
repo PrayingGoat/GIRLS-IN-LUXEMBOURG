@@ -7,9 +7,9 @@
   NODE_VERSION = "22"
 
 [functions]
-  node_bundler = "esbuild"
-  # Native and large modules are shipped as installed packages instead of being bundled.
-  external_node_modules = ["sharp", "mongodb"]
+  # Installed packages (mongodb, sharp, libphonenumber-js) are imported at the top of each
+  # netlify/functions/*.mjs file so Netlify ships them; check with scripts/check-netlify-bundle.cjs.
+  directory = "netlify/functions"
 
 # Clean addresses: /story serves story.html (Netlify "pretty URLs"); old .html addresses redirect
 # (one rule per page: Netlify placeholders cannot match "/:page.html"). Keep in step with site-pages.cjs.

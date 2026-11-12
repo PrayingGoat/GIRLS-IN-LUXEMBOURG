@@ -191,4 +191,4 @@ First setup (once, in the Netlify dashboard):
 4. In MongoDB Atlas **Network Access**, allow `0.0.0.0/0`: Netlify functions do not have fixed IP addresses. Access stays protected by the database user and password.
 5. Optional: **Domain management** to use your own domain (free HTTPS).
 
-Free plan limits: 300 credits a month (each production deploy, bandwidth and function call uses some); the site is paused if they run out until the next month. Group changes into fewer pushes. Local check of the Netlify version: `npx netlify-cli serve --offline` (port 8888), then run the tests with `TEST_BASE_URL=http://localhost:8888`.
+Free plan limits: 300 credits a month (each production deploy, bandwidth and function call uses some); the site is paused if they run out until the next month. Group changes into fewer pushes. Local check of the Netlify version: `npx netlify-cli build --offline` then `node scripts/check-netlify-bundle.cjs` (packages shipped with each function), and `npx netlify-cli serve --offline` (port 8888), then run the tests with `TEST_BASE_URL=http://localhost:8888`.
