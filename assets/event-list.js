@@ -14,9 +14,9 @@ window.renderCommunityEvents = function(events) {
   const row=text('article','','event-directory-row');
   const stamp=text('div','','event-date-stamp');
   stamp.append(text('span',start.toLocaleDateString('en-GB',{timeZone:zone,day:'2-digit',month:'short'}),'event-date-label'));
-  const time=text('time',multi?'Ongoing':start.toLocaleTimeString('en-GB',{timeZone:zone,hour:'2-digit',minute:'2-digit'}));time.dateTime=event.start;stamp.append(time,text('span',start.toLocaleDateString('en-GB',{timeZone:zone,year:'numeric'}),'event-date-year'));
+  const time=text('time',start.toLocaleTimeString('en-GB',{timeZone:zone,hour:'2-digit',minute:'2-digit'}));time.dateTime=event.start;stamp.append(time,text('span',start.toLocaleDateString('en-GB',{timeZone:zone,year:'numeric'}),'event-date-year'));
   const copy=text('div','','event-directory-copy');
-  copy.append(text('span',cancelled?'Cancelled':past?'Past event':multi?'Ongoing project':'Upcoming event','event-directory-status'));
+  copy.append(text('span',cancelled?'Cancelled':past?'Past event':'Upcoming event','event-directory-status'));
   copy.append(text('h4',event.title.replace(/\s*\(Ongoing\)/i,'').trim()));
   if(event.soldOut&&!past&&!cancelled)copy.append(text('p','Sold out on Luma','event-sold-out'));
   copy.append(text('p',multi?`${event.location} / Until ${end.toLocaleDateString('en-GB',{timeZone:zone,day:'numeric',month:'long',year:'numeric'})}`:event.location));

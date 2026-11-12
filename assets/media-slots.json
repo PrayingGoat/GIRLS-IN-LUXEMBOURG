@@ -5,17 +5,8 @@
     "pageFile": "index.html",
     "section": "Brand",
     "label": "Site logo",
-    "src": "assets/brand-final.webp",
+    "src": "assets/brand-glow.webp",
     "alt": "Girls in Luxembourg"
-  },
-  {
-    "id": "global-flag",
-    "page": "Shared across pages",
-    "pageFile": "index.html",
-    "section": "Brand",
-    "label": "Luxembourg flag",
-    "src": "assets/luxembourg-flag.svg",
-    "alt": "Luxembourg"
   },
   {
     "id": "index-photo-1",
@@ -52,6 +43,87 @@
     "label": "Slide 4 - Pottery workshop",
     "src": "assets/community-pottery-october.webp",
     "alt": "Women showing their painted pottery at a community workshop"
+  },
+  {
+    "id": "index-photo-8",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 5 - Halloween party",
+    "src": "assets/community-halloween.webp",
+    "alt": "Women in Halloween costumes gathered together at a community party"
+  },
+  {
+    "id": "index-photo-9",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 6 - Walk under the red bridge",
+    "src": "assets/community-red-bridge-walk.webp",
+    "alt": "A group of women on a city walk under Luxembourg’s red bridge"
+  },
+  {
+    "id": "index-photo-10",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 7 - Remich vineyard hike",
+    "src": "assets/community-remich-hike.webp",
+    "alt": "Women posing together on the grass after a vineyard hike near Remich"
+  },
+  {
+    "id": "index-photo-11",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 8 - Moms' coffee meetup",
+    "src": "assets/community-moms-cafe.webp",
+    "alt": "Moms from the community smiling around a café table"
+  },
+  {
+    "id": "index-photo-12",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 9 - Riverside lounge meetup",
+    "src": "assets/community-riverside-lounge.webp",
+    "alt": "Women chatting in armchairs in a bright riverside lounge"
+  },
+  {
+    "id": "index-photo-13",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 10 - Beauty brunch",
+    "src": "assets/community-beauty-brunch.webp",
+    "alt": "Women sharing a brunch table at the community beauty brunch"
+  },
+  {
+    "id": "index-photo-14",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 11 - Bookshop meetup",
+    "src": "assets/community-bookshop-meetup.webp",
+    "alt": "Women from the community gathered in a bookshop"
+  },
+  {
+    "id": "index-photo-15",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 12 - Café evening",
+    "src": "assets/community-cafe-evening.webp",
+    "alt": "Friends smiling around a table at an evening café meetup"
+  },
+  {
+    "id": "index-photo-16",
+    "page": "Home",
+    "pageFile": "index.html",
+    "section": "Hero slideshow",
+    "label": "Slide 13 - Small meetups collage",
+    "src": "assets/community-meetups-collage.webp",
+    "alt": "Collage of small community meetups: an outdoor craft session and friends meeting up"
   },
   {
     "id": "index-photo-4",
@@ -135,15 +207,6 @@
     "alt": "Women sharing a dinner with the Girls in Luxembourg community"
   },
   {
-    "id": "story-photo-7",
-    "page": "Our story",
-    "pageFile": "story.html",
-    "section": "Community artwork",
-    "label": "Community is strength",
-    "src": "assets/community-strength.webp",
-    "alt": "Community is strength: two hands linked together in a gesture of solidarity."
-  },
-  {
     "id": "community-photo-1",
     "page": "Find your circle",
     "pageFile": "community.html",
@@ -167,7 +230,7 @@
     "pageFile": "community.html",
     "section": "Circles",
     "label": "BookClub",
-    "src": "assets/community-6-small.webp",
+    "src": "assets/community-bookclub-small.webp",
     "alt": ""
   },
   {
@@ -194,7 +257,7 @@
     "pageFile": "community.html",
     "section": "Circles",
     "label": "FitClub",
-    "src": "assets/community-5-small.webp",
+    "src": "assets/community-fitclub-badminton-small.webp",
     "alt": ""
   },
   {
@@ -212,7 +275,7 @@
     "pageFile": "community.html",
     "section": "Circles",
     "label": "Craft Corner",
-    "src": "assets/community-1-small.webp",
+    "src": "assets/community-pottery-october-small.webp",
     "alt": ""
   },
   {
@@ -221,7 +284,7 @@
     "pageFile": "community.html",
     "section": "Circles",
     "label": "Language Exchange",
-    "src": "assets/community-6-small.webp",
+    "src": "assets/community-language-collage-small.webp",
     "alt": ""
   },
   {
@@ -322,15 +385,6 @@
     "label": "Christina Ntokou",
     "src": "assets/team-christina.webp",
     "alt": "Christina Ntokou"
-  },
-  {
-    "id": "team-khanim",
-    "page": "The team",
-    "pageFile": "team.html",
-    "section": "Team portraits",
-    "label": "Khanim Aliyarova",
-    "src": "assets/team-khanim.webp",
-    "alt": "Khanim Aliyarova"
   },
   {
     "id": "team-cynthia",

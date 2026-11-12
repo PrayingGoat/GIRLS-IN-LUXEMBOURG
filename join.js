@@ -1,4 +1,6 @@
 ﻿const form = document.getElementById('membership-form');
+// Wake the server as soon as the visitor starts the form, so sending is fast.
+form.addEventListener('focusin', () => { fetch('/api/membership?warm=1', { cache: 'no-store' }).catch(() => {}); }, { once: true });
 const submit = form.querySelector('[type="submit"]');
 const status = document.getElementById('form-status');
 submit.disabled = false;

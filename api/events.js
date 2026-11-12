@@ -7,7 +7,7 @@ async function refresh(){
  return cache;
 }
 module.exports=async(req,res)=>{
- res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','public, max-age=60');
+ res.setHeader('Content-Type','application/json; charset=utf-8');res.setHeader('Cache-Control','public, max-age=60, s-maxage=300, stale-while-revalidate=86400');
  if(req.method!=='GET'){res.statusCode=405;res.setHeader('Allow','GET');res.end(JSON.stringify({message:'Method not allowed'}));return;}
  if(!cache||Date.now()>expires){if(!pending)pending=refresh().finally(()=>pending=null);await pending}
  res.end(JSON.stringify(cache));

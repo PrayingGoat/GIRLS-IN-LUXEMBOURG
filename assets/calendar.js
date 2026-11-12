@@ -16,12 +16,11 @@
   for(const event of matches){
    const card=node('article','','calendar-event');
    const past=new Date(event.end)<new Date();const multi=dayKey(event.start)!==dayKey(event.end);
-   card.append(node('span',cancelled(event)?'Cancelled':past?'Past event':multi?'Ongoing initiative':'Girls in Lux Community','calendar-event-state'));
+   card.append(node('span',cancelled(event)?'Cancelled':past?'Past event':'Girls in Lux Community','calendar-event-state'));
    card.append(node('h4',event.title));
    if(event.soldOut&&!past&&!cancelled(event))card.append(node('p','Sold out on Luma','event-sold-out'));
    const time=new Date(event.start).toLocaleTimeString('en-GB',{timeZone:zone,hour:'2-digit',minute:'2-digit'});
    card.append(node('p',multi?`${label(dayKey(event.start))} - ${label(dayKey(event.end))}`:`${time} / ${event.location}`));
-   if(multi)card.append(node('p','An ongoing project, rather than a daily meet-up. Check Luma for participation details.'));
    const link=node('a',past||cancelled(event)||event.soldOut?'View on Luma':'Details & registration on Luma','calendar-event-link');link.href=event.url;link.target='_blank';link.rel='noopener noreferrer';card.append(link);list.append(card);
   }
  }

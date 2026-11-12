@@ -56,20 +56,41 @@ if (heroGallery) {
   const counter = heroGallery.querySelector('[data-photo-count]');
   let currentPhoto = 0;
   let photoTimer;
+  // Only the visible photo and the next one are downloaded; the others wait for their turn,
+  // so the first photo is not competing with a dozen downloads.
+  const slideAt = index => slides[(index + slides.length) % slides.length];
+  const photoOf = slide => slide.querySelector('img');
+  function prepare(index) {
+    const slide = slideAt(index);
+    slide.classList.add('is-ready');
+    const photo = photoOf(slide);
+    if (photo) photo.loading = 'eager';
+  }
+  const loaded = index => { const photo = photoOf(slideAt(index)); return !photo || (photo.complete && photo.naturalWidth > 0); };
+  heroGallery.classList.add('is-progressive');
+  prepare(0); prepare(1);
   function showPhoto(next, manual = false) {
     currentPhoto = (next + slides.length) % slides.length;
+    prepare(currentPhoto); prepare(currentPhoto + 1);
     slides.forEach((slide, index) => {
       const selected = index === currentPhoto;
       slide.classList.toggle('is-active', selected);
       slide.setAttribute('aria-hidden', String(!selected));
     });
     // Automatic changes stay quiet for screen readers.
+    if (!counter) return;
     counter.setAttribute('aria-live', manual ? 'polite' : 'off');
     counter.textContent = `${String(currentPhoto + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   }
   function schedulePhoto() {
     clearTimeout(photoTimer);
-    photoTimer = setTimeout(() => { showPhoto(currentPhoto + 1); schedulePhoto(); }, 2000);
+    let waited = 0;
+    const advance = () => {
+      // Never fade to a photo that is still downloading; give a slow connection up to 6 more seconds.
+      if (!loaded(currentPhoto + 1) && waited < 6000) { waited += 250; photoTimer = setTimeout(advance, 250); return; }
+      showPhoto(currentPhoto + 1); schedulePhoto();
+    };
+    photoTimer = setTimeout(advance, 2000);
   }
   heroGallery.querySelector('.hero-gallery-controls').hidden = false;
   for (const [selector, direction] of [['[data-photo-prev]', -1], ['[data-photo-next]', 1]]) {
@@ -209,3 +230,24 @@ footerLinks.forEach(link=>{
  if(target.origin===location.origin&&target.pathname===location.pathname)link.setAttribute('aria-current','page');
  link.addEventListener('click',()=>{footerLinks.forEach(item=>item.classList.remove('is-selected'));link.classList.add('is-selected')});
 });
+
+
+// Mobile "More" sheet opened from the bottom tab bar.
+(() => {
+  const button = document.querySelector('.tab-more');
+  const sheet = document.getElementById('more-sheet');
+  const backdrop = document.querySelector('.more-sheet-backdrop');
+  if (!button || !sheet || !backdrop) return;
+  const setOpen = (open, restoreFocus = false) => {
+    sheet.hidden = !open;
+    backdrop.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+    if (open) sheet.querySelector('a')?.focus({ preventScroll: true });
+    else if (restoreFocus) button.focus();
+  };
+  button.addEventListener('click', () => setOpen(sheet.hidden));
+  backdrop.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && !sheet.hidden) setOpen(false, true); });
+  sheet.addEventListener('click', event => { if (event.target.closest('a')) setOpen(false); });
+  matchMedia('(min-width: 881px)').addEventListener('change', event => { if (event.matches) setOpen(false); });
+})();

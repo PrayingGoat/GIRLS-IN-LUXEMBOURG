@@ -2,22 +2,28 @@ const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const root = __dirname;
-const publicFiles = new Set([...require('./site-pages.cjs'),'styles.css','app.js','events.js','join.js']);
+const publicFiles = new Set([...require('./site-pages.cjs'),'styles.css','app.js','events.js','join.js','contact-form.js','feedback-form.js']);
 if (fs.existsSync(path.join(root, '.env')) && process.loadEnvFile) process.loadEnvFile(path.join(root, '.env'));
 const membershipHandler = require('./api/membership.js');
 const adminHandler = require('./api/admin.js');
-const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.webp': 'image/webp', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
+const contactHandler = require('./api/contact.js');
+const feedbackHandler = require('./api/feedback.js');
+const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.avif': 'image/avif', '.svg': 'image/svg+xml', '.woff2': 'font/woff2' };
 const args = process.argv;
 const port = Number(process.env.PORT || (args.includes('--port') && args[args.indexOf('--port') + 1]) || 5173);
 http.createServer((req, res) => {
   let pathname;
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { res.writeHead(400).end(); return; }
-  if (pathname === '/api/media' || /^\/assets\/[a-zA-Z0-9._-]+\.(webp|png|jpe?g|svg|gif|avif)$/i.test(pathname)) { require('./api/media.js')(req,res); return; }
+  // Like the production build: an image file is served directly; the database only answers for a missing file.
+  const isImage = /^\/assets\/[a-zA-Z0-9._-]+\.(webp|png|jpe?g|svg|gif|avif)$/i.test(pathname);
+  if (pathname === '/api/media' || (isImage && !fs.existsSync(path.join(root, pathname)))) { require('./api/media.js')(req,res); return; }
   if (pathname === '/api/site-images') { require('./api/site-images.js')(req,res); return; }
   if (pathname === '/api/events') { require('./api/events.js')(req,res); return; }
   if (pathname === '/api/community-stats') { require('./api/community-stats.js')(req,res); return; }
   if (pathname === '/api/admin') { adminHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }); res.end(JSON.stringify({ message: 'Unable to process the request.' })); }); return; }
 
+  if (pathname === '/api/contact') { contactHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ message: 'Unable to send your message.' })); }); return; }
+  if (pathname === '/api/feedback') { feedbackHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ message: 'Unable to send your feedback.' })); }); return; }
   if (pathname === '/api/membership') { membershipHandler(req, res).catch(() => { if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json' }); res.end(JSON.stringify({ message: 'Unable to process your request.' })); }); return; }
   const pageNames=require('./site-pages.cjs');
   const route=pathname.replace(/\/$/,'');
@@ -33,6 +39,7 @@ http.createServer((req, res) => {
   fs.readFile(file, (error, data) => {
     if (error) { res.writeHead(404).end('Not found'); return; }
     if (pathname === '/admin.html') { res.setHeader('Cache-Control','no-store'); res.setHeader('X-Robots-Tag','noindex, nofollow'); }
+    if (isImage || pathname.endsWith('.woff2')) res.setHeader('Cache-Control', 'public, max-age=3600');
     res.writeHead(200, { 'Content-Type': types[path.extname(file)] || 'application/octet-stream', 'X-Content-Type-Options': 'nosniff' });
     res.end(data);
   });

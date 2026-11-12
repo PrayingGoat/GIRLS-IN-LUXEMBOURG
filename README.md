@@ -67,7 +67,7 @@ Les fenêtres reprennent les neuf sources Notion consultées le 9 octobre 2026, 
 
 ## Membership requests
 
-Joining goes directly to WhatsApp. The private /admin page manages community numbers and website images using MongoDB Atlas. See [database setup](database/README.md). Set MONGODB_URI, MONGODB_DB and ADMIN_PASSWORD_HASH in the server environment, and run npm run db:migrate. Legacy membership records are preserved in MongoDB; no public membership form is shown.
+Every "Join us" button links to `/join`, a membership request form (first name, last name, email, WhatsApp number, consent). `join.js` posts it to `/api/membership`, which validates the request and stores it in MongoDB; an administrator then contacts the person on WhatsApp. Submitting does not add anyone to a group automatically. The WhatsApp icons in the top banner and footer remain direct links to the group. The private /admin page manages community numbers and website images using MongoDB Atlas. See [database setup](database/README.md). Set MONGODB_URI, MONGODB_DB and ADMIN_PASSWORD_HASH in the server environment, and run npm run db:migrate.
 
 
 ## Page structure
@@ -76,13 +76,35 @@ The homepage now contains the hero, moving values ribbon, editable community cou
 three page links and a short membership invitation. Detailed content lives on:
 
 - story.html: history, mission and values
-- community.html: the nine groups, shared moments and community guidelines
-- team.html: seven editable team portraits, roles and social links
+- community.html: the nine groups, shared moments and a link to the team
+- team.html: six editable team portraits, roles and social links
 - faq.html: questions grouped by topic
-- contact.html: contact, volunteering and feedback
+- contact.html: contact form, volunteering and feedback. The form (name, email, reason:
+  General question / Partnership / Volunteering, message) is handled by `contact-form.js`
+  and `/api/contact`, saved in the MongoDB `contact_messages` collection and listed in
+  /admin under **Messages**. `/contact?reason=volunteering` preselects the reason.
+- feedback.html: anonymous feedback form (/feedback, linked from Contact and the footer).
+  `feedback-form.js` posts to `/api/feedback`; answers (experience 1-5, groups, what works,
+  what could be better, testimony consent, optional name/phone/email) are stored in the
+  MongoDB `feedback_responses` collection without IP address, browser data or exact time
+  (only the day), and listed in /admin under **Feedback**.
 - partnerships.html and policy.html: partnerships and privacy/refund information
 - events.html: Luma events and interactive calendar
-- join.html: direct WhatsApp redirect
+- join.html: membership request form (saved through /api/membership)
+
+All public pages share the same header: a "Women's Social Club" banner linking to
+/community with social icons, then the floating navigation (About, Our community,
+Events, FAQ, Contact) and the "Join us" button. When changing it,
+update every page so they stay identical.
+
+Below 880px the top bar keeps only the logo and "Join us"; navigation moves to a floating
+liquid-glass tab bar at the bottom (Home, About, Community, Events, More). "More" opens a
+sheet with FAQ, Contact, Join us and the social links (`.tab-bar` / `#more-sheet` at the end
+of each page, behaviour in `app.js`). The active tab is set per page with `aria-current`.
+
+The shared footer has three columns: "Girls in Luxembourg" with the mission text and social
+media links, About us (Our story, The Team, Join us, FAQ) and Contact us (email, Partner with us,
+Become a volunteer, Feedback). The main call-to-action buttons use the `.btn-pill` style.
 
 /admin remains private and absent from public navigation.
 site-pages.cjs defines the files served locally and copied by the build. Public
@@ -100,9 +122,9 @@ The public-profile listing is the same unauthenticated source used by Luma's web
 
 ### Image customisation in the administrator workspace
 
-Open `/admin`, sign in, and use **Website images**. The 38 image locations are grouped into shared brand assets, Home, Our story, Find your circle, The team, and Upcoming events. Every current `<img>` element is mapped through `data-media-slot`; logo and flag share global slots. The favicon and SVG interface icons are not photographs and are not edited here.
+Open `/admin`, sign in, and use **Website images**. The 44 image locations are grouped into shared brand assets, Home, Our story, Find your circle, The team, and Upcoming events. Every current `<img>` element is mapped through `data-media-slot`; logo and flag share global slots. The favicon and SVG interface icons are not photographs and are not edited here.
 
-For each location: expand **Change image**, select a library photo or upload a JPG/PNG/WebP (15 MB maximum before browser optimisation), adjust the description and focus sliders, then click **Save image**. Changes only publish on saving. **Restore original** removes that location's override. Reload the public page to view updates. A repeated photo in different sections has separate slots, so replacing one does not replace the others.
+For each location: expand **Change image**, select a library photo or upload a JPG/PNG/WebP (15 MB maximum before browser optimisation), adjust the description and focus sliders, then click **Save image**. Changes only publish on saving. **Restore original** removes that location's override. Reload the public page to view updates; on the live site this can take about a minute. A repeated photo in different sections has separate slots, so replacing one does not replace the others.
 
 Run `npm run db:migrate` to initialize the MongoDB collections and indexes. Raster uploads are decoded, stripped of metadata, resized to at most 2000px and encoded as WebP; at most 2 MiB per image is stored as BSON binary data. Built-in library choices store an asset path. Local Node and Vercel use the same data when MONGODB_URI and MONGODB_DB point to the same Atlas database. Back up the database to preserve uploaded photos. Storage counts towards the Atlas quota.
 
@@ -112,4 +134,23 @@ Validation: `node --env-file-if-exists=.env scripts/check-media.cjs` against a d
 
 ### Clean page URLs
 
-Public navigation uses `/`, `/story`, `/community`, `/team`, `/faq`, `/contact`, `/partnerships`, `/policy`, `/events` and `/admin`. Vercel uses `cleanUrls: true` and no trailing slash; local `server.cjs` mirrors this routing and redirects old `.html` addresses permanently while preserving query strings. HTML filenames remain unchanged internally. `/join` retains the WhatsApp redirect. Validate with `node scripts/check-routes.cjs` (TEST_BASE_URL defaults to port 5186).
+Public navigation uses `/`, `/story`, `/community`, `/team`, `/faq`, `/contact`, `/partnerships`, `/policy`, `/events` and `/admin`. Vercel uses `cleanUrls: true` and no trailing slash; local `server.cjs` mirrors this routing and redirects old `.html` addresses permanently while preserving query strings. HTML filenames remain unchanged internally. `/join` serves the membership request form. Validate with `node scripts/check-routes.cjs` (TEST_BASE_URL defaults to port 5186).
+
+### Speed and availability
+
+Nothing a visitor sees depends on a serverless function waking up:
+
+- Pages, CSS, JavaScript, fonts and all built-in images are static files served by the CDN.
+  `build.cjs` copies the images from `assets/` into `dist/`; the `/api/media` rewrites in
+  `vercel.json` (images stored in MongoDB) only answer for an image missing from the build.
+  When adding an image, keep the file in `assets/` and commit it.
+- `/api/site-images`, `/api/community-stats` and `/api/events` are cached by the CDN with
+  `stale-while-revalidate`: the CDN answers at once from its copy and refreshes it in the
+  background. An image or figure changed in /admin can take about a minute, and one extra
+  page load, to appear on the public site.
+- The join, contact and feedback pages call `GET /api/...?warm=1` when the visitor focuses
+  the form (`lib/warm.cjs`), so the function and database connection are awake before sending.
+- The home slideshow downloads only the visible photo and the next one (`app.js`,
+  `.hero-slide.is-ready`); it never fades to a photo that is still downloading.
+- Internal links are prefetched on hover or touch (speculation rules in each page head).
+  The shimmer placeholders in `assets/motion.js` are unchanged.

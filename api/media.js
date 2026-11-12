@@ -9,7 +9,7 @@ module.exports=async(req,res)=>{
   const db=await getDatabase();const row=await db.collection('media_assets').findOne({path:file});
   if(!row){res.statusCode=404;return res.end()}
   const etag='"'+row.sha256+'"';
-  res.setHeader('Content-Type',row.content_type);res.setHeader('Cache-Control','public, max-age=3600, s-maxage=86400');res.setHeader('ETag',etag);
+  res.setHeader('Content-Type',row.content_type);res.setHeader('Cache-Control','public, max-age=604800, s-maxage=31536000, stale-while-revalidate=2592000');res.setHeader('ETag',etag);
   if(req.headers['if-none-match']===etag){res.statusCode=304;return res.end()}
   res.setHeader('Content-Length',row.data.length);
   return res.end(req.method==='HEAD'?undefined:row.data);

@@ -2,6 +2,7 @@
 const { getStore } = require('../lib/store.cjs');
 const { validateMembership } = require('../lib/membership.cjs');
 module.exports = async function handler(req, res) {
+  if (await require('../lib/warm.cjs')(req, res)) return;
   const send = (status, body) => { res.statusCode = status; res.setHeader('Content-Type','application/json; charset=utf-8'); res.setHeader('Cache-Control','no-store'); res.end(JSON.stringify(body)); };
   if (req.method !== 'POST') { res.setHeader('Allow','POST'); return send(405,{ message:'Use the membership form to send a request.' }); }
   const host = req.headers.host;

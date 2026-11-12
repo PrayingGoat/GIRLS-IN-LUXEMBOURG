@@ -68,6 +68,31 @@ module.exports=async function handler(req,res){
    if(!request)return send(404,{message:'Request not found.'});
    return send(200,{request});
   }
+  if(action==='messages'&&req.method==='GET'){
+   const reason=url.searchParams.get('reason')||'',status=url.searchParams.get('status')||'';
+   if(reason&&!Object.hasOwn(require('../lib/contact.cjs').reasons,reason))return send(400,{message:'Invalid reason.'});
+   if(status&&!['new','replied','archived'].includes(status))return send(400,{message:'Invalid status.'});
+   const page=Math.max(1,Math.min(100000,parseInt(url.searchParams.get('page'),10)||1));
+   return send(200,await db.listContactMessages({reason,status,page}));
+  }
+  if(action==='message-status'&&req.method==='PATCH'){
+   if(!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(body.id||'')||!['new','replied','archived'].includes(body.status))return send(422,{message:'Invalid message or status.'});
+   const message=await db.setContactMessageStatus(body.id,body.status);
+   if(!message)return send(404,{message:'Message not found.'});
+   return send(200,{message});
+  }
+  if(action==='feedback'&&req.method==='GET'){
+   const status=url.searchParams.get('status')||'';
+   if(status&&!['new','read','archived'].includes(status))return send(400,{message:'Invalid status.'});
+   const page=Math.max(1,Math.min(100000,parseInt(url.searchParams.get('page'),10)||1));
+   return send(200,await db.listFeedback({status,page}));
+  }
+  if(action==='feedback-status'&&req.method==='PATCH'){
+   if(!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(body.id||'')||!['new','read','archived'].includes(body.status))return send(422,{message:'Invalid feedback or status.'});
+   const item=await db.setFeedbackStatus(body.id,body.status);
+   if(!item)return send(404,{message:'Feedback not found.'});
+   return send(200,{feedback:item});
+  }
   return send(404,{message:'Not found.'});
  }catch{return send(503,{message:'The database is unavailable. Check the connection and run the database migrations.'});}
 };

@@ -29,6 +29,24 @@
           "value": "noindex, nofollow"
         }
       ]
+    },
+    {
+      "source": "/assets/(.*)\\.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)\\.(webp|png|jpg|jpeg|svg|gif|avif)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=2592000"
+        }
+      ]
     }
   ],
   "cleanUrls": true,
@@ -506,12 +524,108 @@
       "destination": "/api/media?path=assets/zahra.webp"
     },
     {
-      "source": "/assets/brand-final.webp",
-      "destination": "/api/media?path=assets/brand-final.webp"
+      "source": "/assets/brand-glow.webp",
+      "destination": "/api/media?path=assets/brand-glow.webp"
     },
     {
-      "source": "/assets/brand-favicon.png",
-      "destination": "/api/media?path=assets/brand-favicon.png"
+      "source": "/assets/brand-glow-favicon.png",
+      "destination": "/api/media?path=assets/brand-glow-favicon.png"
+    },
+    {
+      "source": "/assets/community-halloween.webp",
+      "destination": "/api/media?path=assets/community-halloween.webp"
+    },
+    {
+      "source": "/assets/community-halloween-small.webp",
+      "destination": "/api/media?path=assets/community-halloween-small.webp"
+    },
+    {
+      "source": "/assets/community-red-bridge-walk.webp",
+      "destination": "/api/media?path=assets/community-red-bridge-walk.webp"
+    },
+    {
+      "source": "/assets/community-red-bridge-walk-small.webp",
+      "destination": "/api/media?path=assets/community-red-bridge-walk-small.webp"
+    },
+    {
+      "source": "/assets/community-remich-hike.webp",
+      "destination": "/api/media?path=assets/community-remich-hike.webp"
+    },
+    {
+      "source": "/assets/community-remich-hike-small.webp",
+      "destination": "/api/media?path=assets/community-remich-hike-small.webp"
+    },
+    {
+      "source": "/assets/community-moms-cafe.webp",
+      "destination": "/api/media?path=assets/community-moms-cafe.webp"
+    },
+    {
+      "source": "/assets/community-moms-cafe-small.webp",
+      "destination": "/api/media?path=assets/community-moms-cafe-small.webp"
+    },
+    {
+      "source": "/assets/community-riverside-lounge.webp",
+      "destination": "/api/media?path=assets/community-riverside-lounge.webp"
+    },
+    {
+      "source": "/assets/community-riverside-lounge-small.webp",
+      "destination": "/api/media?path=assets/community-riverside-lounge-small.webp"
+    },
+    {
+      "source": "/assets/community-beauty-brunch.webp",
+      "destination": "/api/media?path=assets/community-beauty-brunch.webp"
+    },
+    {
+      "source": "/assets/community-beauty-brunch-small.webp",
+      "destination": "/api/media?path=assets/community-beauty-brunch-small.webp"
+    },
+    {
+      "source": "/assets/community-bookclub.webp",
+      "destination": "/api/media?path=assets/community-bookclub.webp"
+    },
+    {
+      "source": "/assets/community-bookclub-small.webp",
+      "destination": "/api/media?path=assets/community-bookclub-small.webp"
+    },
+    {
+      "source": "/assets/community-fitclub-badminton.webp",
+      "destination": "/api/media?path=assets/community-fitclub-badminton.webp"
+    },
+    {
+      "source": "/assets/community-fitclub-badminton-small.webp",
+      "destination": "/api/media?path=assets/community-fitclub-badminton-small.webp"
+    },
+    {
+      "source": "/assets/community-bookshop-meetup.webp",
+      "destination": "/api/media?path=assets/community-bookshop-meetup.webp"
+    },
+    {
+      "source": "/assets/community-bookshop-meetup-small.webp",
+      "destination": "/api/media?path=assets/community-bookshop-meetup-small.webp"
+    },
+    {
+      "source": "/assets/community-cafe-evening.webp",
+      "destination": "/api/media?path=assets/community-cafe-evening.webp"
+    },
+    {
+      "source": "/assets/community-cafe-evening-small.webp",
+      "destination": "/api/media?path=assets/community-cafe-evening-small.webp"
+    },
+    {
+      "source": "/assets/community-language-collage.webp",
+      "destination": "/api/media?path=assets/community-language-collage.webp"
+    },
+    {
+      "source": "/assets/community-language-collage-small.webp",
+      "destination": "/api/media?path=assets/community-language-collage-small.webp"
+    },
+    {
+      "source": "/assets/community-meetups-collage.webp",
+      "destination": "/api/media?path=assets/community-meetups-collage.webp"
+    },
+    {
+      "source": "/assets/community-meetups-collage-small.webp",
+      "destination": "/api/media?path=assets/community-meetups-collage-small.webp"
     }
   ]
 }
