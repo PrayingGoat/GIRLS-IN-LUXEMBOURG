@@ -24,10 +24,13 @@
    for(const [value,label] of Object.entries(statuses)){const option=element('option',label);option.value=value;option.selected=row.status===value;select.append(option)}
    select.addEventListener('change',async()=>{select.disabled=true;try{await api('message-status',{method:'PATCH',body:JSON.stringify({id:row.id,status:select.value})});row.status=select.value;item.dataset.status=row.status;status.textContent='Status saved.'}catch(error){select.value=row.status;status.textContent=error.message}finally{select.disabled=false}});
    item.dataset.status=row.status;
-   item.append(head,element('p',row.message,'admin-message-body'),select);
+   item.append(head,element('p',row.message,'admin-message-body'),select);const actions=element('div',undefined,'admin-item-actions');actions.append(select,deleteButton('message-delete',row.id,item,()=>{status.textContent='Deleted from the online database.'}));item.append(actions);
    list.append(item);
   }
  }
+
+ // Two clicks to delete: the first asks for confirmation, which expires after 5 seconds.
+ function deleteButton(action,id,item,onDone){const b=element('button','Delete','button admin-danger admin-delete');b.type='button';let armed=false,timer;b.addEventListener('click',async()=>{if(!armed){armed=true;b.textContent='Click again to delete';timer=setTimeout(()=>{armed=false;b.textContent='Delete'},5000);return}clearTimeout(timer);b.disabled=true;try{await api(action,{method:'POST',body:JSON.stringify({id})});item.remove();onDone();document.dispatchEvent(new Event('admin:data-changed'))}catch(error){b.disabled=false;armed=false;b.textContent='Delete';status.textContent=error.message}});return b}
  async function load(){
   const current=++generation,params=new URLSearchParams({page});
   if($('messages-reason').value)params.set('reason',$('messages-reason').value);

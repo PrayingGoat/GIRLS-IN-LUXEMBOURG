@@ -24,3 +24,53 @@
 .admin-feedback-answer p{margin:4px 0 0}
 .admin-feedback-empty{font-style:italic;opacity:.6}
 .admin-feedback-contact{margin:12px 0 10px;font-size:13px;opacity:.85}
+.admin-item-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.admin-danger{background:#fff;color:#a1003f;border:1px solid #a1003f}
+.admin-danger:hover:not(:disabled){background:#a1003f;color:#fff}
+.admin-danger:disabled{opacity:.45;cursor:not-allowed}
+.admin-cleanup-total{font-weight:700}
+.admin-cleanup-help{margin:0 0 12px;font-size:14px;line-height:1.55}
+.admin-cleanup-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.admin-cleanup-controls select{min-height:44px;padding:8px 12px;border:1px solid var(--dusty-rose);border-radius:8px;background:#fff;font:inherit}
+.admin-cleanup-confirm{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px;padding:14px;border-radius:10px;background:#fff1f5;border:1px dashed #a1003f}
+.admin-cleanup-confirm label{flex-basis:100%;font-weight:700;font-size:14px}
+.admin-cleanup-confirm input{min-height:44px;padding:8px 12px;border:1px solid var(--dusty-rose);border-radius:8px;font:inherit;letter-spacing:.08em}
+.admin-password-form{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:end}
+.admin-password-form .button{justify-self:start}
+.admin-password-form [aria-invalid=true]{border:2px solid #a1003f}
+@media(max-width:800px){.admin-password-form{grid-template-columns:1fr}}
+
+/* Admin space: left menu, one section at a time */
+.admin-workspace:not([hidden]){display:grid;grid-template-columns:250px minmax(0,1fr);gap:32px;align-items:start}
+.admin-sidebar{position:sticky;top:20px;padding:14px;border:1px solid var(--dusty-rose);border-radius:18px;background:#fff;box-shadow:0 14px 40px #a8266010}
+.admin-sidebar ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.admin-sidebar a{display:flex;align-items:center;gap:12px;min-height:46px;padding:10px 12px;border-radius:12px;color:var(--text);font:600 14px/1.3 var(--sans);text-decoration:none;transition:background .18s,color .18s}
+.admin-sidebar a svg{flex-shrink:0;color:var(--button-pink)}
+.admin-sidebar a:hover{background:var(--baby-pink)}
+.admin-sidebar a[aria-current=page]{background:var(--button-pink);color:#fff}
+.admin-sidebar a[aria-current=page] svg{color:#fff}
+.admin-sidebar a:focus-visible{outline:3px solid var(--button-pink);outline-offset:2px}
+.admin-badge{margin-left:auto;min-width:24px;padding:2px 7px;border-radius:9999px;background:var(--button-pink);color:#fff;font:700 11px/1.5 var(--sans);text-align:center}
+.admin-sidebar a[aria-current=page] .admin-badge{background:#fff;color:var(--button-pink)}
+.admin-views{min-width:0}
+.admin-views>.admin-view{margin-top:0}
+.admin-views h1:focus,.admin-views h2:focus{outline:none}
+.admin-welcome{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;padding:clamp(24px,4vw,48px);border:1px solid var(--dusty-rose);border-radius:24px;background:#fff}
+.admin-welcome h1{font:400 clamp(40px,5vw,64px)/1.05 var(--serif);margin:14px 0 22px}
+.admin-welcome h1 em{color:var(--button-pink)}
+.admin-welcome-copy p{font-size:16px;line-height:1.75;max-width:520px;margin:0 0 14px}
+.admin-welcome-hint{margin-top:22px!important;padding:14px 18px;border-radius:14px;background:var(--baby-pink);font-weight:600}
+.admin-welcome-art{margin:0;justify-self:center;width:100%;max-width:400px}
+.admin-welcome-art img{display:block;width:100%;height:auto;border-radius:22px;box-shadow:0 24px 60px #a826602a}
+.admin-request-contact{margin:0 0 6px;font-size:15px}
+.admin-request-whatsapp{font-weight:700;color:#0b7a3e}
+.admin-requests .form-field input[type=search]{min-height:44px;padding:8px 12px;border:1px solid var(--dusty-rose);border-radius:8px;font:inherit;min-width:240px}
+@media(max-width:900px){
+ .admin-workspace:not([hidden]){grid-template-columns:1fr;gap:18px}
+ .admin-sidebar{position:sticky;top:0;z-index:5;padding:8px;border-radius:14px;overflow-x:auto}
+ .admin-sidebar ul{display:flex;gap:6px;width:max-content}
+ .admin-sidebar a{min-height:42px;padding:8px 12px;white-space:nowrap}
+ .admin-welcome{grid-template-columns:1fr;text-align:left}
+ .admin-welcome-art{max-width:300px}
+}
+@media(prefers-reduced-motion:reduce){.admin-sidebar a{transition:none}}

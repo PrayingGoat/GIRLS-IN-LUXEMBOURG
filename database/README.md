@@ -12,7 +12,7 @@ connections in Atlas Network Access. Use TLS and never commit credentials.
 Run:
 - npm install
 - npm run db:migrate
-- npm run admin:setup (only to create/change the admin password)
+- npm run admin:setup (first setup, or if the admin password is lost; it is saved in MongoDB)
 - npm run dev
 
 The initializer is idempotent and does not overwrite saved community counts.
@@ -32,7 +32,6 @@ Do not make Atlas collections publicly accessible. The browser only calls our AP
 Set these server-side environment variables in the project:
 - MONGODB_URI
 - MONGODB_DB
-- ADMIN_PASSWORD_HASH (the scrypt hash generated locally, not a plaintext password)
 - RATE_LIMIT_SECRET (optional)
 
 Configure the variables for each intended environment (Production/Preview),
@@ -63,9 +62,11 @@ deployment has been verified. SQL files in this directory are historical only.
 /admin is not linked in public navigation. Every protected API checks its session.
 Sessions last 8 hours, store only a token hash, and use HttpOnly / SameSite=Strict
 cookies (Secure on HTTPS). Expiry is checked on every request independently of
-asynchronous TTL cleanup. Logout deletes the session. Revoke all sessions in Atlas
-after changing an admin password:
-db.admin_sessions.deleteMany({})
+asynchronous TTL cleanup. Logout deletes the session. The administrator password is stored only as a salted scrypt hash in the
+admin_settings collection. Change it in /admin under Administrator password (this
+signs out every other device), or with npm run admin:setup if it is lost (this signs
+out everyone). ADMIN_PASSWORD_HASH is no longer needed; if it is still set, it is only
+used once, to copy an older setup into the database.
 
 ## Verification
 node --test scripts/admin.test.cjs scripts/community-stats.test.cjs scripts/membership.test.cjs

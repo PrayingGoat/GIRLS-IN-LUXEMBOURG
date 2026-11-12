@@ -67,7 +67,7 @@ Les fenêtres reprennent les neuf sources Notion consultées le 9 octobre 2026, 
 
 ## Membership requests
 
-Every "Join us" button links to `/join`, a membership request form (first name, last name, email, WhatsApp number, consent). `join.js` posts it to `/api/membership`, which validates the request and stores it in MongoDB; an administrator then contacts the person on WhatsApp. Submitting does not add anyone to a group automatically. The WhatsApp icons in the top banner and footer remain direct links to the group. The private /admin page manages community numbers and website images using MongoDB Atlas. See [database setup](database/README.md). Set MONGODB_URI, MONGODB_DB and ADMIN_PASSWORD_HASH in the server environment, and run npm run db:migrate.
+Every "Join us" button links to `/join`, a membership request form (first name, last name, email, WhatsApp number, consent). `join.js` posts it to `/api/membership`, which validates the request and stores it in MongoDB; an administrator then contacts the person on WhatsApp. Submitting does not add anyone to a group automatically. The WhatsApp icons in the top banner and footer remain direct links to the group. The private /admin page manages community numbers and website images using MongoDB Atlas. See [database setup](database/README.md). Set MONGODB_URI and MONGODB_DB in the server environment, run npm run db:migrate, then npm run admin:setup once to choose the administrator password (stored in MongoDB).
 
 
 ## Page structure
@@ -154,3 +154,19 @@ Nothing a visitor sees depends on a serverless function waking up:
   `.hero-slide.is-ready`); it never fades to a photo that is still downloading.
 - Internal links are prefetched on hover or touch (speculation rules in each page head).
   The shimmer placeholders in `assets/motion.js` are unchanged.
+
+### Database cleanup and administrator password
+
+In /admin, **Database cleanup** shows the size of the online database and, for each kind of data, how many items it holds and how much space they use: contact messages, feedback answers, membership requests, replaced website images, unused images and photo backups, and expired technical data. Each can be deleted entirely or only when older than 30 days, 3 months, 6 months or 1 year, after typing DELETE. Deletions apply directly to the live MongoDB database and cannot be undone. Messages and feedback can also be deleted one by one (two clicks).
+
+"Unused images" are stored images that the site can no longer request: anything not listed in the vercel.json image rewrites, assets/media-slots.json, assets/community-photos.json or a saved image choice. When adding a new image to the site, add its rewrite to vercel.json so it is never treated as unused.
+
+**Administrator password** changes the password, stored only as an encrypted hash in MongoDB (admin_settings), and signs out every other device. No password is kept in .env or in the hosting settings; only MONGODB_URI and MONGODB_DB are needed.
+
+### Admin layout
+
+After signing in, /admin opens on a welcome page (illustration `assets/admin-welcome.webp`, source in `photos/admin pics/`). A left menu with SVG icons opens one section at a time: Membership requests, Messages, Feedback, Community numbers, Website images, Database cleanup and Password. The open section is kept in the address (`/admin#requests`…), so it survives a reload and can be bookmarked. On narrow screens the menu becomes a horizontal strip.
+
+**Membership requests** lists the requests sent from the Join us form (search, status filter, pagination): WhatsApp number as a wa.me link, email, consent date, a status (Pending, Contacted, Added to the group, Declined) and a two-click Delete. The menu shows the number of pending requests.
+
+Admin interface checks with mocked API responses (no database writes): `node scripts/check-admin.cjs` and `node scripts/check-admin-cleanup.cjs`.

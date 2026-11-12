@@ -10,7 +10,6 @@ module.exports=async function handler(req,res){
  if(req.method!=='GET'){
   try{if(!req.headers.origin||new URL(req.headers.origin).host!==req.headers.host)return send(403,{message:'Please use the administrator page on this site.'});}catch{return send(403,{message:'Invalid origin.'});}
  }
- if(!process.env.ADMIN_PASSWORD_HASH)return send(503,{message:'Administrator access has not been configured yet.'});
  const bodyLimit=action==='image'?3000000:4096;
  let body={};
  if(req.method!=='GET'){
@@ -22,11 +21,16 @@ module.exports=async function handler(req,res){
  try{
   const db=await getStore();
   if(action==='login'&&req.method==='POST'){
+   // The password hash lives in MongoDB. ADMIN_PASSWORD_HASH is only read once, to move an old setup into the database.
+   const stored=(await db.getAdminPasswordHash?.())||null;
+   const passwordHash=stored||process.env.ADMIN_PASSWORD_HASH;
+   if(!passwordHash)return send(503,{message:'Administrator access has not been configured yet. Run npm run admin:setup.'});
    const ip=process.env.VERCEL?(req.headers['x-vercel-forwarded-for']||'unknown').split(',')[0].trim():req.socket?.remoteAddress||'local';
-   const hash=createHmac('sha256',process.env.ADMIN_PASSWORD_HASH).update(ip).digest('hex');
+   const hash=createHmac('sha256',process.env.RATE_LIMIT_SECRET||process.env.MONGODB_URI||passwordHash).update('admin:'+ip).digest('hex');
    const attempts=await db.consumeLimit('admin_login_limits',hash);
    if(attempts>10){res.setHeader('Retry-After','900');return send(429,{message:'Too many attempts. Try again in 15 minutes.'});}
-   if(!verifyPassword(body.password,process.env.ADMIN_PASSWORD_HASH))return send(401,{message:'Incorrect administrator password.'});
+   if(!verifyPassword(body.password,passwordHash))return send(401,{message:'Incorrect administrator password.'});
+   if(!stored&&db.setAdminPasswordHash)await db.setAdminPasswordHash(passwordHash);
    const token=randomBytes(32).toString('hex');
    await db.createSession(tokenHash(token));
    cookie(token,28800);return send(200,{authenticated:true});
@@ -80,6 +84,35 @@ module.exports=async function handler(req,res){
    const message=await db.setContactMessageStatus(body.id,body.status);
    if(!message)return send(404,{message:'Message not found.'});
    return send(200,{message});
+  }
+  if(action==='password'&&req.method==='POST'){
+   const current=await db.getAdminPasswordHash()||process.env.ADMIN_PASSWORD_HASH;
+   if(!verifyPassword(body.current,current))return send(422,{message:'The current password is incorrect.',field:'current'});
+   if(typeof body.next!=='string'||body.next.length<14||body.next.length>256)return send(422,{message:'Use a new password of 14 to 256 characters.',field:'next'});
+   if(body.next===body.current)return send(422,{message:'Choose a password different from the current one.',field:'next'});
+   const {hashPassword}=require('../lib/admin-auth.cjs');
+   await db.setAdminPasswordHash(hashPassword(body.next));
+   // Every other browser is signed out; this one stays signed in.
+   await db.deleteOtherSessions(tokenHash(token));
+   return send(200,{message:'Password changed. Other devices have been signed out.'});
+  }
+  if(action==='storage'&&req.method==='GET'){
+   const {referencedImages}=require('../lib/cleanup.cjs');
+   return send(200,await db.storageUsage(referencedImages(await db.listImages())));
+  }
+  if(action==='cleanup'&&req.method==='POST'){
+   const {referencedImages,categories,ages}=require('../lib/cleanup.cjs');
+   if(!categories.includes(body.category)||!ages.includes(body.olderThanDays))return send(422,{message:'Choose what to delete.'});
+   if(body.confirm!=='DELETE')return send(422,{message:'Type DELETE to confirm.'});
+   const olderThan=body.olderThanDays?new Date(Date.now()-body.olderThanDays*24*60*60*1000):null;
+   const deleted=await db.cleanup(body.category,olderThan,referencedImages(await db.listImages()));
+   return send(200,{deleted,message:`${deleted} item${deleted===1?'':'s'} deleted from the online database.`});
+  }
+  if(['message-delete','feedback-delete','request-delete'].includes(action)&&req.method==='POST'){
+   if(!/^[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(body.id||''))return send(422,{message:'Invalid item.'});
+   const done=action==='message-delete'?await db.deleteContactMessage(body.id):action==='request-delete'?await db.deleteMember(body.id):await db.deleteFeedback(body.id);
+   if(!done)return send(404,{message:'Already deleted.'});
+   return send(200,{deleted:1});
   }
   if(action==='feedback'&&req.method==='GET'){
    const status=url.searchParams.get('status')||'';
