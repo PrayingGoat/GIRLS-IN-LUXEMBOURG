@@ -42,6 +42,8 @@
    item.dataset.status=row.status;item.append(head,contact,consent,actions);list.append(item);
   }
  }
+ // Updated directly (not through an event) so it works whatever order the admin scripts load in.
+ function setBadge(count){const badge=document.querySelector('[data-badge="requests"]');if(!badge)return;badge.hidden=count===0;badge.textContent=count>99?'99+':String(count);badge.setAttribute('aria-label',count+' pending')}
  async function load(rerender=true){
   const current=++generation,params=new URLSearchParams({page});
   const search=$('requests-search').value.trim();if(search)params.set('search',search);
@@ -52,7 +54,7 @@
    pages=Math.max(1,Math.ceil(data.total/data.pageSize));if(rerender)render(data.requests);
    const counts=Object.fromEntries((data.stats||[]).map(s=>[s.status,s.count]));
    summary.textContent=Object.entries(statuses).map(([k,label])=>`${label}: ${counts[k]||0}`).join(' · ');
-   document.dispatchEvent(new CustomEvent('admin:badge',{detail:{view:'requests',count:counts.pending||0}}));
+   setBadge(counts.pending||0);
    if(rerender)status.textContent=data.total?`${data.total} request${data.total>1?'s':''}`:'No membership requests yet.';
    $('requests-page').textContent=`Page ${page} of ${pages}`;$('requests-prev').disabled=page<=1;$('requests-next').disabled=page>=pages;
   }catch(error){if(current===generation)status.textContent=error.message}
@@ -63,5 +65,5 @@
  $('requests-prev').addEventListener('click',()=>{if(page>1){page--;load()}});
  $('requests-next').addEventListener('click',()=>{if(page<pages){page++;load()}});
  document.addEventListener('admin:ready',()=>{page=1;load()});
- document.addEventListener('admin:signed-out',()=>{generation++;list.replaceChildren();status.textContent='';summary.textContent='';$('requests-page').textContent='';document.dispatchEvent(new CustomEvent('admin:badge',{detail:{view:'requests',count:0}}))});
+ document.addEventListener('admin:signed-out',()=>{generation++;list.replaceChildren();status.textContent='';summary.textContent='';$('requests-page').textContent='';setBadge(0)});
 })();

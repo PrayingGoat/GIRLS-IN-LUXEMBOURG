@@ -10,7 +10,7 @@ module.exports=async function handler(req,res){
  if(req.method!=='GET'){
   try{if(!req.headers.origin||new URL(req.headers.origin).host!==req.headers.host)return send(403,{message:'Please use the administrator page on this site.'});}catch{return send(403,{message:'Invalid origin.'});}
  }
- const bodyLimit=action==='image'?3000000:4096;
+ const bodyLimit=action==='image'?3000000:action==='library-delete'?65536:4096;
  let body={};
  if(req.method!=='GET'){
   if(!(req.headers['content-type']||'').startsWith('application/json'))return send(415,{message:'JSON required.'});
@@ -95,6 +95,36 @@ module.exports=async function handler(req,res){
    // Every other browser is signed out; this one stays signed in.
    await db.deleteOtherSessions(tokenHash(token));
    return send(200,{message:'Password changed. Other devices have been signed out.'});
+  }
+  if(action==='library'&&req.method==='GET'){
+   const {currentUse}=require('../lib/library.cjs');
+   const [items,custom]=await Promise.all([db.listLibrary(),db.listImages()]);
+   return send(200,{items:items.map(i=>({path:i.path,size:i.size,type:i.content_type,createdAt:i.created_at,version:i.sha256?.slice(0,12),usedBy:currentUse(i.path,custom)}))});
+  }
+  if(action==='thumb'&&req.method==='GET'){
+   const {validPath}=require('../lib/library.cjs');
+   const path=url.searchParams.get('path'),width=url.searchParams.get('w')==='1400'?1400:360;
+   if(!validPath(path))return send(400,{message:'Invalid image.'});
+   const row=await db.getAsset(path);
+   if(!row)return send(404,{message:'Image not found.'});
+   const etag=`"${row.sha256}-${width}"`;
+   res.setHeader('Cache-Control','private, max-age=86400');res.setHeader('ETag',etag);res.setHeader('X-Robots-Tag','noindex, nofollow');
+   if(req.headers['if-none-match']===etag){res.statusCode=304;return res.end()}
+   // The driver returns a Buffer (promoteBuffers) or a BSON Binary; never read Buffer.buffer, which is Node's shared memory pool.
+   const raw=row.data;let data=Buffer.isBuffer(raw)?raw:Buffer.from(raw.buffer??raw),type=row.content_type;
+   if(!/svg/.test(type)){try{data=await require('sharp')(data,{limitInputPixels:60000000}).rotate().resize({width,height:width,fit:'inside',withoutEnlargement:true}).webp({quality:width>400?84:72}).toBuffer();type='image/webp'}catch{}}
+   res.statusCode=200;res.setHeader('Content-Type',type);res.setHeader('X-Content-Type-Options','nosniff');return res.end(data);
+  }
+  if(action==='library-delete'&&req.method==='POST'){
+   const {currentUse,validPath}=require('../lib/library.cjs');
+   const paths=Array.isArray(body.paths)?[...new Set(body.paths)]:[];
+   if(!paths.length||paths.length>500||!paths.every(validPath))return send(422,{message:'Select the photos to delete.'});
+   const custom=await db.listImages();
+   // Never delete a photo the website is showing: the admin is asked to replace it first.
+   const used=paths.map(path=>({path,usedBy:currentUse(path,custom)})).filter(u=>u.usedBy.length);
+   if(used.length)return send(409,{message:'Some photos are used on the website.',used});
+   const deleted=await db.deleteAssets(paths);
+   return send(200,{deleted,message:`${deleted} photo${deleted===1?'':'s'} deleted from the online database.`});
   }
   if(action==='storage'&&req.method==='GET'){
    const {referencedImages}=require('../lib/cleanup.cjs');

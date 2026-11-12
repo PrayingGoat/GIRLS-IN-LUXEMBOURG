@@ -154,7 +154,7 @@
   },
   {
     "id": "story-photo-1",
-    "page": "Our story",
+    "page": "About",
     "pageFile": "story.html",
     "section": "Community portraits",
     "label": "Fabrina",
@@ -163,7 +163,7 @@
   },
   {
     "id": "story-photo-2",
-    "page": "Our story",
+    "page": "About",
     "pageFile": "story.html",
     "section": "Community portraits",
     "label": "Marta",
@@ -172,7 +172,7 @@
   },
   {
     "id": "story-photo-3",
-    "page": "Our story",
+    "page": "About",
     "pageFile": "story.html",
     "section": "Community portraits",
     "label": "Enare",
@@ -181,7 +181,7 @@
   },
   {
     "id": "story-photo-4",
-    "page": "Our story",
+    "page": "About",
     "pageFile": "story.html",
     "section": "Our story",
     "label": "Creative gathering",
@@ -190,7 +190,7 @@
   },
   {
     "id": "story-photo-5",
-    "page": "Our story",
+    "page": "About",
     "pageFile": "story.html",
     "section": "Our story",
     "label": "Forest walk",
@@ -199,7 +199,7 @@
   },
   {
     "id": "story-photo-6",
-    "page": "Our story",
+    "page": "About",
     "pageFile": "story.html",
     "section": "Our purpose",
     "label": "Community dinner",
@@ -208,7 +208,7 @@
   },
   {
     "id": "community-photo-1",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Introduction",
     "label": "Main photograph",
@@ -217,7 +217,7 @@
   },
   {
     "id": "community-photo-2",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "GirlsClub",
@@ -226,7 +226,7 @@
   },
   {
     "id": "community-photo-3",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "BookClub",
@@ -235,7 +235,7 @@
   },
   {
     "id": "community-photo-4",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "Moms Club",
@@ -244,7 +244,7 @@
   },
   {
     "id": "community-photo-5",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "Walk / Hike Club",
@@ -253,7 +253,7 @@
   },
   {
     "id": "community-photo-6",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "FitClub",
@@ -262,7 +262,7 @@
   },
   {
     "id": "community-photo-7",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "CareerClub",
@@ -271,7 +271,7 @@
   },
   {
     "id": "community-photo-8",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "Craft Corner",
@@ -280,7 +280,7 @@
   },
   {
     "id": "community-photo-9",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "Language Exchange",
@@ -289,7 +289,7 @@
   },
   {
     "id": "community-photo-10",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Circles",
     "label": "TravelClub",
@@ -298,7 +298,7 @@
   },
   {
     "id": "community-photo-11",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Community moments",
     "label": "Connect & belong",
@@ -307,7 +307,7 @@
   },
   {
     "id": "community-photo-12",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Community moments",
     "label": "Create & grow",
@@ -316,7 +316,7 @@
   },
   {
     "id": "community-photo-13",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Community moments",
     "label": "Move & explore",
@@ -325,7 +325,7 @@
   },
   {
     "id": "community-photo-14",
-    "page": "Find your circle",
+    "page": "Our community",
     "pageFile": "community.html",
     "section": "Community moments",
     "label": "Come as you are",
@@ -334,7 +334,7 @@
   },
   {
     "id": "events-photo-1",
-    "page": "Upcoming events",
+    "page": "Events",
     "pageFile": "events.html",
     "section": "Introduction",
     "label": "Main photograph",

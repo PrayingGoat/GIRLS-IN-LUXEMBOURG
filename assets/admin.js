@@ -28,6 +28,9 @@
  $('login-form').addEventListener('submit',async event=>{event.preventDefault();const button=event.currentTarget.querySelector('button');button.disabled=true;$('login-status').textContent='Signing in…';try{await api('login',{method:'POST',body:JSON.stringify({password:$('password').value})});$('password').value='';await show()}catch(error){$('login-status').textContent=error.message}finally{button.disabled=false}});
  $('logout').addEventListener('click',async()=>{try{await api('logout',{method:'POST',body:'{}'});resetView('Signed out.');$('password').focus()}catch(error){$('dashboard-status').textContent=error.message}});
  document.addEventListener('admin:session-expired',()=>resetView('Your session has expired. Please sign in again.'));
- api('session').then(show).catch(error=>resetView(error.message));
+ // Every admin section script must be listening before 'admin:ready' is sent: wait for all deferred scripts.
+ // Deferred scripts run while readyState is already 'interactive', before DOMContentLoaded: so wait for the event itself.
+ const scriptsReady=new Promise(resolve=>document.readyState==='complete'?resolve():document.addEventListener('DOMContentLoaded',resolve,{once:true}));
+ api('session').then(async()=>{await scriptsReady;await show()}).catch(error=>resetView(error.message));
  window.addEventListener('pageshow',event=>{if(event.persisted){resetView();api('session').then(show).catch(error=>resetView(error.message))}});
 })();

@@ -1,6 +1,8 @@
 const fs=require('node:fs');
 fs.rmSync('dist',{recursive:true,force:true});
 fs.mkdirSync('dist',{recursive:true});
+// Keep the admin photo library's list of used images in step with the pages.
+require('./scripts/build-image-usage.cjs');
 for(const file of [...require('./site-pages.cjs'),'styles.css','app.js','events.js','join.js','contact-form.js','feedback-form.js'])fs.copyFileSync(file,`dist/${file}`);
 // Images ship as static files so the CDN serves them without waking a function or the database.
 // The /api/media rewrites in vercel.json only answer for an image that is missing from this build.

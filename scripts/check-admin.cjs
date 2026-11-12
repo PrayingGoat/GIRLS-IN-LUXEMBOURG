@@ -15,6 +15,7 @@ async function open(width){const p=await b.newPage({viewport:{width,height:900}}
   if(a.startsWith('feedback'))return json({feedback:[],total:0,page:1,pageSize:25,average:null});
   if(a==='images')return json({images:[]});
   if(a==='storage')return json({total:null,categories:{}});
+  if(a==='library')return json({items:[]});
   return json({});
  });
  await p.goto(base+'/admin',{waitUntil:'networkidle'});return p}
@@ -22,8 +23,8 @@ const p=await open(1440);
 // Welcome view first, other sections hidden.
 assert.equal(await p.locator('.admin-welcome').isVisible(),true);
 assert.equal(await p.locator('.admin-view:visible').count(),1);
-assert.equal(await p.locator('.admin-sidebar a').count(),8);
-assert.equal(await p.locator('.admin-sidebar svg').count(),8);
+assert.equal(await p.locator('.admin-sidebar a').count(),9);
+assert.equal(await p.locator('.admin-sidebar svg').count(),9);
 assert.equal(await p.locator('[data-view-link="home"]').getAttribute('aria-current'),'page');
 await p.waitForFunction(()=>document.querySelector('.admin-welcome-art img').naturalWidth>0);
 await p.screenshot({path:d+'admin-home.png'});
@@ -46,7 +47,7 @@ const del=p.locator('#requests-list .admin-delete').last();await del.click();awa
 await p.waitForFunction(()=>document.querySelectorAll('#requests-list li').length===1);
 assert.deepEqual(posted.find(x=>x[0]==='request-delete')[1],{id:'aab77e90-bf1b-441c-9c7b-ed6eae3a6402'});
 // Every menu item opens exactly its section.
-for(const v of ['messages','feedback','numbers','images','cleanup','password','home']){await p.click(`[data-view-link="${v}"]`);await p.locator(`.admin-view[data-view="${v}"]`).waitFor({state:"visible",timeout:3000});assert.equal(await p.locator('.admin-view:visible').count(),1,v);assert.equal(await p.locator(`.admin-view[data-view="${v}"]`).isVisible(),true,v)}
+for(const v of ['messages','feedback','numbers','images','library','cleanup','password','home']){await p.click(`[data-view-link="${v}"]`);await p.locator(`.admin-view[data-view="${v}"]`).waitFor({state:"visible",timeout:3000});assert.equal(await p.locator('.admin-view:visible').count(),1,v);assert.equal(await p.locator(`.admin-view[data-view="${v}"]`).isVisible(),true,v)}
 // Direct link to a section survives a reload.
 await p.goto(base+'/admin#cleanup',{waitUntil:'networkidle'});assert.equal(await p.locator('.admin-cleanup').isVisible(),true);
 // Mobile: menu becomes a horizontal strip, no page overflow.

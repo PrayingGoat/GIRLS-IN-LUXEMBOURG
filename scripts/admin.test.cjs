@@ -52,3 +52,20 @@ test('cleanup, storage and password actions',async()=>{
  r=res();await handler(req('login','POST',{password:'A-much-longer-new-password'}),r);assert.equal(r.statusCode,200);
  authorized=false;
 });
+
+// Regression: thumbnails must use the image bytes, not the Buffer's shared memory pool.
+test('photo library thumbnails are valid images',async()=>{
+ const sharp=require('sharp');
+ const png=await sharp({create:{width:40,height:30,channels:3,background:'#d1037e'}}).png().toBuffer();
+ const pooled=Buffer.from(png);// small Buffers share Node's memory pool, like the MongoDB driver's
+ globalThis.extraStore={getAsset:async path=>path==='assets/x.png'?{path,content_type:'image/png',sha256:'abc',data:pooled}:null,listImages:async()=>[]};
+ authorized=true;
+ const q=req('thumb&w=360&path='+encodeURIComponent('assets/x.png'));q.headers.cookie='gil_admin='+'a'.repeat(64);
+ const r={statusCode:200,headers:{},setHeader(k,v){this.headers[k]=v},end(b){this.body=b}};
+ await handler(q,r);
+ assert.equal(r.statusCode,200);assert.equal(r.headers['Content-Type'],'image/webp');
+ const meta=await sharp(r.body).metadata();assert.equal(meta.format,'webp');assert.equal(meta.width,40);
+ const bad=req('thumb&path='+encodeURIComponent('../.env'));bad.headers.cookie='gil_admin='+'a'.repeat(64);
+ const r2=res();await handler(bad,r2);assert.equal(r2.statusCode,400);
+ authorized=false;
+});

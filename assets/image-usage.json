@@ -1,0 +1,426 @@
+{
+ "assets/brand-glow.webp": [
+  {
+   "slot": "global-logo",
+   "label": "Shared across pages › Brand › Site logo"
+  }
+ ],
+ "assets/community-0.webp": [
+  {
+   "slot": "index-photo-1",
+   "label": "Home › Hero slideshow › Slide 1"
+  },
+  {
+   "slot": "community-photo-4",
+   "label": "Our community › Circles › Moms Club"
+  },
+  {
+   "slot": "events-photo-1",
+   "label": "Events › Introduction › Main photograph"
+  }
+ ],
+ "assets/community-0-small.webp": [
+  {
+   "slot": "index-photo-1",
+   "label": "Home › Hero slideshow › Slide 1"
+  },
+  {
+   "slot": "community-photo-4",
+   "label": "Our community › Circles › Moms Club"
+  }
+ ],
+ "assets/community-2.webp": [
+  {
+   "slot": "index-photo-2",
+   "label": "Home › Hero slideshow › Slide 2"
+  },
+  {
+   "slot": "community-photo-1",
+   "label": "Our community › Introduction › Main photograph"
+  },
+  {
+   "slot": "community-photo-2",
+   "label": "Our community › Circles › GirlsClub"
+  },
+  {
+   "slot": "community-photo-11",
+   "label": "Our community › Community moments › Connect & belong"
+  }
+ ],
+ "assets/community-2-small.webp": [
+  {
+   "slot": "index-photo-2",
+   "label": "Home › Hero slideshow › Slide 2"
+  },
+  {
+   "slot": "community-photo-1",
+   "label": "Our community › Introduction › Main photograph"
+  },
+  {
+   "slot": "community-photo-2",
+   "label": "Our community › Circles › GirlsClub"
+  },
+  {
+   "slot": "community-photo-11",
+   "label": "Our community › Community moments › Connect & belong"
+  }
+ ],
+ "assets/community-6.webp": [
+  {
+   "slot": "index-photo-3",
+   "label": "Home › Hero slideshow › Slide 3"
+  },
+  {
+   "slot": "index-photo-6",
+   "label": "Home › Discover › Upcoming events"
+  },
+  {
+   "slot": "community-photo-14",
+   "label": "Our community › Community moments › Come as you are"
+  }
+ ],
+ "assets/community-6-small.webp": [
+  {
+   "slot": "index-photo-3",
+   "label": "Home › Hero slideshow › Slide 3"
+  },
+  {
+   "slot": "index-photo-6",
+   "label": "Home › Discover › Upcoming events"
+  },
+  {
+   "slot": "community-photo-14",
+   "label": "Our community › Community moments › Come as you are"
+  }
+ ],
+ "assets/community-pottery-october.webp": [
+  {
+   "slot": "index-photo-7",
+   "label": "Home › Hero slideshow › Slide 4 - Pottery workshop"
+  },
+  {
+   "slot": "community-photo-8",
+   "label": "Our community › Circles › Craft Corner"
+  }
+ ],
+ "assets/community-pottery-october-small.webp": [
+  {
+   "slot": "index-photo-7",
+   "label": "Home › Hero slideshow › Slide 4 - Pottery workshop"
+  },
+  {
+   "slot": "community-photo-8",
+   "label": "Our community › Circles › Craft Corner"
+  }
+ ],
+ "assets/community-halloween.webp": [
+  {
+   "slot": "index-photo-8",
+   "label": "Home › Hero slideshow › Slide 5 - Halloween party"
+  }
+ ],
+ "assets/community-halloween-small.webp": [
+  {
+   "slot": "index-photo-8",
+   "label": "Home › Hero slideshow › Slide 5 - Halloween party"
+  }
+ ],
+ "assets/community-red-bridge-walk.webp": [
+  {
+   "slot": "index-photo-9",
+   "label": "Home › Hero slideshow › Slide 6 - Walk under the red bridge"
+  }
+ ],
+ "assets/community-red-bridge-walk-small.webp": [
+  {
+   "slot": "index-photo-9",
+   "label": "Home › Hero slideshow › Slide 6 - Walk under the red bridge"
+  }
+ ],
+ "assets/community-remich-hike.webp": [
+  {
+   "slot": "index-photo-10",
+   "label": "Home › Hero slideshow › Slide 7 - Remich vineyard hike"
+  }
+ ],
+ "assets/community-remich-hike-small.webp": [
+  {
+   "slot": "index-photo-10",
+   "label": "Home › Hero slideshow › Slide 7 - Remich vineyard hike"
+  }
+ ],
+ "assets/community-moms-cafe.webp": [
+  {
+   "slot": "index-photo-11",
+   "label": "Home › Hero slideshow › Slide 8 - Moms' coffee meetup"
+  }
+ ],
+ "assets/community-moms-cafe-small.webp": [
+  {
+   "slot": "index-photo-11",
+   "label": "Home › Hero slideshow › Slide 8 - Moms' coffee meetup"
+  }
+ ],
+ "assets/community-riverside-lounge.webp": [
+  {
+   "slot": "index-photo-12",
+   "label": "Home › Hero slideshow › Slide 9 - Riverside lounge meetup"
+  }
+ ],
+ "assets/community-riverside-lounge-small.webp": [
+  {
+   "slot": "index-photo-12",
+   "label": "Home › Hero slideshow › Slide 9 - Riverside lounge meetup"
+  }
+ ],
+ "assets/community-beauty-brunch.webp": [
+  {
+   "slot": "index-photo-13",
+   "label": "Home › Hero slideshow › Slide 10 - Beauty brunch"
+  }
+ ],
+ "assets/community-beauty-brunch-small.webp": [
+  {
+   "slot": "index-photo-13",
+   "label": "Home › Hero slideshow › Slide 10 - Beauty brunch"
+  }
+ ],
+ "assets/community-bookshop-meetup.webp": [
+  {
+   "slot": "index-photo-14",
+   "label": "Home › Hero slideshow › Slide 11 - Bookshop meetup"
+  }
+ ],
+ "assets/community-bookshop-meetup-small.webp": [
+  {
+   "slot": "index-photo-14",
+   "label": "Home › Hero slideshow › Slide 11 - Bookshop meetup"
+  }
+ ],
+ "assets/community-cafe-evening.webp": [
+  {
+   "slot": "index-photo-15",
+   "label": "Home › Hero slideshow › Slide 12 - Café evening"
+  }
+ ],
+ "assets/community-cafe-evening-small.webp": [
+  {
+   "slot": "index-photo-15",
+   "label": "Home › Hero slideshow › Slide 12 - Café evening"
+  }
+ ],
+ "assets/community-meetups-collage.webp": [
+  {
+   "slot": "index-photo-16",
+   "label": "Home › Hero slideshow › Slide 13 - Small meetups collage"
+  }
+ ],
+ "assets/community-meetups-collage-small.webp": [
+  {
+   "slot": "index-photo-16",
+   "label": "Home › Hero slideshow › Slide 13 - Small meetups collage"
+  }
+ ],
+ "assets/community-1-small.webp": [
+  {
+   "slot": "index-photo-4",
+   "label": "Home › Discover › Our story"
+  },
+  {
+   "slot": "story-photo-4",
+   "label": "About › Our story › Creative gathering"
+  },
+  {
+   "slot": "community-photo-12",
+   "label": "Our community › Community moments › Create & grow"
+  }
+ ],
+ "assets/community-1.webp": [
+  {
+   "slot": "index-photo-4",
+   "label": "Home › Discover › Our story"
+  },
+  {
+   "slot": "story-photo-4",
+   "label": "About › Our story › Creative gathering"
+  },
+  {
+   "slot": "community-photo-12",
+   "label": "Our community › Community moments › Create & grow"
+  }
+ ],
+ "assets/community-5-small.webp": [
+  {
+   "slot": "index-photo-5",
+   "label": "Home › Discover › Your circle"
+  },
+  {
+   "slot": "story-photo-5",
+   "label": "About › Our story › Forest walk"
+  }
+ ],
+ "assets/community-5.webp": [
+  {
+   "slot": "index-photo-5",
+   "label": "Home › Discover › Your circle"
+  },
+  {
+   "slot": "story-photo-5",
+   "label": "About › Our story › Forest walk"
+  }
+ ],
+ "assets/brand-glow-favicon.png": [
+  {
+   "slot": null,
+   "label": "Browser tab icon"
+  }
+ ],
+ "assets/fabrina.webp": [
+  {
+   "slot": "story-photo-1",
+   "label": "About › Community portraits › Fabrina"
+  }
+ ],
+ "assets/marta.webp": [
+  {
+   "slot": "story-photo-2",
+   "label": "About › Community portraits › Marta"
+  }
+ ],
+ "assets/enare.webp": [
+  {
+   "slot": "story-photo-3",
+   "label": "About › Community portraits › Enare"
+  }
+ ],
+ "assets/community-4.webp": [
+  {
+   "slot": "story-photo-6",
+   "label": "About › Our purpose › Community dinner"
+  },
+  {
+   "slot": "community-photo-7",
+   "label": "Our community › Circles › CareerClub"
+  }
+ ],
+ "assets/community-4-small.webp": [
+  {
+   "slot": "story-photo-6",
+   "label": "About › Our purpose › Community dinner"
+  },
+  {
+   "slot": "community-photo-7",
+   "label": "Our community › Circles › CareerClub"
+  }
+ ],
+ "assets/community-bookclub-small.webp": [
+  {
+   "slot": "community-photo-3",
+   "label": "Our community › Circles › BookClub"
+  }
+ ],
+ "assets/community-bookclub.webp": [
+  {
+   "slot": "community-photo-3",
+   "label": "Our community › Circles › BookClub"
+  }
+ ],
+ "assets/community-3-small.webp": [
+  {
+   "slot": "community-photo-5",
+   "label": "Our community › Circles › Walk / Hike Club"
+  },
+  {
+   "slot": "community-photo-13",
+   "label": "Our community › Community moments › Move & explore"
+  }
+ ],
+ "assets/community-3.webp": [
+  {
+   "slot": "community-photo-5",
+   "label": "Our community › Circles › Walk / Hike Club"
+  },
+  {
+   "slot": "community-photo-13",
+   "label": "Our community › Community moments › Move & explore"
+  }
+ ],
+ "assets/community-fitclub-badminton-small.webp": [
+  {
+   "slot": "community-photo-6",
+   "label": "Our community › Circles › FitClub"
+  }
+ ],
+ "assets/community-fitclub-badminton.webp": [
+  {
+   "slot": "community-photo-6",
+   "label": "Our community › Circles › FitClub"
+  }
+ ],
+ "assets/community-language-collage-small.webp": [
+  {
+   "slot": "community-photo-9",
+   "label": "Our community › Circles › Language Exchange"
+  }
+ ],
+ "assets/community-language-collage.webp": [
+  {
+   "slot": "community-photo-9",
+   "label": "Our community › Circles › Language Exchange"
+  }
+ ],
+ "assets/community-7-small.webp": [
+  {
+   "slot": "community-photo-10",
+   "label": "Our community › Circles › TravelClub"
+  }
+ ],
+ "assets/community-7.webp": [
+  {
+   "slot": "community-photo-10",
+   "label": "Our community › Circles › TravelClub"
+  }
+ ],
+ "assets/team-fabrina.webp": [
+  {
+   "slot": "team-fabrina",
+   "label": "The team › Team portraits › Fabrina Nmj"
+  }
+ ],
+ "assets/team-marta.webp": [
+  {
+   "slot": "team-marta",
+   "label": "The team › Team portraits › Marta Jiménez Martínez"
+  }
+ ],
+ "assets/team-enare.webp": [
+  {
+   "slot": "team-enare",
+   "label": "The team › Team portraits › Enare Abang"
+  }
+ ],
+ "assets/team-zahra.webp": [
+  {
+   "slot": "team-zahra",
+   "label": "The team › Team portraits › Zahra Maamary"
+  }
+ ],
+ "assets/team-christina.webp": [
+  {
+   "slot": "team-christina",
+   "label": "The team › Team portraits › Christina Ntokou"
+  }
+ ],
+ "assets/team-cynthia.webp": [
+  {
+   "slot": "team-cynthia",
+   "label": "The team › Team portraits › Cynthia Gauthier"
+  }
+ ],
+ "assets/admin-welcome.webp": [
+  {
+   "slot": null,
+   "label": "Admin space page"
+  }
+ ]
+}

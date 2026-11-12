@@ -10,3 +10,7 @@ test-results/
 *.log
 photos/*.mp4
 .vercel/
+
+# Local Netlify folder
+.netlify
+.netlify/
