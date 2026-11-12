@@ -656,3 +656,6 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 /* Hero slideshow: photos download one at a time (see app.js); a soft pink ground shows until each is ready */
 .hero-slide:not(.is-active):not(.is-ready) img{display:none}
 .hero-slide{background:var(--baby-pink)}
+
+/* Join page title: same dark colour as the home title */
+.membership-intro h1 em{color:var(--text)}
