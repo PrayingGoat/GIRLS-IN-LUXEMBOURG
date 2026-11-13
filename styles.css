@@ -659,3 +659,4 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 
 /* Join page title: same dark colour as the home title */
 .membership-intro h1 em{color:var(--text)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}.membership-intro .eyebrow+h1.sr-only+p{margin-top:18px}
