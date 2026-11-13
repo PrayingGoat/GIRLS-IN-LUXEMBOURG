@@ -11,10 +11,6 @@
    "label": "Home › Hero slideshow › Slide 1"
   },
   {
-   "slot": "community-photo-4",
-   "label": "Our community › Circles › Moms Club"
-  },
-  {
    "slot": "events-photo-1",
    "label": "Events › Introduction › Main photograph"
   }
@@ -23,10 +19,6 @@
   {
    "slot": "index-photo-1",
    "label": "Home › Hero slideshow › Slide 1"
-  },
-  {
-   "slot": "community-photo-4",
-   "label": "Our community › Circles › Moms Club"
   }
  ],
  "assets/community-2.webp": [
@@ -153,12 +145,20 @@
   {
    "slot": "index-photo-11",
    "label": "Home › Hero slideshow › Slide 8 - Moms' coffee meetup"
+  },
+  {
+   "slot": "community-photo-4",
+   "label": "Our community › Circles › Moms Club"
   }
  ],
  "assets/community-moms-cafe-small.webp": [
   {
    "slot": "index-photo-11",
    "label": "Home › Hero slideshow › Slide 8 - Moms' coffee meetup"
+  },
+  {
+   "slot": "community-photo-4",
+   "label": "Our community › Circles › Moms Club"
   }
  ],
  "assets/community-riverside-lounge.webp": [
