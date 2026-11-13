@@ -297,20 +297,12 @@
   {
    "slot": "story-photo-6",
    "label": "About › Our purpose › Community dinner"
-  },
-  {
-   "slot": "community-photo-7",
-   "label": "Our community › Circles › CareerClub"
   }
  ],
  "assets/community-4-small.webp": [
   {
    "slot": "story-photo-6",
    "label": "About › Our purpose › Community dinner"
-  },
-  {
-   "slot": "community-photo-7",
-   "label": "Our community › Circles › CareerClub"
   }
  ],
  "assets/community-bookclub-small.webp": [
@@ -355,6 +347,18 @@
   {
    "slot": "community-photo-6",
    "label": "Our community › Circles › FitClub"
+  }
+ ],
+ "assets/community-career-progress-small.webp": [
+  {
+   "slot": "community-photo-7",
+   "label": "Our community › Circles › CareerClub"
+  }
+ ],
+ "assets/community-career-progress.webp": [
+  {
+   "slot": "community-photo-7",
+   "label": "Our community › Circles › CareerClub"
   }
  ],
  "assets/community-language-collage-small.webp": [

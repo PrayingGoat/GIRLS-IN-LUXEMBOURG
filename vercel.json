@@ -556,6 +556,14 @@
       "destination": "/api/media?path=assets/community-remich-hike-small.webp"
     },
     {
+      "source": "/assets/community-career-progress.webp",
+      "destination": "/api/media?path=assets/community-career-progress.webp"
+    },
+    {
+      "source": "/assets/community-career-progress-small.webp",
+      "destination": "/api/media?path=assets/community-career-progress-small.webp"
+    },
+    {
       "source": "/assets/community-moms-cafe.webp",
       "destination": "/api/media?path=assets/community-moms-cafe.webp"
     },
