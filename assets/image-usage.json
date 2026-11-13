@@ -1,5 +1,5 @@
 {
- "assets/brand-glow.webp": [
+ "assets/brand-logo.webp": [
   {
    "slot": "global-logo",
    "label": "Shared across pages › Brand › Site logo"
@@ -269,7 +269,7 @@
    "label": "About › Our story › Forest walk"
   }
  ],
- "assets/brand-glow-favicon.png": [
+ "assets/brand-logo-favicon.png": [
   {
    "slot": null,
    "label": "Browser tab icon"
