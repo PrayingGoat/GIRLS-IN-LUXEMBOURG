@@ -415,6 +415,12 @@
    "label": "The team › Team portraits › Christina Ntokou"
   }
  ],
+ "assets/team-khanim.webp": [
+  {
+   "slot": "team-khanim",
+   "label": "The team › Team portraits › Khanim Aliyarova"
+  }
+ ],
  "assets/team-cynthia.webp": [
   {
    "slot": "team-cynthia",

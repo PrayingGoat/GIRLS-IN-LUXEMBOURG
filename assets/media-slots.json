@@ -387,6 +387,15 @@
     "alt": "Christina Ntokou"
   },
   {
+    "id": "team-khanim",
+    "page": "The team",
+    "pageFile": "team.html",
+    "section": "Team portraits",
+    "label": "Khanim Aliyarova",
+    "src": "assets/team-khanim.webp",
+    "alt": "Khanim Aliyarova"
+  },
+  {
     "id": "team-cynthia",
     "page": "The team",
     "pageFile": "team.html",
