@@ -660,3 +660,9 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 /* Join page title: same dark colour as the home title */
 .membership-intro h1 em{color:var(--text)}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}.membership-intro .eyebrow+h1.sr-only+p{margin-top:18px}
+/* Join page, step 3: safety notice with a shield icon and a blush rule */
+.membership-safety{display:grid;grid-template-columns:30px 1fr;gap:16px;align-items:center;margin:10px 0 0 -46px}
+.membership-safety-icon{color:var(--raspberry-pink,#d6246e)}
+.membership-safety-text{border-left:3px solid var(--light-pink,#f7c6d4);padding:2px 0 2px 14px;font-size:14px;line-height:1.7}
+.membership-safety-text p{margin:0}.membership-safety-text p+p{margin-top:8px}
+.membership-safety-text b{font-weight:600;color:var(--text)}
