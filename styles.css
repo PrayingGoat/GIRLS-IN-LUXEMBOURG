@@ -666,3 +666,5 @@ h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:.01em}h2{font-s
 .membership-safety-text{border-left:3px solid var(--light-pink,#f7c6d4);padding:2px 0 2px 14px;font-size:14px;line-height:1.7}
 .membership-safety-text p{margin:0}.membership-safety-text p+p{margin-top:8px}
 .membership-safety-text b{font-weight:600;color:var(--text)}
+/* Policy subheadings (Cancellations & Refunds, etc.) */
+.panel-prose h4{font:600 16px/1.4 var(--sans,inherit);margin:24px 0 10px;color:var(--text)}
